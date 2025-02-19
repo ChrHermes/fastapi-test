@@ -1,13 +1,16 @@
 :root {
     --gc-orange: rgba(231, 91, 45, 1);
+    --gc-orange-dark: rgba(200, 70, 30, 1);
     --gc-red: rgba(176, 36, 24, 1);
     --gc-light-grey: rgba(237, 237, 237, 1);
     --gc-dark-grey: rgba(74, 74, 74, 1);
+    --gc-black: rgba(40, 40, 40, 1);
 }
-  
+
 body {
     font-family: 'Ubuntu', sans-serif;
-    background-color: #f4f4f4;
+    background-color: var(--gc-light-grey);
+    color: var(--gc-dark-grey);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,11 +29,11 @@ body {
 
 h1 {
     font-weight: 700;
-    color: #333;
+    color: var(--gc-dark-grey);
 }
 
 .group {
-    border: 2px solid #ccc;
+    border: 2px solid var(--gc-dark-grey);
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 15px;
@@ -44,7 +47,7 @@ h1 {
     background: white;
     padding: 0 5px;
     font-weight: bold;
-    color: #555;
+    color: var(--gc-dark-grey);
 }
 
 .button-container {
@@ -62,31 +65,44 @@ button {
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s;
+    background: var(--gc-orange);
+    color: white;
 }
 
-.btn1 { background: #007bff; color: white; }
-.btn1:hover { background: #0056b3; }
-.btn2 { background: #28a745; color: white; }
-.btn2:hover { background: #1e7e34; }
-.btn3 { background: #ffc107; color: black; }
-.btn3:hover { background: #e0a800; }
-.btn4 { background: #dc3545; color: white; }
-.btn4:hover { background: #bd2130; }
-
-.btnGC { background: var(--gc-orange); color: white; }
-.btnGC:hover { background: var(--gc-orange-fade); }
-
-/* .btnGC { background: linear-gradient(195deg, rgba(2,0,36,1) 0%, rgba(231,91,45,1) 35%);} */
-/* .btnGC:hover { background: linear-gradient(15deg, rgba(2,0,36,1) 0%, rgba(231,91,45,1) 35%); } */
-
+button:hover {
+    background: var(--gc-orange-dark);
+}
 
 .log-container {
-    background: #eee;
+    background: white;
     border-radius: 5px;
     padding: 10px;
     height: 200px;
     overflow: auto;
     text-align: left;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--gc-dark-grey);
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--gc-dark-grey);
+        color: var(--gc-light-grey);
+    }
+    .container {
+        background: var(--gc-black);
+    }
+    .group {
+        border-color: var(--gc-light-grey);
+    }
+    .group-title {
+        background: var(--gc-black);
+        color: var(--gc-light-grey);
+    }
+    .log-container {
+        background: var(--gc-black);
+        color: var(--gc-light-grey);
+        border-color: var(--gc-light-grey);
+    }
 }
