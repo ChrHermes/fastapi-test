@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastAPI Web Interface</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
     <script>
+        function formatLogMessage(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            return `<div class='log-entry'><span class='timestamp'>[${timestamp}]</span> ${message}</div>`;
+        }
+        
         async function sendRequest(endpoint) {
             const response = await fetch(endpoint, {
                 method: "POST",
                 headers: { 'Authorization': 'Basic ' + btoa('admin:password') }
             });
             const data = await response.json();
-            document.getElementById("log").textContent += data.message + "\n";
+            document.getElementById("log").innerHTML += formatLogMessage(data.message);
+            document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
         }
     </script>
 </head>
@@ -24,7 +30,7 @@
         <div class="group">
             <span class="group-title">Gruppe A</span>
             <div class="button-container">
-                <button class="btn1" onclick="sendRequest('/log/button1')">Button 1</button>
+                <button class="btnGC" onclick="sendRequest('/log/button1')">Button 1</button>
                 <button class="btn2" onclick="sendRequest('/log/button2')">Button 2</button>
             </div>
         </div>

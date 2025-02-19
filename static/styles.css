@@ -1,3 +1,10 @@
+:root {
+    --gc-orange: rgba(231, 91, 45, 1);
+    --gc-red: rgba(176, 36, 24, 1);
+    --gc-light-grey: rgba(237, 237, 237, 1);
+    --gc-dark-grey: rgba(74, 74, 74, 1);
+}
+  
 body {
     font-family: 'Ubuntu', sans-serif;
     background-color: #f4f4f4;
@@ -65,6 +72,13 @@ button {
 .btn3:hover { background: #e0a800; }
 .btn4 { background: #dc3545; color: white; }
 .btn4:hover { background: #bd2130; }
+
+.btnGC { background: var(--gc-orange); color: white; }
+.btnGC:hover { background: var(--gc-orange-fade); }
+
+/* .btnGC { background: linear-gradient(195deg, rgba(2,0,36,1) 0%, rgba(231,91,45,1) 35%);} */
+/* .btnGC:hover { background: linear-gradient(15deg, rgba(2,0,36,1) 0%, rgba(231,91,45,1) 35%); } */
+
 
 .log-container {
     background: #eee;
