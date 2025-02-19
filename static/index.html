@@ -5,59 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastAPI Web Interface</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap">
-    <!-- <link rel="stylesheet" href="styles.css"> -->
-    <style>
-        body {
-            font-family: 'Ubuntu', sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        h1 {
-            font-weight: 700;
-            color: #333;
-        }
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        button {
-            flex: 1;
-            padding: 10px;
-            margin: 5px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .btn1 { background: #007bff; color: white; }
-        .btn1:hover { background: #0056b3; }
-        .btn2 { background: #28a745; color: white; }
-        .btn2:hover { background: #1e7e34; }
-        .log-container {
-            background: #eee;
-            border-radius: 5px;
-            padding: 10px;
-            height: 200px;
-            overflow: auto;
-            text-align: left;
-            font-size: 14px;
-            border: 1px solid #ccc;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/styles.css">
     <script>
         async function sendRequest(endpoint) {
             const response = await fetch(endpoint, {
@@ -72,10 +20,23 @@
 <body>
     <div class="container">
         <h1>FastAPI Web Interface</h1>
-        <div class="button-container">
-            <button class="btn1" onclick="sendRequest('/log/button1')">Button 1</button>
-            <button class="btn2" onclick="sendRequest('/log/button2')">Button 2</button>
+        
+        <div class="group">
+            <span class="group-title">Gruppe A</span>
+            <div class="button-container">
+                <button class="btn1" onclick="sendRequest('/log/button1')">Button 1</button>
+                <button class="btn2" onclick="sendRequest('/log/button2')">Button 2</button>
+            </div>
         </div>
+        
+        <div class="group">
+            <span class="group-title">Gruppe B</span>
+            <div class="button-container">
+                <button class="btn3" onclick="sendRequest('/log/button3')">Button 3</button>
+                <button class="btn4" onclick="sendRequest('/log/button4')">Button 4</button>
+            </div>
+        </div>
+        
         <div class="log-container" id="log"></div>
     </div>
 </body>
