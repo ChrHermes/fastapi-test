@@ -10,3 +10,12 @@
    2. Parameters: `main:app --reload`
    3. Python interpreter: Wähle den Interpreter deiner virtuellen Umgebung (venv).
 1. Speichern und ausführen
+
+## Terminal
+
+Im Projektordner:
+
+```zsh
+source .venv/bin/activate
+uvicorn main:app --reload
+```
