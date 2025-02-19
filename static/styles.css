@@ -16,6 +16,25 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    position: relative;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.theme-toggle:hover {
+    background: var(--gc-red);
 }
 
 .container {
@@ -85,24 +104,34 @@ button:hover {
 }
 
 /* Dark Mode */
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: var(--gc-dark-grey);
-        color: var(--gc-light-grey);
-    }
-    .container {
-        background: var(--gc-black);
-    }
-    .group {
-        border-color: var(--gc-light-grey);
-    }
-    .group-title {
-        background: var(--gc-black);
-        color: var(--gc-light-grey);
-    }
-    .log-container {
-        background: var(--gc-black);
-        color: var(--gc-light-grey);
-        border-color: var(--gc-light-grey);
-    }
+body.dark-mode {
+    background-color: var(--gc-dark-grey);
+    color: var(--gc-light-grey);
 }
+
+body.dark-mode .container {
+    background: var(--gc-black);
+}
+
+body.dark-mode .group {
+    border-color: var(--gc-light-grey);
+}
+
+body.dark-mode .group-title {
+    background: var(--gc-black);
+    color: var(--gc-light-grey);
+}
+
+body.dark-mode .log-container {
+    background: var(--gc-black);
+    color: var(--gc-light-grey);
+    border-color: var(--gc-light-grey);
+}
+
+<script>
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+    }
+</script>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
