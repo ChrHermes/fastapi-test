@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
 import logging
 
 app = FastAPI()
@@ -33,35 +33,9 @@ def log_button2(user: str = Depends(get_current_user)):
     logger.info("Button 2 wurde geklickt")
     return {"message": "Button 2 ausgelöst"}
 
-# HTML-Seite für das Frontend
-html_content = """
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastAPI Web Interface</title>
-    <script>
-        async function sendRequest(endpoint) {
-            const response = await fetch(endpoint, {
-                method: "POST",
-                headers: { 'Authorization': 'Basic ' + btoa('admin:password') }
-            });
-            const data = await response.json();
-            document.getElementById("log").textContent += data.message + "\n";
-        }
-    </script>
-</head>
-<body>
-    <h1>FastAPI Web Interface</h1>
-    <button onclick="sendRequest('/log/button1')">Button 1</button>
-    <button onclick="sendRequest('/log/button2')">Button 2</button>
-    <pre id="log" style="border:1px solid black; padding:10px; height:200px; overflow:auto;"></pre>
-</body>
-</html>
-"""
+# Statische Dateien für das UI
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/")
 def serve_page(user: str = Depends(get_current_user)):
-    return html_content
-
+    return FileResponse("static/index.html")
