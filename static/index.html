@@ -41,15 +41,40 @@
             document.body.classList.toggle('dark-mode', isDark);
             updateThemeButtonText(isDark);
         });
+
+        function showConfirmationModal() {
+            const modal = document.getElementById('confirmation-modal');
+            modal.style.display = 'block';
+        }
+
+        function hideConfirmationModal() {
+            const modal = document.getElementById('confirmation-modal');
+            modal.style.display = 'none';
+        }
+
+        function confirmAction() {
+            const input = document.getElementById('confirmation-input').value;
+            if (input === 'db-reset') {
+                alert('Datenbank wird zurückgesetzt...');
+                hideConfirmationModal();
+                // Hier kann später der API-Call eingefügt werden
+            } else {
+                alert('Falscher Bestätigungscode!');
+            }
+        }
     </script>
 </head>
-<script>
-
-</script>
 
 <body>
     <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">🌚</button>
     <!-- ☼ 🔆 🌙  🌚  🌝 --> 
+
+    <div id="confirmation-modal" class="modal">
+        <p>Bitte geben Sie zur Bestätigung <strong>db-reset</strong> ein:</p>
+        <input type="text" id="confirmation-input">
+        <button style="background:green;" onclick="hideConfirmationModal()">Abbrechen</button>
+        <button style="background:red;" onclick="confirmAction()">Löschen</button>
+    </div>
     
     <div class="container">
         <h1>FastAPI Web Interface</h1>
@@ -57,7 +82,7 @@
         <div class="group">
             <span class="group-title">Gruppe A</span>
             <div class="button-container">
-                <button class="btnGC" onclick="sendRequest('/log/button1')">Button 1</button>
+                <button class="btnGC" onclick="showConfirmationModal()">Button 1</button>
                 <button class="btn2" onclick="sendRequest('/log/button2')">Button 2</button>
             </div>
         </div>
