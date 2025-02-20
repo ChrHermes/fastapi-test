@@ -13,13 +13,21 @@
     <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">🌚</button>
     <!-- ☼ 🔆 🌙  🌚  🌝 --> 
 
-    <div id="confirmation-modal" class="modal">
+    <div id="modalOverlay" class="modal-overlay"></div>
+    <!-- <div id="confirmation-modal" class="modal">
         <p>Bitte geben Sie zur Bestätigung <strong>db-reset</strong> ein:</p>
         <input type="text" id="confirmation-input">
         <button style="background:green;" onclick="hideConfirmationModal()">Abbrechen</button>
         <button style="background:red;" onclick="confirmAction()">Löschen</button>
+    </div> -->
+    <div id="confirmationModal" class="modal">
+        <h2>Bestätigung erforderlich</h2>
+        <p>Bitte geben Sie <span class="code-highlight">db-reset</span> ein, um fortzufahren.</p>
+        <input type="text" id="confirmationInput">
+        <button id="confirmAction" style="background: var(--gc-red);">Löschen</button>
+        <button id="cancelAction" style="background: var(--gc-orange);">Abbrechen</button>
     </div>
-    
+
     <div class="container">
         <h1>FastAPI Web Interface</h1>
         
