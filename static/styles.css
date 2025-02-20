@@ -28,10 +28,11 @@ h1 {
     font-family: "Courier New", Courier, monospace;
     font-size: 1rem;
     font-weight: bold;
-    background: var(--gc-light-grey);
+    /* background: var(--gc-orange); */
+    background: rgba(255, 21, 0, 0.5);
     color: var(--gc-dark-grey);
-    padding: 0px 4px;
-    border-radius: 4px;
+    padding: 2px 4px;
+    border-radius: 2px;
     display: inline-block;
 }
 
@@ -105,7 +106,6 @@ button:hover {
     top: 10px;
     right: 10px;
     background: none;
-    color: white;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
@@ -149,7 +149,7 @@ body.dark-mode .log-container {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.75);
     display: none;
     z-index: 999;
 }
@@ -164,7 +164,8 @@ body.dark-mode .log-container {
     left: 50%;
     transform: translate(-50%, -50%);
     background: var(--gc-light-grey);
-    color: black;
+    /* color: black; */
+    color: var(--gc-dark-grey);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
