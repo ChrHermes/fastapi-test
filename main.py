@@ -1,18 +1,39 @@
+import os
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from dotenv import load_dotenv
 import logging
 
+# Initialisierung
 app = FastAPI()
 security = HTTPBasic()
+load_dotenv()
 
-# Logger einrichten
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+# Nutzerverwaltung
+USERS = {os.getenv("ADMIN_USER"): os.getenv("ADMIN_PASS")}
+
+# Log-Datei Pfad
+LOG_DIR = "logs"
+LOG_FILE = os.path.join(LOG_DIR, "actions.log")
+
+# Stelle sicher, dass das Log-Verzeichnis existiert
+os.makedirs(LOG_DIR, exist_ok=True)
+
+# Logger einrichten (Datei- und Konsolen-Logging)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding="utf-8"),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 
-# Einfache Benutzerauthentifizierung
+# Authentifizierung
 def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
     if credentials.username == "admin" and credentials.password == "password":
         return credentials.username
@@ -22,20 +43,32 @@ def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
         headers={"WWW-Authenticate": "Basic"},
     )
 
+# Statische Dateien bereitstellen
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # API-Endpunkte
-@app.post("/log/button1")
+@app.post("/log/btnGC")
 def log_button1(user: str = Depends(get_current_user)):
-    logger.info("Button 1 wurde geklickt")
-    return {"message": "Button 1 ausgelöst"}
+    log_message = "Button 1 wurde geklickt"
+    logger.info(log_message)
+    return {"message": log_message}
 
 @app.post("/log/button2")
 def log_button2(user: str = Depends(get_current_user)):
-    logger.info("Button 2 wurde geklickt")
-    return {"message": "Button 2 ausgelöst"}
-
-# Statische Dateien für das UI
-app.mount("/static", StaticFiles(directory="static"), name="static")
+    log_message = "Button 2 wurde geklickt"
+    logger.info(log_message)
+    return {"message": log_message}
 
 @app.get("/")
 def serve_page(user: str = Depends(get_current_user)):
     return FileResponse("static/index.html")
+
+@app.get("/logs")
+def get_logs(user: str = Depends(get_current_user)):
+    """Lädt alle bisherigen Log-Meldungen aus der Datei."""
+    try:
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            logs = f.readlines()
+        return JSONResponse(content={"logs": logs})
+    except FileNotFoundError:
+        return JSONResponse(content={"logs": []})

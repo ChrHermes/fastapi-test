@@ -35,14 +35,32 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* ---------------------------------------------- LOGIN */
+// async function sendRequest(endpoint) {
+//     const response = await fetch(endpoint, {
+//         method: "POST",
+//         headers: { 'Authorization': 'Basic ' + btoa('admin:password') }
+//     });
+//     const data = await response.json();
+//     document.getElementById("log").innerHTML += formatLogMessage(data.message);
+//     document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
+// }
+
 async function sendRequest(endpoint) {
-    const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { 'Authorization': 'Basic ' + btoa('admin:password') }
-    });
-    const data = await response.json();
-    document.getElementById("log").innerHTML += formatLogMessage(data.message);
-    document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
+    try {
+        const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { 'Authorization': 'Basic ' + btoa('admin:password') }
+        });
+        const data = await response.json();
+        const logElement = document.getElementById("log");
+
+        logElement.textContent += `${new Date().toLocaleString()} - ${data.message}\n`;
+        // logElement.innerHTML += formatLogMessage(data.message);
+        logElement.scrollTop = document.getElementById("log").scrollHeight;
+    
+    } catch (error) {
+        console.error("Fehler beim Senden der Anfrage:", error);
+    }
 }
 
 /* ---------------------------------------------- THEME */
@@ -84,4 +102,18 @@ function confirmAction() {
 function formatLogMessage(message) {
     const timestamp = new Date().toLocaleTimeString();
     return `<div class='log-entry'><span class='timestamp'>[${timestamp}]</span> ${message}</div>`;
+}
+
+async function loadLogs() {
+    try {
+        const response = await fetch("/logs", {
+            method: "GET",
+            headers: { 'Authorization': 'Basic ' + btoa('admin:password') }
+        });
+        const data = await response.json();
+        const logElement = document.getElementById("log");
+        logElement.textContent = data.logs.join("\n");
+    } catch (error) {
+        console.error("Fehler beim Laden der Logs:", error);
+    }
 }
