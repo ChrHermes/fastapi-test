@@ -48,8 +48,10 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # API-Endpunkte
 @app.post("/log/btnGC")
-def log_button1(user: str = Depends(get_current_user)):
-    log_message = "Button 1 wurde geklickt"
+def log_button_gc(user: str = Depends(get_current_user)):
+    """Platzhalter für eine zukünftige Datenbank-Reset-Funktion."""
+    reset_database()
+    log_message = "Datenbank wurde zurückgesetzt"
     logger.info(log_message)
     return {"message": log_message}
 
@@ -72,3 +74,7 @@ def get_logs(user: str = Depends(get_current_user)):
         return JSONResponse(content={"logs": logs})
     except FileNotFoundError:
         return JSONResponse(content={"logs": []})
+
+def reset_database():
+    """Platzhalter-Funktion für den späteren Datenbank-Reset."""
+    logger.info("Datenbank-Reset gestartet (noch nicht implementiert).")

@@ -6,26 +6,19 @@
     <title>FastAPI Web Interface</title>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="/static/styles.css" rel="stylesheet">
-    <script src="/static/script.js"></script>
+    <script defer src="/static/script.js"></script>
 </head>
 
 <body>
-    <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">🌚</button>
-    <!-- ☼ 🔆 🌙  🌚  🌝 --> 
+    <button id="theme-toggle" class="theme-toggle">🌚</button>
 
     <div id="modalOverlay" class="modal-overlay"></div>
-    <!-- <div id="confirmation-modal" class="modal">
-        <p>Bitte geben Sie zur Bestätigung <strong>db-reset</strong> ein:</p>
-        <input type="text" id="confirmation-input">
-        <button style="background:green;" onclick="hideConfirmationModal()">Abbrechen</button>
-        <button style="background:red;" onclick="confirmAction()">Löschen</button>
-    </div> -->
     <div id="confirmationModal" class="modal">
         <h2>Bestätigung erforderlich</h2>
         <p>Bitte geben Sie <span class="code-highlight">db-reset</span> ein, um fortzufahren.</p>
         <input type="text" id="confirmationInput">
-        <button id="confirmAction" style="background: var(--gc-red);">Löschen</button>
-        <button id="cancelAction" style="background: var(--gc-orange);">Abbrechen</button>
+        <button id="confirmAction" class="danger-btn">Löschen</button>
+        <button id="cancelAction" class="safe-btn">Abbrechen</button>
     </div>
 
     <div class="container">
@@ -34,22 +27,20 @@
         <div class="group">
             <span class="group-title">Gruppe A</span>
             <div class="button-container">
-                <button class="btnGC" onclick="showConfirmationModal()">Button 1</button>
-                <button class="btn2" onclick="sendRequest('/log/button2')">Button 2</button>
+                <button id="btnGC" onclick="sendRequest('/log/btnGC')">Button 1</button>
+                <button onclick="sendRequest('/log/button2')">Button 2</button>
             </div>
         </div>
         
         <div class="group">
             <span class="group-title">Gruppe B</span>
             <div class="button-container">
-                <button class="btn3" onclick="sendRequest('/log/button3')">Button 3</button>
-                <button class="btn4" onclick="sendRequest('/log/button4')">Button 4</button>
+                <button onclick="sendRequest('/log/button3')">Button 3</button>
+                <button onclick="sendRequest('/log/button4')">Button 4</button>
             </div>
         </div>
         
         <div class="log-container" id="log"></div>
-
-        <!-- <a href="/logout">Logout</a> -->
     </div>
 </body>
 </html>
