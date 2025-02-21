@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmButton = document.getElementById("confirmAction");
     const cancelButton = document.getElementById("cancelAction");
     const logContainer = document.getElementById("log");
+    const logLevelSelect = document.getElementById("log-level");
 
     document.getElementById("btnGC").addEventListener("click", function () {
         modal.classList.add("active");
@@ -30,6 +31,32 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Falscher Bestätigungscode!");
         }
     });
+
+    function fetchLogs() {
+        fetch("/logs")
+            .then(response => response.json())
+            .then(data => {
+                displayLogs(data.logs);
+            })
+            .catch(error => console.error("Fehler beim Laden der Logs:", error));
+    }
+
+    function displayLogs(logs) {
+        logContainer.innerHTML = "";
+        const selectedLevel = logLevelSelect.value;
+
+        logs.forEach(log => {
+            if (selectedLevel === "ALL" || log.includes(selectedLevel)) {
+                const logEntry = document.createElement("div");
+                logEntry.textContent = log;
+                logContainer.appendChild(logEntry);
+            }
+        });
+    }
+
+    logLevelSelect.addEventListener("change", fetchLogs);
+
+    fetchLogs();
 });
 
 /* ---------------------------------------------- LOGOUT */
