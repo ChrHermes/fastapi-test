@@ -8,74 +8,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmButton = document.getElementById("confirmAction");
     const cancelButton = document.getElementById("cancelAction");
     const logContainer = document.getElementById("log");
-    const themeToggle = document.getElementById("theme-toggle");
-    const loginForm = document.getElementById("loginForm");
 
-    if (localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark-mode");
-        themeToggle.textContent = "🌞";
-    } else {
-        themeToggle.textContent = "🌚";
-    }
-
-    themeToggle.addEventListener("click", function () {
-        document.body.classList.toggle("dark-mode");
-        const isDark = document.body.classList.contains("dark-mode");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-        themeToggle.textContent = isDark ? "🌞" : "🌚";
+    document.getElementById("btnGC").addEventListener("click", function () {
+        modal.classList.add("active");
+        overlay.classList.add("active");
+        inputField.value = "";
+        inputField.focus();
     });
 
-    // document.getElementById("btnGC").addEventListener("click", function () {
-    //     modal.classList.add("active");
-    //     overlay.classList.add("active");
-    //     inputField.value = "";
-    //     inputField.focus();
-    // });
+    cancelButton.addEventListener("click", function () {
+        modal.classList.remove("active");
+        overlay.classList.remove("active");
+    });
 
-    // cancelButton.addEventListener("click", function () {
-    //     modal.classList.remove("active");
-    //     overlay.classList.remove("active");
-    // });
-
-    // confirmButton.addEventListener("click", async function () {
-    //     if (inputField.value === "db-reset") {
-    //         await sendRequest("/log/button1");
-    //         modal.classList.remove("active");
-    //         overlay.classList.remove("active");
-    //     } else {
-    //         alert("Falscher Bestätigungscode!");
-    //     }
-    // });
+    confirmButton.addEventListener("click", async function () {
+        if (inputField.value === "db-reset") {
+            await sendRequest("/log/button1");
+            modal.classList.remove("active");
+            overlay.classList.remove("active");
+        } else {
+            alert("Falscher Bestätigungscode!");
+        }
+    });
 });
 
-/* ---------------------------------------------- LOGIN */
-async function sendRequest(endpoint) {
-    try {
-        const response = await fetch(endpoint, {
-            method: "POST",
-            headers: { 'Authorization': 'Basic ' + btoa('admin:password') }
-        });
-        const data = await response.json();
-        appendLog(data.message);
-    } catch (error) {
-        console.error("Fehler beim Senden der Anfrage:", error);
-    }
-}
-
-// Automatische Umleitung zur Login-Seite, falls nicht eingeloggt
-(async function checkLogin() {
-    try {
-        const response = await fetch("/protected");
-        if (!response.ok) {
-            window.location.href = "/login";
-        }
-    } catch (error) {
-        console.error("Fehler bei der Login-Prüfung:", error);
-        window.location.href = "/login";
-    }
-})();
-
-// Logout-Funktion
+/* ---------------------------------------------- LOGOUT */
 // document.getElementById("logout-button").addEventListener("click", async function() {
 //     await fetch("/logout", { method: "GET" });
 //     window.location.href = "/login";
@@ -111,27 +68,3 @@ async function saveLogToServer(message) {
     //     console.error("Fehler beim Speichern des Logs:", error);
     // }
 }
-
-/* ---------------------------------------------- asdf */
-
-document.getElementById("btnGC").addEventListener("click", function () {
-    modal.classList.add("active");
-    overlay.classList.add("active");
-    inputField.value = "";
-    inputField.focus();
-});
-
-document.getElementById("cancelAction").addEventListener("click", function () {
-    modal.classList.remove("active");
-    overlay.classList.remove("active");
-});
-
-document.getElementById("confirmAction").addEventListener("click", async function () {
-    if (inputField.value === "db-reset") {
-        await sendRequest("/log/button1");
-        modal.classList.remove("active");
-        overlay.classList.remove("active");
-    } else {
-        alert("Falscher Bestätigungscode!");
-    }
-});

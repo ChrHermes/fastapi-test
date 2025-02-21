@@ -43,33 +43,3 @@ async function sendRequest(endpoint) {
         window.location.href = "/login";
     }
 })();
-
-// Logout-Funktion
-// document.getElementById("logout-button").addEventListener("click", async function() {
-//     await fetch("/logout", { method: "GET" });
-//     window.location.href = "/login";
-// });
-
-/* ---------------------------------------------- asdf */
-
-document.getElementById("btnGC").addEventListener("click", function () {
-    modal.classList.add("active");
-    overlay.classList.add("active");
-    inputField.value = "";
-    inputField.focus();
-});
-
-document.getElementById("cancelAction").addEventListener("click", function () {
-    modal.classList.remove("active");
-    overlay.classList.remove("active");
-});
-
-document.getElementById("confirmAction").addEventListener("click", async function () {
-    if (inputField.value === "db-reset") {
-        await sendRequest("/log/button1");
-        modal.classList.remove("active");
-        overlay.classList.remove("active");
-    } else {
-        alert("Falscher Bestätigungscode!");
-    }
-});
