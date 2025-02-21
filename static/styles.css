@@ -123,6 +123,31 @@ button:hover {
     background: var(--gc-orange-dark);
 }
 
+/* ---------------------------------------------- LOGIN */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    padding: 10px;
+    border: 2px solid var(--gc-dark-grey);
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--gc-orange);
+}
+
 /* ---------------------------------------------- LOGGING */
 .log-container {
     background: white;

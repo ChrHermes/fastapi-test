@@ -7,11 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="/static/styles.css" rel="stylesheet">
     <script defer src="/static/script.js"></script>
+    <script defer src="/static/index.js"></script>
 </head>
 
 <body>
+    <!-- THEME -->
     <button id="theme-toggle" class="theme-toggle">🌚</button>
 
+    <!-- MODAL -->
     <div id="modalOverlay" class="modal-overlay"></div>
     <div id="confirmationModal" class="modal">
         <h2>Bestätigung erforderlich</h2>
@@ -21,6 +24,7 @@
         <button id="cancelAction" class="safe-btn">Abbrechen</button>
     </div>
 
+    <!-- MAIN -->
     <div class="container">
         <h1>FastAPI Web Interface</h1>
         
