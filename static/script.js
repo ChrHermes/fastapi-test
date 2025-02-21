@@ -8,6 +8,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmButton = document.getElementById("confirmAction");
     const cancelButton = document.getElementById("cancelAction");
     const logContainer = document.getElementById("log");
+    const themeToggle = document.getElementById("theme-toggle");
+    const loginForm = document.getElementById("loginForm");
+
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+        themeToggle.textContent = "🌞";
+    } else {
+        themeToggle.textContent = "🌚";
+    }
+
+    themeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+        const isDark = document.body.classList.contains("dark-mode");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        themeToggle.textContent = isDark ? "🌞" : "🌚";
+    });
 
     document.getElementById("btnGC").addEventListener("click", function () {
         modal.classList.add("active");
@@ -30,6 +46,38 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Falscher Bestätigungscode!");
         }
     });
+
+    loginForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (!username || !password) {
+            document.getElementById("error-message").innerText = "Benutzername und Passwort erforderlich!";
+            return;
+        }
+
+        try {
+            const response = await fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                const data = await response.json();
+                document.getElementById("error-message").innerText = data.detail;
+            }
+        } catch (error) {
+            console.error("Fehler beim Login:", error);
+            document.getElementById("error-message").innerText = "Serverfehler. Bitte später versuchen.";
+        }
+    });
 });
 
 /* ---------------------------------------------- LOGIN */
@@ -45,38 +93,6 @@ async function sendRequest(endpoint) {
         console.error("Fehler beim Senden der Anfrage:", error);
     }
 }
-
-document.getElementById("loginForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-
-    if (!username || !password) {
-        document.getElementById("error-message").innerText = "Benutzername und Passwort erforderlich!";
-        return;
-    }
-
-    try {
-        const response = await fetch("/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ username, password })
-        });
-
-        if (response.redirected) {
-            window.location.href = response.url;
-        } else {
-            const data = await response.json();
-            document.getElementById("error-message").innerText = data.detail;
-        }
-    } catch (error) {
-        console.error("Fehler beim Login:", error);
-        document.getElementById("error-message").innerText = "Serverfehler. Bitte später versuchen.";
-    }
-});
 
 // Automatische Umleitung zur Login-Seite, falls nicht eingeloggt
 (async function checkLogin() {
@@ -96,18 +112,6 @@ document.getElementById("logout-button").addEventListener("click", async functio
     await fetch("/logout", { method: "GET" });
     window.location.href = "/login";
 });
-
-/* ---------------------------------------------- THEME */
-document.getElementById("theme-toggle").addEventListener("click", function () {
-    const isDark = document.body.classList.toggle("dark-mode");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    this.textContent = isDark ? "🌞" : "🌚";
-});
-
-if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
-    document.getElementById("theme-toggle").textContent = "🌞";
-}
 
 /* ---------------------------------------------- LOGGING */
 function appendLog(message) {
