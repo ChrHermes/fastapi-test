@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
+from pydantic import BaseModel
 import logging
 
 # Initialisierung
@@ -14,6 +15,10 @@ load_dotenv()
 
 # Nutzerverwaltung
 USERS = {os.getenv("ADMIN_USER"): os.getenv("ADMIN_PASS")}
+
+class LoginData(BaseModel):
+    username: str
+    password: str
 
 # Log-Datei Pfad
 LOG_DIR = "logs"
@@ -46,7 +51,24 @@ def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
 # Statische Dateien bereitstellen
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.get("/")
+def serve_page(user: str = Depends(get_current_user)):
+    return FileResponse("static/index.html")
+
+@app.get("/login")
+async def login_page():
+    return FileResponse("static/login.html")
+
 # API-Endpunkte
+@app.post("/login")
+async def login(data: LoginData):
+    if USERS.get(data.username) == data.password:
+        logger.info(f"Erfolgreicher Login: {data.username}")
+        return JSONResponse(content={"message": "Login erfolgreich"}, status_code=200)
+    else:
+        logger.warning(f"Fehlgeschlagener Login-Versuch: {data.username}")
+        raise HTTPException(status_code=401, detail="Falscher Benutzername oder Passwort")
+
 @app.post("/log/btnGC")
 def log_button_gc(user: str = Depends(get_current_user)):
     """Platzhalter für eine zukünftige Datenbank-Reset-Funktion."""
@@ -61,9 +83,17 @@ def log_button2(user: str = Depends(get_current_user)):
     logger.info(log_message)
     return {"message": log_message}
 
-@app.get("/")
-def serve_page(user: str = Depends(get_current_user)):
-    return FileResponse("static/index.html")
+@app.post("/log/button3")
+def log_button2(user: str = Depends(get_current_user)):
+    log_message = "Button 3 wurde geklickt"
+    logger.info(log_message)
+    return {"message": log_message}
+
+@app.post("/log/button4")
+def log_button2(user: str = Depends(get_current_user)):
+    log_message = "Button 4 wurde geklickt"
+    logger.info(log_message)
+    return {"message": log_message}
 
 @app.get("/logs")
 def get_logs(user: str = Depends(get_current_user)):

@@ -46,6 +46,29 @@ async function sendRequest(endpoint) {
     }
 }
 
+document.getElementById("loginForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        window.location.href = "/static/index.html";
+    } else {
+        document.getElementById("error-message").innerText = data.detail;
+    }
+});
+
 /* ---------------------------------------------- THEME */
 document.getElementById("theme-toggle").addEventListener("click", function () {
     const isDark = document.body.classList.toggle("dark-mode");
@@ -78,13 +101,14 @@ async function loadLogs() {
 }
 
 async function saveLogToServer(message) {
-    try {
-        await fetch("/save-log", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message })
-        });
-    } catch (error) {
-        console.error("Fehler beim Speichern des Logs:", error);
-    }
+    // try {
+    //     await fetch("/save-log", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ message })
+    //     });
+    // } catch (error) {
+    //     console.error("Fehler beim Speichern des Logs:", error);
+    // }
 }
+
