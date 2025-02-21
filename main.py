@@ -36,47 +36,24 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
-# Login-Seite
-@app.get("/login")
-async def login_page():
-    return FileResponse("static/login.html")
-
-# Login-Logik
-@app.post("/login")
-async def login(request: Request, response: Response):
-    data = await request.json()
-    username = data.get("username")
-    password = data.get("password")
-
-    if USERS.get(username) == password:
-        response = RedirectResponse(url="/static/index.html", status_code=303)
-        response.set_cookie(key="session", value=username, httponly=True)
-        logger.info(f"Erfolgreicher Login: {username}")
-        return response
-    else:
-        logger.warning(f"Fehlgeschlagener Login-Versuch: {username}")
-        return JSONResponse(content={"detail": "Falscher Benutzername oder Passwort"}, status_code=401)
-
-# Logout
-@app.get("/logout")
-async def logout():
-    response = RedirectResponse(url="/login", status_code=303)
-    response.delete_cookie("session")
-    return response
+# =========================================================================
+# ----- METHODEN ----------------------------------------------------------
+# =========================================================================
 
 # Authentifizierungsprüfung
-def get_current_user(request: Request):
+def get_current_user(request: Request): 
     session = request.cookies.get("session")
     if session and session in USERS:
         return session
     return RedirectResponse(url="/login")
 
-# Geschützte Seite
-@app.get("/protected")
-async def protected_page(user: str = Depends(get_current_user)):
-    return {"message": f"Willkommen, {user}!"}
+def reset_database():
+    """Platzhalter-Funktion für den späteren Datenbank-Reset."""
+    logger.info("Datenbank-Reset gestartet (noch nicht implementiert).")
 
+# =========================================================================
+# ----- MIDDLEWARE --------------------------------------------------------
+# =========================================================================
 
 # Middleware: Blockiere nicht eingeloggte Nutzer
 @app.middleware("http")
@@ -96,14 +73,58 @@ async def auth_middleware(request: Request, call_next):
 
     return await call_next(request)
 
+# =========================================================================
+# ----- ROUTEN ------------------------------------------------------------
+# =========================================================================
 
+# ----- MAIN --------------------------------------------------------------
+@app.get("/")
+def serve_page(user: str = Depends(get_current_user)):
+    return FileResponse("static/index.html")
 
+# ----- LOGIN -------------------------------------------------------------
+@app.get("/login")
+async def login_page():
+    return FileResponse("static/login.html")
 
+@app.post("/login")
+async def login(request: Request, response: Response):
+    data = await request.json()
+    username = data.get("username")
+    password = data.get("password")
 
+    if USERS.get(username) == password:
+        response = RedirectResponse(url="/static/index.html", status_code=303)
+        response.set_cookie(key="session", value=username, httponly=True)
+        logger.info(f"Erfolgreicher Login: {username}")
+        return response
+    else:
+        logger.warning(f"Fehlgeschlagener Login-Versuch: {username}")
+        return JSONResponse(content={"detail": "Falscher Benutzername oder Passwort"}, status_code=401)
 
+# ----- LOGOUT ------------------------------------------------------------
+@app.get("/logout")
+async def logout():
+    response = RedirectResponse(url="/login", status_code=303)
+    response.delete_cookie("session")
+    return response
 
+# Geschützte Seite
+@app.get("/protected")
+async def protected_page(user: str = Depends(get_current_user)):
+    return {"message": f"Willkommen, {user}!"}
 
-# API-Endpunkte
+# ----- LOGGING -----------------------------------------------------------
+@app.get("/logs")
+def get_logs(user: str = Depends(get_current_user)):
+    """Lädt alle bisherigen Log-Meldungen aus der Datei."""
+    try:
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            logs = f.readlines()
+        return JSONResponse(content={"logs": logs})
+    except FileNotFoundError:
+        return JSONResponse(content={"logs": []})
+
 @app.post("/log/btnGC")
 def log_button_gc(user: str = Depends(get_current_user)):
     """Platzhalter für eine zukünftige Datenbank-Reset-Funktion."""
@@ -117,21 +138,3 @@ def log_button2(user: str = Depends(get_current_user)):
     log_message = "Button 2 wurde geklickt"
     logger.info(log_message)
     return {"message": log_message}
-
-@app.get("/")
-def serve_page(user: str = Depends(get_current_user)):
-    return FileResponse("static/index.html")
-
-@app.get("/logs")
-def get_logs(user: str = Depends(get_current_user)):
-    """Lädt alle bisherigen Log-Meldungen aus der Datei."""
-    try:
-        with open(LOG_FILE, "r", encoding="utf-8") as f:
-            logs = f.readlines()
-        return JSONResponse(content={"logs": logs})
-    except FileNotFoundError:
-        return JSONResponse(content={"logs": []})
-
-def reset_database():
-    """Platzhalter-Funktion für den späteren Datenbank-Reset."""
-    logger.info("Datenbank-Reset gestartet (noch nicht implementiert).")
