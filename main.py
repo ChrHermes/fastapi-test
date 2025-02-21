@@ -1,28 +1,26 @@
 import os
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Request, Depends, HTTPException, Response
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
-from pydantic import BaseModel
 import logging
 
 # Initialisierung
 app = FastAPI()
-security = HTTPBasic()
 load_dotenv()
+
+# Statische Dateien bereitstellen
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Nutzerverwaltung
 USERS = {os.getenv("ADMIN_USER"): os.getenv("ADMIN_PASS")}
 
-class LoginData(BaseModel):
-    username: str
-    password: str
-
 # Log-Datei Pfad
 LOG_DIR = "logs"
 LOG_FILE = os.path.join(LOG_DIR, "actions.log")
+os.makedirs(LOG_DIR, exist_ok=True)
 
 # Stelle sicher, dass das Log-Verzeichnis existiert
 os.makedirs(LOG_DIR, exist_ok=True)
@@ -38,37 +36,74 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Authentifizierung
-def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
-    if credentials.username == "admin" and credentials.password == "password":
-        return credentials.username
-    raise HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Invalid credentials",
-        headers={"WWW-Authenticate": "Basic"},
-    )
 
-# Statische Dateien bereitstellen
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-@app.get("/")
-def serve_page(user: str = Depends(get_current_user)):
-    return FileResponse("static/index.html")
-
+# Login-Seite
 @app.get("/login")
 async def login_page():
     return FileResponse("static/login.html")
 
-# API-Endpunkte
+# Login-Logik
 @app.post("/login")
-async def login(data: LoginData):
-    if USERS.get(data.username) == data.password:
-        logger.info(f"Erfolgreicher Login: {data.username}")
-        return JSONResponse(content={"message": "Login erfolgreich"}, status_code=200)
-    else:
-        logger.warning(f"Fehlgeschlagener Login-Versuch: {data.username}")
-        raise HTTPException(status_code=401, detail="Falscher Benutzername oder Passwort")
+async def login(request: Request, response: Response):
+    data = await request.json()
+    username = data.get("username")
+    password = data.get("password")
 
+    if USERS.get(username) == password:
+        response = RedirectResponse(url="/static/index.html", status_code=303)
+        response.set_cookie(key="session", value=username, httponly=True)
+        logger.info(f"Erfolgreicher Login: {username}")
+        return response
+    else:
+        logger.warning(f"Fehlgeschlagener Login-Versuch: {username}")
+        return JSONResponse(content={"detail": "Falscher Benutzername oder Passwort"}, status_code=401)
+
+# Logout
+@app.get("/logout")
+async def logout():
+    response = RedirectResponse(url="/login", status_code=303)
+    response.delete_cookie("session")
+    return response
+
+# Authentifizierungsprüfung
+def get_current_user(request: Request):
+    session = request.cookies.get("session")
+    if session and session in USERS:
+        return session
+    return RedirectResponse(url="/login")
+
+# Geschützte Seite
+@app.get("/protected")
+async def protected_page(user: str = Depends(get_current_user)):
+    return {"message": f"Willkommen, {user}!"}
+
+
+# Middleware: Blockiere nicht eingeloggte Nutzer
+@app.middleware("http")
+async def auth_middleware(request: Request, call_next):
+    allowed_paths = ["/login", "/logout"]
+    
+    # Statische Dateien immer erlauben
+    if request.url.path.startswith("/static") or request.url.path in allowed_paths:
+        return await call_next(request)
+
+    # Prüfe Session-Cookie
+    session = request.cookies.get("session")
+    if not session or session not in USERS:
+        if request.method == "GET":
+            return RedirectResponse(url="/login")  # Nur GET-Anfragen umleiten
+        return JSONResponse(content={"detail": "Nicht autorisiert"}, status_code=401)
+
+    return await call_next(request)
+
+
+
+
+
+
+
+
+# API-Endpunkte
 @app.post("/log/btnGC")
 def log_button_gc(user: str = Depends(get_current_user)):
     """Platzhalter für eine zukünftige Datenbank-Reset-Funktion."""
@@ -83,17 +118,9 @@ def log_button2(user: str = Depends(get_current_user)):
     logger.info(log_message)
     return {"message": log_message}
 
-@app.post("/log/button3")
-def log_button2(user: str = Depends(get_current_user)):
-    log_message = "Button 3 wurde geklickt"
-    logger.info(log_message)
-    return {"message": log_message}
-
-@app.post("/log/button4")
-def log_button2(user: str = Depends(get_current_user)):
-    log_message = "Button 4 wurde geklickt"
-    logger.info(log_message)
-    return {"message": log_message}
+@app.get("/")
+def serve_page(user: str = Depends(get_current_user)):
+    return FileResponse("static/index.html")
 
 @app.get("/logs")
 def get_logs(user: str = Depends(get_current_user)):

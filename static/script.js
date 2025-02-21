@@ -49,24 +49,52 @@ async function sendRequest(endpoint) {
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    const response = await fetch("/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-        window.location.href = "/static/index.html";
-    } else {
-        document.getElementById("error-message").innerText = data.detail;
+    if (!username || !password) {
+        document.getElementById("error-message").innerText = "Benutzername und Passwort erforderlich!";
+        return;
     }
+
+    try {
+        const response = await fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            const data = await response.json();
+            document.getElementById("error-message").innerText = data.detail;
+        }
+    } catch (error) {
+        console.error("Fehler beim Login:", error);
+        document.getElementById("error-message").innerText = "Serverfehler. Bitte später versuchen.";
+    }
+});
+
+// Automatische Umleitung zur Login-Seite, falls nicht eingeloggt
+(async function checkLogin() {
+    try {
+        const response = await fetch("/protected");
+        if (!response.ok) {
+            window.location.href = "/login";
+        }
+    } catch (error) {
+        console.error("Fehler bei der Login-Prüfung:", error);
+        window.location.href = "/login";
+    }
+})();
+
+// Logout-Funktion
+document.getElementById("logout-button").addEventListener("click", async function() {
+    await fetch("/logout", { method: "GET" });
+    window.location.href = "/login";
 });
 
 /* ---------------------------------------------- THEME */
