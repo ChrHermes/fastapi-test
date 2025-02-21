@@ -20,7 +20,7 @@
         <h2>Bestätigung erforderlich</h2>
         <p>Bitte geben Sie <span class="code-highlight">db-reset</span> ein, um fortzufahren.</p>
         <input type="text" id="confirmationInput">
-        <button id="confirmAction" class="danger-btn">Löschen</button>
+        <button id="confirmAction" class="danger-btn" style="background-color: red;">Löschen</button>
         <button id="cancelAction" class="safe-btn">Abbrechen</button>
     </div>
 
@@ -32,19 +32,22 @@
             <span class="group-title">Gruppe A</span>
             <div class="button-container">
                 <button id="btnGC" onclick="sendRequest('/log/btnGC')">Button 1</button>
-                <button onclick="sendRequest('/log/button2')">Button 2</button>
+                <button id="btn2" onclick="sendRequest('/log/button2')">Button 2</button>
             </div>
         </div>
         
         <div class="group">
             <span class="group-title">Gruppe B</span>
             <div class="button-container">
-                <button onclick="sendRequest('/log/button3')">Button 3</button>
-                <button onclick="sendRequest('/log/button4')">Button 4</button>
+                <button id="btn3" onclick="sendRequest('/log/button3')">Button 3</button>
+                <button id="btn4" onclick="sendRequest('/log/button4')">Button 4</button>
             </div>
         </div>
         
         <div class="log-container" id="log"></div>
+
+        <button id="logoutButton" onclick="sendRequest('/logout')" class="button-logout">⏻ Logout</button>
+
     </div>
 </body>
 </html>

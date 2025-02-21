@@ -123,6 +123,11 @@ button:hover {
     background: var(--gc-orange-dark);
 }
 
+.button-logout {
+    background-color: var(--gc-dark-grey);
+    margin-top: 25px;
+}
+
 /* ---------------------------------------------- LOGIN */
 .input-group {
     display: flex;
@@ -142,6 +147,7 @@ button:hover {
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s;
+    text-align: center;
 }
 
 .input-group input:focus {
@@ -241,4 +247,9 @@ body.dark-mode .log-container {
 
 .modal.active {
     display: block;
+}
+
+.modal button {
+    margin-top: 10px;
+    color:white;
 }

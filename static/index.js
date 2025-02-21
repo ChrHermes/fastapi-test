@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* ---------------------------------------------- LOGOUT */
-// document.getElementById("logout-button").addEventListener("click", async function() {
-//     await fetch("/logout", { method: "GET" });
-//     window.location.href = "/login";
-// });
+document.getElementById("logoutButton").addEventListener("click", async function() {
+    await fetch("/logout", { method: "GET" });
+    window.location.href = "/login";
+});
 
 /* ---------------------------------------------- LOGGING */
 function appendLog(message) {
