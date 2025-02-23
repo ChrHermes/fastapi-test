@@ -1,11 +1,13 @@
 import os
+import json
+import logging
+from datetime import datetime
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request, Depends, HTTPException, Response
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
-from dotenv import load_dotenv
-import logging
 
 # Initialisierung
 app = FastAPI()
@@ -19,21 +21,14 @@ USERS = {os.getenv("ADMIN_USER"): os.getenv("ADMIN_PASS")}
 
 # Log-Datei Pfad
 LOG_DIR = "logs"
-LOG_FILE = os.path.join(LOG_DIR, "actions.log")
+LOG_FILE = os.path.join(LOG_DIR, "logs.json")
 os.makedirs(LOG_DIR, exist_ok=True)
 
 # Stelle sicher, dass das Log-Verzeichnis existiert
 os.makedirs(LOG_DIR, exist_ok=True)
 
-# Logger einrichten (Datei- und Konsolen-Logging)
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(message)s",
-    handlers=[
-        logging.FileHandler(LOG_FILE, encoding="utf-8"),
-        logging.StreamHandler()
-    ]
-)
+# Setup Logger
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
 # =========================================================================
@@ -50,6 +45,26 @@ def get_current_user(request: Request):
 def reset_database():
     """Platzhalter-Funktion für den späteren Datenbank-Reset."""
     logger.info("Datenbank-Reset gestartet (noch nicht implementiert).")
+
+def write_log(level, message):
+    """Speichert Log-Meldung in einer JSON-Datei mit Zeitstempel."""
+    timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+    log_entry = {"timestamp": timestamp, "level": level, "message": message}
+
+    logs = []
+    if os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            try:
+                logs = json.load(f)
+            except json.JSONDecodeError:
+                logs = []
+
+    logs.append(log_entry)
+
+    with open(LOG_FILE, "w", encoding="utf-8") as f:
+        json.dump(logs, f, ensure_ascii=False, indent=2)
+
+    logger.log(getattr(logging, level), message)
 
 # =========================================================================
 # ----- MIDDLEWARE --------------------------------------------------------
@@ -115,15 +130,29 @@ async def protected_page(user: str = Depends(get_current_user)):
     return {"message": f"Willkommen, {user}!"}
 
 # ----- LOGGING -----------------------------------------------------------
+@app.post("/log")
+async def log_message(request: Request):
+    """Fügt eine Log-Nachricht mit Level hinzu."""
+    data = await request.json()
+    level = data.get("level", "INFO").upper()
+    message = data.get("message", "")
+
+    if level not in ["INFO", "WARN", "ERROR"]:
+        level = "INFO"
+
+    write_log(level, message)
+    return {"status": "ok"}
+
 @app.get("/logs")
-def get_logs(user: str = Depends(get_current_user)):
-    """Lädt alle bisherigen Log-Meldungen aus der Datei."""
-    try:
-        with open(LOG_FILE, "r", encoding="utf-8") as f:
-            logs = f.readlines()
-        return JSONResponse(content={"logs": logs})
-    except FileNotFoundError:
+def get_logs():
+    """Lädt Logs aus der JSON-Datei."""
+    if not os.path.exists(LOG_FILE):
         return JSONResponse(content={"logs": []})
+
+    with open(LOG_FILE, "r", encoding="utf-8") as f:
+        logs = json.load(f)
+
+    return JSONResponse(content={"logs": logs})
 
 @app.post("/log/btnGC")
 def log_button_gc(user: str = Depends(get_current_user)):
@@ -138,3 +167,15 @@ def log_button2(user: str = Depends(get_current_user)):
     log_message = "Button 2 wurde geklickt"
     logger.info(log_message)
     return {"message": log_message}
+
+@app.post("/log/db-reset")
+def log_db_reset():
+    """Loggt einen Datenbank-Reset."""
+    write_log("INFO", "Datenbankrücksetzung angefordert")
+    write_log("WARN", "Datenbank zurückgesetzt")
+    return {"message": "Reset-Log geschrieben"}
+
+
+
+
+

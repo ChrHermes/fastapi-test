@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
         overlay.classList.add("active");
         inputField.value = "";
         inputField.focus();
-    });
+        logToServer("INFO", "Datenbankrücksetzung angefordert");
+    });  
 
     cancelButton.addEventListener("click", function () {
         modal.classList.remove("active");
@@ -32,13 +33,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    function fetchLogs() {
-        fetch("/logs")
-            .then(response => response.json())
-            .then(data => {
-                displayLogs(data.logs);
-            })
-            .catch(error => console.error("Fehler beim Laden der Logs:", error));
+    async function fetchLogs() {
+        try {
+            const response = await fetch("/logs");
+            const data = await response.json();
+            displayLogs(data.logs);
+        } catch (error) {
+            console.error("Fehler beim Laden der Logs:", error);
+        }
     }
 
     function displayLogs(logs) {
@@ -46,16 +48,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedLevel = logLevelSelect.value;
 
         logs.forEach(log => {
-            if (selectedLevel === "ALL" || log.includes(selectedLevel)) {
+            if (selectedLevel === "ALL" || log.level === selectedLevel) {
                 const logEntry = document.createElement("div");
-                logEntry.textContent = log;
+                logEntry.textContent = `${log.timestamp} [${log.level}] ${log.message}`;
                 logContainer.appendChild(logEntry);
             }
         });
     }
 
-    logLevelSelect.addEventListener("change", fetchLogs);
+    async function logToServer(level, message) {
+        await fetch("/log", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ level, message })
+        });
+        fetchLogs();
+    }
 
+    logLevelSelect.addEventListener("change", fetchLogs);
     fetchLogs();
 });
 
