@@ -1,4 +1,13 @@
 /* ---------------------------------------------- EVENT LISTENER */
+window.addEventListener("load", () => {
+    const logContainer = document.querySelector(".log-container");
+    logContainer.style.width = logContainer.clientWidth + "px";
+    logContainer.style.height = logContainer.clientHeight + "px";
+    updateContainerWidth();
+});
+
+window.addEventListener("resize", updateContainerWidth);
+
 document.addEventListener("DOMContentLoaded", function () {
     loadLogs();
 
@@ -104,4 +113,13 @@ async function saveLogToServer(message) {
     // } catch (error) {
     //     console.error("Fehler beim Speichern des Logs:", error);
     // }
+}
+
+/* Beim Laden und beim Fenster-Resize aktualisieren */
+function updateContainerWidth() {
+    const container = document.querySelector(".container");
+    if (container) {
+        const width = container.clientWidth + "px";
+        container.style.setProperty("--container-width", width);
+    }
 }
