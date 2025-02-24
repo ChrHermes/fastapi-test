@@ -1,5 +1,6 @@
 import os
 import json
+import docker
 import logging
 from datetime import datetime
 from dotenv import load_dotenv
@@ -16,8 +17,19 @@ load_dotenv()
 # Statische Dateien bereitstellen
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Nutzerverwaltung
+# Umgebungsvariablen
 USERS = {os.getenv("ADMIN_USER"): os.getenv("ADMIN_PASS")}
+BACKEND_CONTAINER = os.getenv("BACKEND_CONTAINER_NAME", "backend")
+DB_PATH = os.getenv("DB_PATH", "/data/gcn.db")
+
+# Docker-Client initialisieren
+docker_available = False
+try:
+    docker_client = docker.from_env()
+    docker_available = True
+except Exception as e:
+    print(f"Docker client konnte nicht initialisiert werden: {e}")
+    docker_client = No
 
 # Log-Datei Pfad
 LOG_DIR = "logs"
@@ -175,7 +187,29 @@ def log_db_reset():
     write_log("WARN", "Datenbank zurückgesetzt")
     return {"message": "Reset-Log geschrieben"}
 
+# ----- SYSTEM ------------------------------------------------------------
 
+@app.post("/shutdown")
+def shutdown_system():
+    write_log("WARN", "System wird heruntergefahren")
+    # subprocess.Popen(["shutdown", "-h", "now"])
+    return "System wird heruntergefahren..."
 
+@app.post("/reset-db")
+def reset_database():
+    try:
+        # Backend-Container stoppen
+        container = docker_client.containers.get(BACKEND_CONTAINER)
+        container.stop()
 
+        # DB & Cache löschen
+        for file in [DB_PATH, f"{DB_PATH}-wal", f"{DB_PATH}-journal"]:
+            if os.path.exists(file):
+                os.remove(file)
 
+        write_log("WARN", "Datenbank wurde erfolgreich zurückgesetzt")
+        return "Datenbank wurde erfolgreich zurückgesetzt"
+    
+    except Exception as e:
+        write_log("ERROR", f"Fehler beim Zurücksetzen der DB: {str(e)}")
+        return f"Fehler: {str(e)}"

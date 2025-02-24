@@ -132,6 +132,12 @@ button:hover {
     background: var(--gc-orange-dark);
 }
 
+.icon-button {
+    font-size: 20px;
+    vertical-align: middle;
+    padding-right: 5px;
+}
+
 .button-logout {
     background-color: var(--gc-dark-grey);
     margin-top: 25px;

@@ -85,36 +85,6 @@ document.getElementById("logoutButton").addEventListener("click", async function
 });
 
 /* ---------------------------------------------- LOGGING */
-function appendLog(message) {
-    const logContainer = document.getElementById("log");
-    const timestamp = new Date().toLocaleString();
-    logContainer.innerHTML += `<div class="log-entry"><span class="timestamp">[${timestamp}]</span> ${message}</div>`;
-    logContainer.scrollTop = logContainer.scrollHeight;
-    saveLogToServer(message);
-}
-
-async function loadLogs() {
-    try {
-        const response = await fetch("/logs", { method: "GET" });
-        const data = await response.json();
-        data.logs.forEach(msg => appendLog(msg));
-    } catch (error) {
-        console.error("Fehler beim Laden der Logs:", error);
-    }
-}
-
-async function saveLogToServer(message) {
-    // try {
-    //     await fetch("/save-log", {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({ message })
-    //     });
-    // } catch (error) {
-    //     console.error("Fehler beim Speichern des Logs:", error);
-    // }
-}
-
 /* Beim Laden und beim Fenster-Resize aktualisieren */
 function updateContainerWidth() {
     const container = document.querySelector(".container");
