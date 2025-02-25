@@ -37,6 +37,16 @@ def log_button2(user: str = Depends(get_current_user)):
     write_log("INFO", "Button 2 wurde geklickt")
     return {"message": "Button 2 wurde geklickt"}
 
+@router.post("/log/button3")
+def log_button3(user: str = Depends(get_current_user)):
+    write_log("INFO", "Button 3 wurde geklickt")
+    return {"message": "Button 3 wurde geklickt"}
+
+@router.post("/log/button4")
+def log_button3(user: str = Depends(get_current_user)):
+    write_log("INFO", "Button 4 wurde geklickt")
+    return {"message": "Button 4 wurde geklickt"}
+
 @router.post("/log/db-reset")
 def log_db_reset():
     write_log("INFO", "Datenbankrücksetzung angefordert")

@@ -219,6 +219,32 @@ button:hover {
     border-bottom: 1px solid var(--gc-blue);
 }
 
+/* ---------------------------------------------- CUSTOM SCROLLBAR FÜR LOG-CONTAINER */
+.log-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.log-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.log-container::-webkit-scrollbar-thumb {
+    background-color: var(--gc-dark-grey);
+    border-radius: 4px;
+    border: 2px solid transparent;
+}
+
+.log-container::-webkit-scrollbar-thumb:hover {
+    background-color: var(--gc-orange);
+}
+
+/* Für Firefox (nur begrenzt anpassbar) */
+.log-container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--gc-dark-grey) transparent;
+}
+
 /* ---------------------------------------------- THEME */
 .theme-toggle {
     position: absolute;
