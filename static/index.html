@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/static/styles/styles.css" rel="stylesheet">
-    <script defer src="/static/script/script.js"></script>
-    <script defer src="/static/script/index.js"></script>
+    <!-- Verwende ein Modul-Script -->
+    <script type="module" defer src="/static/script/index.js"></script>
 </head>
 
 <body>
@@ -20,25 +20,24 @@
     <div id="modalOverlay" class="modal-overlay"></div>
     <div id="confirmationModal" class="modal modal-dark">
         <h2 id="modalTitle">Datenbank wirklich löschen?</h2>
-
         <!-- Beschreibung oder Warnhinweis -->
         <p id="modalMessage" class="modal-message">
             Sie sind dabei, die Datenbank zu löschen. Dies kann nicht rückgängig gemacht werden.
             <br><br>
             Größe der Datenbank: <span id="dbSize"></span>
         </p>
-
         <!-- Eingabefeld für Bestätigungscode -->
-        <label for="confirmationInput" class="modal-label">Enter the following to confirm: <p class="passphrase">db-reset</p></label>
+        <label for="confirmationInput" class="modal-label">
+            Enter the following to confirm:
+            <p class="passphrase">db-reset</p>
+        </label>
         <input type="text" id="confirmationInput" class="modal-input">
-
         <!-- Button-Leiste -->
         <div class="modal-button-row">
             <button id="cancelAction" class="modal-btn safe-btn">Abbruch, Datenbank behalten</button>
             <button id="confirmAction" class="modal-btn danger-btn">Ja, Datenbank löschen</button>
         </div>
     </div>
-
 
     <!-- MAIN -->
     <div class="container">
@@ -47,10 +46,10 @@
         <div class="group">
             <span class="group-title">Gruppe A</span>
             <div class="button-container">
-                <button id="btnGC" onclick="sendRequest('/log/btnGC')">
+                <button id="btnGC">
                     <span class="material-icons icon-button"></span>Datenbank löschen
                 </button>
-                <button id="btn2" onclick="sendRequest('/log/button2')">
+                <button id="btn2">
                     <span class="material-icons icon-button">system_update_alt</span>Aktualisierung durchführen
                 </button>
             </div>
@@ -59,10 +58,10 @@
         <div class="group">
             <span class="group-title">Gruppe B</span>
             <div class="button-container">
-                <button id="btn3" onclick="sendRequest('/log/button3')">
+                <button id="btn3">
                     <span class="material-icons icon-button">power_settings_new</span>Sicher herunterfahren
                 </button>
-                <button id="btn4" onclick="sendRequest('/log/button4')">
+                <button id="btn4">
                     <span class="material-icons icon-button">restart_alt</span>Hardware Neustart
                 </button>
             </div>
@@ -80,7 +79,7 @@
             </select>
         </div>
 
-        <button id="logoutButton" onclick="sendRequest('/logout')" class="button-logout">
+        <button id="logoutButton" class="button-logout">
             <span class="material-icons icon-button">logout</span>Abmelden
         </button>
     </div>
