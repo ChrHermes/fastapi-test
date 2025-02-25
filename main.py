@@ -29,14 +29,11 @@ try:
     docker_available = True
 except Exception as e:
     print(f"Docker client konnte nicht initialisiert werden: {e}")
-    docker_client = No
+    docker_client = None
 
 # Log-Datei Pfad
 LOG_DIR = "logs"
 LOG_FILE = os.path.join(LOG_DIR, "logs.json")
-os.makedirs(LOG_DIR, exist_ok=True)
-
-# Stelle sicher, dass das Log-Verzeichnis existiert
 os.makedirs(LOG_DIR, exist_ok=True)
 
 # Setup Logger
@@ -48,35 +45,25 @@ logger = logging.getLogger(__name__)
 # =========================================================================
 
 # Authentifizierungsprüfung
-def get_current_user(request: Request): 
+def get_current_user(request: Request):
     session = request.cookies.get("session")
     if session and session in USERS:
         return session
-    return RedirectResponse(url="/login")
+    raise HTTPException(status_code=401, detail="Nicht autorisiert")
 
-def reset_database():
-    """Platzhalter-Funktion für den späteren Datenbank-Reset."""
+# Platzhalters für den Datenbank-Reset
+def reset_database_placeholder():
     logger.info("Datenbank-Reset gestartet (noch nicht implementiert).")
 
+# Optimiertes Logging: Protokollierung als zeilenweise JSON-Einträge
 def write_log(level, message):
-    """Speichert Log-Meldung in einer JSON-Datei mit Zeitstempel."""
     timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
     log_entry = {"timestamp": timestamp, "level": level, "message": message}
-
-    logs = []
-    if os.path.exists(LOG_FILE):
-        with open(LOG_FILE, "r", encoding="utf-8") as f:
-            try:
-                logs = json.load(f)
-            except json.JSONDecodeError:
-                logs = []
-
-    logs.append(log_entry)
-
-    with open(LOG_FILE, "w", encoding="utf-8") as f:
-        json.dump(logs, f, ensure_ascii=False, indent=2)
-
-    logger.log(getattr(logging, level), message)
+    # Füge den neuen Log-Eintrag zeilenweise an die Datei an
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
+        f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
+    # Logge auch über den Logger
+    logger.log(getattr(logging, level, logging.INFO), message)
 
 # =========================================================================
 # ----- MIDDLEWARE --------------------------------------------------------
@@ -94,8 +81,6 @@ async def auth_middleware(request: Request, call_next):
     # Prüfe Session-Cookie
     session = request.cookies.get("session")
     if not session or session not in USERS:
-        if request.method == "GET":
-            return RedirectResponse(url="/login")  # Nur GET-Anfragen umleiten
         return JSONResponse(content={"detail": "Nicht autorisiert"}, status_code=401)
 
     return await call_next(request)
@@ -106,7 +91,7 @@ async def auth_middleware(request: Request, call_next):
 
 # ----- MAIN --------------------------------------------------------------
 @app.get("/")
-def serve_page(user: str = Depends(get_current_user)):
+async def serve_page(user: str = Depends(get_current_user)):
     return FileResponse("static/index.html")
 
 # ----- LOGIN -------------------------------------------------------------
@@ -156,32 +141,34 @@ async def log_message(request: Request):
     return {"status": "ok"}
 
 @app.get("/logs")
-def get_logs():
-    """Lädt Logs aus der JSON-Datei."""
-    if not os.path.exists(LOG_FILE):
-        return JSONResponse(content={"logs": []})
-
-    with open(LOG_FILE, "r", encoding="utf-8") as f:
-        logs = json.load(f)
-
+async def get_logs():
+    """Lädt Logs aus der JSON-Datei, die als zeilenweise JSON-Einträge gespeichert sind."""
+    logs = []
+    if os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            for line in f:
+                try:
+                    logs.append(json.loads(line))
+                except json.JSONDecodeError:
+                    continue
     return JSONResponse(content={"logs": logs})
 
 @app.post("/log/btnGC")
-def log_button_gc(user: str = Depends(get_current_user)):
+async def log_button_gc(user: str = Depends(get_current_user)):
     """Platzhalter für eine zukünftige Datenbank-Reset-Funktion."""
-    reset_database()
-    log_message = "Datenbank wurde zurückgesetzt"
-    logger.info(log_message)
-    return {"message": log_message}
+    reset_database_placeholder()  # Aufruf der umbenannten Platzhalter-Funktion
+    log_message_text = "Datenbank wurde zurückgesetzt"
+    logger.info(log_message_text)
+    return {"message": log_message_text}
 
 @app.post("/log/button2")
-def log_button2(user: str = Depends(get_current_user)):
-    log_message = "Button 2 wurde geklickt"
-    logger.info(log_message)
-    return {"message": log_message}
+async def log_button2(user: str = Depends(get_current_user)):
+    log_message_text = "Button 2 wurde geklickt"
+    logger.info(log_message_text)
+    return {"message": log_message_text}
 
 @app.post("/log/db-reset")
-def log_db_reset():
+async def log_db_reset():
     """Loggt einen Datenbank-Reset."""
     write_log("INFO", "Datenbankrücksetzung angefordert")
     write_log("WARN", "Datenbank zurückgesetzt")
@@ -190,14 +177,18 @@ def log_db_reset():
 # ----- SYSTEM ------------------------------------------------------------
 
 @app.post("/shutdown")
-def shutdown_system():
+async def shutdown_system():
     write_log("WARN", "System wird heruntergefahren")
     # subprocess.Popen(["shutdown", "-h", "now"])
     return "System wird heruntergefahren..."
 
 @app.post("/reset-db")
-def reset_database():
+async def reset_database_endpoint():
     try:
+        # Überprüfe, ob Docker-Client verfügbar ist
+        if docker_client is None:
+            raise Exception("Docker Client ist nicht verfügbar.")
+            
         # Backend-Container stoppen
         container = docker_client.containers.get(BACKEND_CONTAINER)
         container.stop()
