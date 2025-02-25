@@ -1,4 +1,8 @@
+/* ============================================================
+   BASIS-STILE & CSS-VARIABLEN
+============================================================ */
 :root {
+    /* Farbvariablen */
     --gc-orange: rgba(231, 91, 45, 1);
     --gc-orange-dark: rgba(200, 70, 30, 1);
     --gc-red: rgba(176, 36, 24, 1);
@@ -6,10 +10,14 @@
     --gc-dark-grey: rgba(74, 74, 74, 1);
     --gc-black: rgba(40, 40, 40, 1);
 
+    /* Layoutvariablen */
     --watermark-size: 40vw;
     --container-width: 400px;
 }
 
+/* ============================================================
+   GLOBALE STILE FÜR BODY & SCHRIFT
+============================================================ */
 body {
     font-family: 'Ubuntu', sans-serif;
     background-color: var(--gc-light-grey);
@@ -22,6 +30,7 @@ body {
     position: relative;
 }
 
+/* Hintergrund-Wasserzeichen */
 body::before {
     content: "";
     position: absolute;
@@ -32,64 +41,38 @@ body::before {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    
     left: 50%;
     bottom: 10%;
     transform: translateX(-50%);
-
     opacity: 0.1;
     filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
     pointer-events: none;
     z-index: 0;
 }
 
-main {
-    position: relative;
-    z-index: 1;
-    width: var(--container-width);
-    max-width: 80vw;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-h1 {
-    font-weight: 700;
-    color: var(--gc-dark-grey);
-    /* text-shadow: 0.5px 0.5px 1px var(--gc-light-grey); */
-    text-shadow: 1px 1px 2px;
-}
-
-.code-highlight {
-    font-family: "Courier New", Courier, monospace;
-    font-size: 1rem;
-    font-weight: bold;
-    /* background: var(--gc-orange); */
-    background: rgba(255, 21, 0, 0.5);
-    color: var(--gc-dark-grey);
-    padding: 2px 4px;
-    border-radius: 2px;
-    display: inline-block;
-}
-
+/* ============================================================
+   CONTAINER & LAYOUT
+============================================================ */
 .container {
     display: flex;
     flex-direction: column;
-    resize: both; /* Skalierung ermöglichen */
+    resize: both;
     height: fit-content;
-    align-items: stretch; /* Stellt sicher, dass die Breite sich anpasst */
+    align-items: stretch;
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: fit-content;
     min-width: var(--container-width);
-
     text-align: center;
 }
 
-/* ---------------------------------------------- GROUP */
+/* ============================================================
+   GRUPPEN & BUTTONS
+============================================================ */
+
+/* Gruppierung der Elemente */
 .group {
     border: 2px solid var(--gc-dark-grey);
     border-radius: 5px;
@@ -108,13 +91,14 @@ h1 {
     color: var(--gc-dark-grey);
 }
 
-/* ---------------------------------------------- BUTTON */
+/* Container für Buttons */
 .button-container {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
 
+/* Allgemeine Button-Stile */
 button {
     flex: 1;
     padding: 10px;
@@ -132,62 +116,41 @@ button:hover {
     background: var(--gc-orange-dark);
 }
 
+/* Spezielle Button-Stile */
+.button-logout {
+    background-color: var(--gc-dark-grey);
+    margin-top: 25px;
+}
+
+/* Material Icons innerhalb von Buttons */
 .icon-button {
     font-size: 20px;
     vertical-align: middle;
     padding-right: 5px;
 }
 
-.button-logout {
-    background-color: var(--gc-dark-grey);
-    margin-top: 25px;
-}
-
-/* ---------------------------------------------- LOGIN */
-.input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-.input-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.input-group input {
-    padding: 10px;
-    border: 2px solid var(--gc-dark-grey);
-    border-radius: 5px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s;
-    text-align: center;
-}
-
-.input-group input:focus {
-    border-color: var(--gc-orange);
-}
-
-/* ---------------------------------------------- LOGGING */
+/* ============================================================
+   LOGGING: LOG-CONTAINER & CONTROLS
+============================================================ */
 .log-container {
     background: white;
     border-radius: 5px;
     padding: 10px;
     width: 100%;
     height: 300px;
-    min-height: 200px; /* Verhindert, dass der Container zu groß startet */
+    min-height: 200px;
     min-width: var(--container-width, 300px);
-    max-width: 100%;  /* Verhindert Überlauf */
-    resize: both; /* Ermöglicht Skalierung */
-    overflow: auto; /* Scrollbar bei vielen Logs */
+    max-width: 100%;
+    resize: both;
+    overflow: auto;
     border: 1px solid var(--gc-dark-grey);
     margin-bottom: 5px;
     text-align: left;
-    font-size: 0.80em; /* Kleinere Schrift */
+    font-size: 0.80em;
     position: relative;
 }
 
+/* Steuerungselemente für Log-Level */
 .log-controls {
     display: flex;
     align-items: center;
@@ -205,21 +168,22 @@ button:hover {
     color: var(--gc-dark-grey);
     outline: none;
     cursor: pointer;
-    appearance: none; /* Entfernt Standard-Styling des Browsers */
+    appearance: none;
 }
 
-/* Entfernt den Standard-Dropdown-Pfeil in WebKit-basierten Browsern */
+/* Entfernt den Standard-Dropdown-Pfeil in WebKit-Browsern */
 .log-level::-ms-expand {
     display: none;
 }
 
-/* Optional: Weicher Hover- & Fokus-Effekt */
 .log-level:hover,
 .log-level:focus {
-    border-bottom: 1px solid var(--gc-blue);
+    border-bottom: 1px solid var(--gc-orange);
 }
 
-/* ---------------------------------------------- CUSTOM SCROLLBAR FÜR LOG-CONTAINER */
+/* ============================================================
+   CUSTOM SCROLLBAR FÜR DEN LOG-CONTAINER
+============================================================ */
 .log-container::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -239,30 +203,138 @@ button:hover {
     background-color: var(--gc-orange);
 }
 
-/* Für Firefox (nur begrenzt anpassbar) */
+/* Für Firefox */
 .log-container {
     scrollbar-width: thin;
     scrollbar-color: var(--gc-dark-grey) transparent;
 }
 
-/* ---------------------------------------------- THEME */
-.theme-toggle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
+/* ============================================================
+   MODAL & OVERLAY (Dark Style ähnlich GitLab)
+============================================================ */
+
+/* Halbtransparenter Overlay-Hintergrund */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Basis-Modalklasse */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    z-index: 1000;
+    min-width: 400px;
+    text-align: left;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+/* Zusätzliche Klasse für einen dunklen GitLab-ähnlichen Stil */
+.modal-dark {
+    background: #1f1f1f; /* dunkles Grau/Schwarz */
+    color: #fff;         /* weiße Schrift */
+    padding: 20px 30px;
+}
+
+/* Kopfzeile / Überschrift */
+.modal-dark h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #fff;
+}
+
+/* Absatz-Text */
+.modal-message {
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: #d1d1d1; /* etwas helleres Grau für Text */
+}
+
+/* Label für Eingabefeld */
+.modal-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Eingabefeld für Bestätigungscode */
+.modal-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background: #2c2c2c;
+    color: #fff;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Button-Reihe */
+.modal-button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Modale Buttons */
+.modal-btn {
+    padding: 8px 15px;
+    font-size: 14px;
     border: none;
-    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
     transition: background 0.3s;
 }
 
-.theme-toggle:hover {
-    background: var(--gc-red);
+/* Safe-Button (Abbrechen) */
+.safe-btn {
+    background-color: #3a3a3a; /* dunkles Grau */
+    color: #fff;
 }
 
+.safe-btn:hover {
+    background-color: #555;
+}
+
+/* Danger-Button (Löschen) */
+.danger-btn {
+    background-color: #db4b4b; /* Rotton ähnlich GitLab */
+    color: #fff;
+}
+
+.danger-btn:hover {
+    background-color: #c73232;
+}
+
+/* ============================================================
+   THEME-MODUS
+============================================================ */
 body.dark-mode {
     background-color: var(--gc-dark-grey);
     color: var(--gc-light-grey);
@@ -291,44 +363,22 @@ body.dark-mode .log-container {
     border-color: var(--gc-light-grey);
 }
 
-/* ---------------------------------------------- MODAL */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.75);
-    display: none;
-    z-index: 999;
+/* ============================================================
+   THEME-TOGGLE BUTTON
+============================================================ */
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
 }
 
-.modal-overlay.active {
-    display: block;
-}
-
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--gc-light-grey);
-    /* color: black; */
-    color: var(--gc-dark-grey);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    z-index: 1000;  /* Über dem Overlay */
-    min-width: 450px;
-    text-align: center;
-    display: none;
-}
-
-.modal.active {
-    display: block;
-}
-
-.modal button {
-    margin-top: 10px;
-    color:white;
+.theme-toggle:hover {
+    background: var(--gc-red);
 }

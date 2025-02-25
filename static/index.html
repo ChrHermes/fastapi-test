@@ -18,13 +18,28 @@
 
     <!-- MODAL -->
     <div id="modalOverlay" class="modal-overlay"></div>
-    <div id="confirmationModal" class="modal">
-        <h2>Bestätigung erforderlich</h2>
-        <p>Bitte geben Sie <span class="code-highlight">db-reset</span> ein, um fortzufahren.</p>
-        <input type="text" id="confirmationInput">
-        <button id="confirmAction" class="danger-btn" style="background-color: red;">Löschen</button>
-        <button id="cancelAction" class="safe-btn">Abbrechen</button>
+    <div id="confirmationModal" class="modal modal-dark">
+        <!-- Kopfzeile mit einer auffälligen Überschrift -->
+        <h2 id="modalTitle">Are you absolutely sure?</h2>
+
+        <!-- Beschreibung oder Warnhinweis -->
+        <p id="modalMessage" class="modal-message">
+            Sie sind dabei, die Datenbank zu löschen. Dies kann nicht rückgängig gemacht werden.
+            <br><br>
+            Größe der Datenbank: <span id="dbSize"></span>
+        </p>
+
+        <!-- Eingabefeld für Bestätigungscode -->
+        <label for="confirmationInput" class="modal-label">Enter the following to confirm:</label>
+        <input type="text" id="confirmationInput" class="modal-input">
+
+        <!-- Button-Leiste -->
+        <div class="modal-button-row">
+            <button id="cancelAction" class="modal-btn safe-btn">Cancel, keep DB</button>
+            <button id="confirmAction" class="modal-btn danger-btn">Yes, delete DB</button>
+        </div>
     </div>
+
 
     <!-- MAIN -->
     <div class="container">
