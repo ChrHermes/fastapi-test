@@ -1,4 +1,5 @@
 # app/routes/system.py
+
 import os
 import docker
 from fastapi import APIRouter
@@ -33,3 +34,17 @@ def reset_database():
     except Exception as e:
         write_log("ERROR", f"Fehler beim Zurücksetzen der DB: {str(e)}")
         return JSONResponse(content={"error": str(e)}, status_code=500)
+
+# NEUE ROUTE FÜR DB-GRÖSSE
+@router.get("/db-info")
+def get_db_info():
+    """
+    Gibt die aktuelle Größe der Datenbank (in KB) zurück.
+    Falls die DB nicht existiert, wird '0 KB' geliefert.
+    """
+    if os.path.exists(DB_PATH):
+        size_in_bytes = os.path.getsize(DB_PATH)
+        size_in_kb = size_in_bytes / 1024
+        return {"size": f"{size_in_kb:.2f} KB"}
+    else:
+        return {"size": "0 KB"}
