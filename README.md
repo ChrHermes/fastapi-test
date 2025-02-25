@@ -17,5 +17,5 @@ Im Projektordner:
 
 ```zsh
 source .venv/bin/activate
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
