@@ -6,6 +6,7 @@
     <title>Login</title>
     <link rel="icon" href="/static/favicon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/static/styles.css" rel="stylesheet">
     <script defer src="/static/script.js"></script>
     <script defer src="/static/login.js"></script>
@@ -27,7 +28,10 @@
                 <label for="password">Passwort</label>
                 <input type="password" id="password" required>
             </div>
-            <button type="submit">Login</button>
+            
+            <button id="loginButton" type="submit">
+                <span class="material-icons icon-button">login</span>Anmelden
+            </button>
         </form>
         <p id="error-message" style="color: red; margin-top: 10px;"></p>
     </div>

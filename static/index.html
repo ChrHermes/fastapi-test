@@ -48,16 +48,24 @@
         <div class="group">
             <span class="group-title">Gruppe A</span>
             <div class="button-container">
-                <button id="btnGC" onclick="sendRequest('/log/btnGC')">Button 1</button>
-                <button id="btn2" onclick="sendRequest('/log/button2')">Button 2</button>
+                <button id="btnGC" onclick="sendRequest('/log/btnGC')">
+                    <span class="material-icons icon-button"></span>Datenbank löschen
+                </button>
+                <button id="btn2" onclick="sendRequest('/log/button2')">
+                    <span class="material-icons icon-button">system_update_alt</span>Aktualisierung durchführen
+                </button>
             </div>
         </div>
         
         <div class="group">
             <span class="group-title">Gruppe B</span>
             <div class="button-container">
-                <button id="btn3" onclick="sendRequest('/log/button3')">Button 3</button>
-                <button id="btn4" onclick="sendRequest('/log/button4')">Button 4</button>
+                <button id="btn3" onclick="sendRequest('/log/button3')">
+                    <span class="material-icons icon-button">power_settings_new</span>Sicher herunterfahren
+                </button>
+                <button id="btn4" onclick="sendRequest('/log/button4')">
+                    <span class="material-icons icon-button">restart_alt</span>Hardware Neustart
+                </button>
             </div>
         </div>
         
@@ -74,7 +82,7 @@
         </div>
 
         <button id="logoutButton" onclick="sendRequest('/logout')" class="button-logout">
-            <span class="material-icons icon-button">logout</span>Logout
+            <span class="material-icons icon-button">logout</span>Abmelden
         </button>
     </div>
 </body>
