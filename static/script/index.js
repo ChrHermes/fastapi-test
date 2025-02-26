@@ -87,16 +87,31 @@ document.addEventListener("DOMContentLoaded", function () {
     logLevelSelect.addEventListener("change", fetchLogs);
 
     // Button GC: Modal für den Datenbank-Reset öffnen
-    document.getElementById("btnGC").addEventListener("click", () => {
-        showModal({
-            title: "Datenbank wirklich löschen?",
-            message: "Bitte geben Sie <span class='passphrase'>db-reset</span> ein, um die Datenbank zurückzusetzen.",
-            inputPlaceholder: "Bestätigungscode eingeben",
-            passphrase: "db-reset",
-            onConfirm: () => {
-                sendRequest("/log/btnGC");
+    document.getElementById("btnGC").addEventListener("click", async () => {
+        try {
+            // DB-Informationen vom Backend abrufen
+            const response = await fetch("/db-info");
+            if (!response.ok) {
+                throw new Error("Fehler beim Laden der DB-Informationen.");
             }
-        });
+            const data = await response.json();
+            
+            // Modal öffnen
+            showModal({
+                title: "Datenbank wirklich löschen?",
+                message: "Sie sind dabei, die Datenbank zu löschen. Dies kann nicht rückgängig gemacht werden.<br><br>Größe der Datenbank: <span id=\"dbSize\"></span>",
+                inputPlaceholder: "Bestätigungscode",
+                passphrase: "db-reset",
+                onConfirm: () => {
+                    sendRequest("/log/btnGC");
+                }
+            });
+            
+            // Nach dem Öffnen des Modals die DB-Größe in das span einsetzen
+            document.getElementById("dbSize").textContent = data.size;
+        } catch (error) {
+            console.error("Fehler beim Abrufen der DB-Informationen:", error);
+        }
     });
 
     // Button 2: Direkte Anfrage senden

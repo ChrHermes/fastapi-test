@@ -184,7 +184,7 @@ button:hover {
 /* ============================================================
    CUSTOM SCROLLBAR FÜR DEN LOG-CONTAINER
 ============================================================ */
-.log-container::-webkit-scrollbar {
+/* .log-container::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
@@ -201,7 +201,7 @@ button:hover {
 
 .log-container::-webkit-scrollbar-thumb:hover {
     background-color: var(--gc-orange);
-}
+} */
 
 /* Für Firefox */
 .log-container {
@@ -242,6 +242,18 @@ button:hover {
    MODAL & OVERLAY (Dark Style ähnlich GitLab)
 ============================================================ */
 
+/* Standardmäßig keine Pointer-Events für Modal und Overlay */
+.modal,
+.modal-overlay {
+    pointer-events: none;
+}
+
+/* Wenn aktiv, wieder normale Pointer-Events */
+.modal.active,
+.modal-overlay.active {
+    pointer-events: auto;
+}
+
 /* Halbtransparenter Overlay-Hintergrund */
 .modal-overlay {
     position: fixed;
@@ -281,9 +293,15 @@ button:hover {
     opacity: 1;
 }
 
+.modal-hr {
+    margin-top: 40px;
+    border: 1px solid #3a3a3a; /* dunkles Grau */
+}
+
 /* Zusätzliche Klasse für einen dunklen GitLab-ähnlichen Stil */
 .modal-dark {
-    background: #1f1f1f; /* dunkles Grau/Schwarz */
+    background: #1f1f1f;
+    /* background: var(--gc-dark-grey); */
     color: #fff;         /* weiße Schrift */
     padding: 20px 30px;
 }
@@ -298,7 +316,7 @@ button:hover {
 
 /* Absatz-Text */
 .modal-message {
-    line-height: 1.5;
+    line-height: 1.2;
     margin-bottom: 20px;
     color: #d1d1d1; /* etwas helleres Grau für Text */
 }
@@ -316,6 +334,7 @@ button:hover {
     width: 100%;
     padding: 8px;
     margin-bottom: 20px;
+    margin-top: 20px;
     border-radius: 4px;
     border: 1px solid #555;
     background: #2c2c2c;
@@ -364,12 +383,16 @@ button:hover {
 }
 
 .passphrase {
+    display: inline-block;
+    margin: 0;
     font-family: "Courier New", Courier, monospace;
     font-weight: bold;
     background: rgba(255, 21, 0, 0.3);
     padding: 2px 4px;
     border-radius: 4px;
+    margin-top: 2px;
 }
+
 
 /* ============================================================
    THEME-MODUS

@@ -20,17 +20,14 @@
     <!-- MODAL -->
     <div id="modalOverlay" class="modal-overlay"></div>
     <div id="confirmationModal" class="modal modal-dark">
-        <h2 id="modalTitle">Datenbank wirklich löschen?</h2>
+        <h2 id="modalTitle"></h2>
         <!-- Beschreibung oder Warnhinweis -->
-        <p id="modalMessage" class="modal-message">
-            Sie sind dabei, die Datenbank zu löschen. Dies kann nicht rückgängig gemacht werden.
-            <br><br>
-            Größe der Datenbank: <span id="dbSize"></span>
-        </p>
+        <p id="modalMessage" class="modal-message"></p>
         <!-- Eingabefeld für Bestätigungscode -->
+        <hr class="modal-hr">
         <label for="confirmationInput" class="modal-label">
-            Enter the following to confirm:
-            <p class="passphrase">db-reset</p>
+            Zum Bestätigen bitte Folgendes eingeben:
+            <span class="passphrase">db-reset</span>
         </label>
         <input type="text" id="confirmationInput" class="modal-input">
         <!-- Button-Leiste -->

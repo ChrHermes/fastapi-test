@@ -39,12 +39,12 @@ def reset_database():
 @router.get("/db-info")
 def get_db_info():
     """
-    Gibt die aktuelle Größe der Datenbank (in KB) zurück.
-    Falls die DB nicht existiert, wird '0 KB' geliefert.
+    Gibt die aktuelle Größe der Datenbank (in MB) zurück.
+    Falls die DB nicht existiert, wird '0 MB' geliefert.
     """
     if os.path.exists(DB_PATH):
         size_in_bytes = os.path.getsize(DB_PATH)
-        size_in_kb = size_in_bytes / 1024
-        return {"size": f"{size_in_kb:.2f} KB"}
+        size_in_mb = size_in_bytes / (1024 * 1024)
+        return {"size": f"{size_in_mb:.2f} MB"}
     else:
-        return {"size": "0 KB"}
+        return {"size": "0 MB"}
