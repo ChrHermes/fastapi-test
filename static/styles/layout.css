@@ -1,0 +1,36 @@
+/* layout.css */
+/* ============================================================
+   CONTAINER & LAYOUT
+============================================================ */
+.container {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    width: fit-content;
+    min-width: var(--container-width);
+    text-align: center;
+    position: relative;
+}
+
+/* Modernisierte Gruppenelemente */
+.group {
+    background: var(--gc-mid-grey);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.group-title {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: #fff;
+    padding: 0 10px;
+    font-weight: bold;
+    color: var(--gc-dark-grey);
+}
