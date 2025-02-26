@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btnGC").addEventListener("click", () => {
         showModal({
             title: "Datenbank wirklich löschen?",
-            message: "Bitte geben Sie <span class='code-highlight'>db-reset</span> ein, um die Datenbank zurückzusetzen.",
+            message: "Bitte geben Sie <span class='passphrase'>db-reset</span> ein, um die Datenbank zurückzusetzen.",
             inputPlaceholder: "Bestätigungscode eingeben",
             passphrase: "db-reset",
             onConfirm: () => {
