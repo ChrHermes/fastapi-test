@@ -3,7 +3,7 @@ import os
 import json
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import JSONResponse
-from app.services.log_service import write_log, reset_database_placeholder
+from app.services.log_service import write_log
 from app.utils.auth import get_current_user
 
 router = APIRouter()
@@ -26,12 +26,6 @@ def get_logs():
         logs = json.load(f)
     return JSONResponse(content={"logs": logs})
 
-@router.post("/log/btnGC")
-def log_button_gc(user: str = Depends(get_current_user)):
-    reset_database_placeholder()
-    write_log("INFO", "Datenbank wurde zurückgesetzt")
-    return {"message": "Datenbank wurde zurückgesetzt"}
-
 @router.post("/log/button2")
 def log_button2(user: str = Depends(get_current_user)):
     write_log("INFO", "Button 2 wurde geklickt")
@@ -46,9 +40,3 @@ def log_button3(user: str = Depends(get_current_user)):
 def log_button3(user: str = Depends(get_current_user)):
     write_log("INFO", "Button 4 wurde geklickt")
     return {"message": "Button 4 wurde geklickt"}
-
-@router.post("/log/db-reset")
-def log_db_reset():
-    write_log("INFO", "Datenbankrücksetzung angefordert")
-    write_log("WARN", "Datenbank zurückgesetzt")
-    return {"message": "Reset-Log geschrieben"}

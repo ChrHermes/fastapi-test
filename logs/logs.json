@@ -1,0 +1,302 @@
+[
+  {
+    "timestamp": "23.02.2025 13:34:01",
+    "level": "INFO",
+    "message": "Datenbankrücksetzung angefordert"
+  },
+  {
+    "timestamp": "23.02.2025 13:23:08",
+    "level": "INFO",
+    "message": "Datenbankrücksetzung angefordert"
+  },
+  {
+    "timestamp": "23.33.2025 25:69:08",
+    "level": "USER",
+    "message": "Pipikaka"
+  },
+  {
+    "timestamp": "23.02.2025 13:34:08",
+    "level": "INFO",
+    "message": "Datenbankrücksetzung angefordert"
+  },
+  {
+    "timestamp": "23.02.2025 13:34:30",
+    "level": "INFO",
+    "message": "Datenbankrücksetzung angefordert"
+  },
+  {
+    "timestamp": "23.02.2025 19:15:27",
+    "level": "USER",
+    "message": "Hallo dies ist ein Test. Hier könnte Ihre Werbung stehen. Bla."
+  },
+  {
+    "timestamp": "23.02.2025 19:15:32",
+    "level": "INFO",
+    "message": "Datenbankrücksetzung angefordert"
+  },
+  {
+    "timestamp": "23.02.2025 19:15:38",
+    "level": "INFO",
+    "message": "HUNDEHUND"
+  },
+  {
+    "timestamp": "23.02.2025 19:38:30",
+    "level": "INFO",
+    "message": "HUND"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:14",
+    "level": "INFO",
+    "message": "Button 2 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:14",
+    "level": "INFO",
+    "message": "Button 2 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:19",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:19",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:21",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:21",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:24",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:24",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:24",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:29",
+    "level": "INFO",
+    "message": "Button 2 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:19:31",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:21:04",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:21:09",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:21:14",
+    "level": "INFO",
+    "message": "Button 2 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:21:14",
+    "level": "INFO",
+    "message": "Button 2 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:21:15",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:21:17",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 19:55:12",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:55:15",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:56:21",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:56:24",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:56:54",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:57:00",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:58:05",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:58:12",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:58:16",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 19:58:40",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 20:00:08",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 20:00:13",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 20:00:28",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 20:00:55",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 20:01:21",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 20:01:31",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 20:19:04",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 20:19:06",
+    "level": "INFO",
+    "message": "Button 2 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 20:21:52",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "25.02.2025 20:21:54",
+    "level": "INFO",
+    "message": "Button 2 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 20:21:55",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 20:21:56",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 20:21:58",
+    "level": "INFO",
+    "message": "Button 2 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 20:21:59",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 20:22:39",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 20:22:40",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "25.02.2025 20:22:40",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "26.02.2025 22:57:34",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "26.02.2025 22:57:36",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "26.02.2025 22:57:43",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "26.02.2025 23:38:11",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "26.02.2025 23:53:13",
+    "level": "INFO",
+    "message": "Datenbank wurde zurückgesetzt"
+  },
+  {
+    "timestamp": "26.02.2025 23:55:06",
+    "level": "ERROR",
+    "message": "Fehler beim Zurücksetzen der DB: 'NoneType' object has no attribute 'containers'"
+  },
+  {
+    "timestamp": "26.02.2025 23:57:03",
+    "level": "ERROR",
+    "message": "Fehler beim Zurücksetzen der DB: 'NoneType' object has no attribute 'containers'"
+  }
+]

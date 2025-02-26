@@ -25,6 +25,3 @@ def write_log(level, message):
     with open(LOG_FILE, "w", encoding="utf-8") as f:
         json.dump(logs, f, ensure_ascii=False, indent=2)
     logger.log(getattr(logging, level, logging.INFO), message)
-
-def reset_database_placeholder():
-    logger.info("Datenbank-Reset gestartet (noch nicht implementiert).")

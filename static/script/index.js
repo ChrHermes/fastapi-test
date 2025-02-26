@@ -87,10 +87,10 @@ document.addEventListener("DOMContentLoaded", function () {
     logLevelSelect.addEventListener("change", fetchLogs);
 
     // Button GC: Modal für den Datenbank-Reset öffnen
-    document.getElementById("btnGC").addEventListener("click", async () => {
+    document.getElementById("buttonDatabaseReset").addEventListener("click", async () => {
         try {
             // DB-Informationen vom Backend abrufen
-            const response = await fetch("/db-info");
+            const response = await fetch("/database/info");
             if (!response.ok) {
                 throw new Error("Fehler beim Laden der DB-Informationen.");
             }
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 inputPlaceholder: "Bestätigungscode",
                 passphrase: "db-reset",
                 onConfirm: () => {
-                    sendRequest("/log/btnGC");
+                    sendRequest("/database/reset");
                 }
             });
             
