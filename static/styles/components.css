@@ -1,60 +1,73 @@
-/* components.css */
 /* ============================================================
-   MODERNISIERTE BUTTONS & BUTTON-CONTAINER
+   COMPONENTS.Css
+   Komponenten wie Gruppen, Buttons, Log-Container, Login und Modals.
 ============================================================ */
 
-/* Container für Buttons: gleichmäßige Abstände und flexibles Layout */
-.button-container {
+/* --- Gruppen & Buttons --- */
+
+/* Gruppierung von Elementen mit Rand und Titel */
+.group {
+    border: 2px solid var(--gc-dark-grey);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    position: relative;
+  }
+  
+  /* Titel der Gruppe, positioniert über dem Rand */
+  .group-title {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: white;
+    padding: 0 5px;
+    font-weight: bold;
+    color: var(--gc-dark-grey);
+  }
+  
+  /* Container für Buttons innerhalb einer Gruppe */
+  .button-container {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
-}
-
-/* Allgemeine Button-Stile mit moderner Optik */
-button {
+    margin-top: 10px;
+  }
+  
+  /* Allgemeine Button-Stile */
+  button {
     flex: 1;
-    padding: 12px 16px;
+    padding: 10px;
     margin: 5px;
     border: none;
-    border-radius: 12px;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    background: linear-gradient(145deg, var(--gc-orange), var(--gc-orange-dark));
-    color: #fff;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Hover- und aktive Zustände für Buttons */
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
-
-button:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Spezielle Button-Stile */
-.button-logout {
-    background: var(--gc-dark-grey);
+    transition: background 0.3s;
+    background: var(--gc-orange);
+    color: white;
+  }
+  
+  button:hover {
+    background: var(--gc-orange-dark);
+  }
+  
+  /* Spezielle Button-Stile, z. B. für Logout */
+  .button-logout {
+    background-color: var(--gc-dark-grey);
     margin-top: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Material Icons innerhalb von Buttons */
-.icon-button {
+  }
+  
+  /* Material Icons in Buttons */
+  .icon-button {
     font-size: 20px;
     vertical-align: middle;
     padding-right: 5px;
-}
-
-/* ============================================================
-   LOGGING: LOG-CONTAINER & CONTROLS
-============================================================ */
-.log-container {
-    background: #fff;
+  }
+  
+  /* --- Logging --- */
+  
+  /* Container für Log-Ausgaben */
+  .log-container {
+    background: white;
     border-radius: 5px;
     padding: 10px;
     width: 100%;
@@ -69,18 +82,22 @@ button:active {
     text-align: left;
     font-size: 0.80em;
     position: relative;
-}
-
-/* Steuerungselemente für Log-Level */
-.log-controls {
+    /* Anpassung der Scrollbar für Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--gc-dark-grey) transparent;
+  }
+  
+  /* Steuerungselemente für Log-Level */
+  .log-controls {
     display: flex;
     align-items: center;
     gap: 5px;
     font-size: 12px;
     color: var(--gc-dark-grey);
-}
-
-.log-level {
+  }
+  
+  /* Log-Level Dropdown */
+  .log-level {
     font-size: 12px;
     padding: 2px 5px;
     border: none;
@@ -90,13 +107,196 @@ button:active {
     outline: none;
     cursor: pointer;
     appearance: none;
-}
-
-.log-level::-ms-expand {
+  }
+  
+  /* Entfernt den Standard-Dropdown-Pfeil in WebKit-Browsern */
+  .log-level::-ms-expand {
     display: none;
-}
-
-.log-level:hover,
-.log-level:focus {
+  }
+  
+  .log-level:hover,
+  .log-level:focus {
     border-bottom: 1px solid var(--gc-orange);
-}
+  }
+  
+  /* --- Login-Formulare --- */
+  
+  /* Container für Eingabefelder */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input {
+    padding: 10px;
+    border: 2px solid var(--gc-dark-grey);
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    text-align: center;
+  }
+  
+  .input-group input:focus {
+    border-color: var(--gc-orange);
+  }
+  
+  /* --- Modale Fenster & Overlay --- */
+  
+  /* Standardmäßig deaktivierte Pointer-Events */
+  .modal,
+  .modal-overlay {
+    pointer-events: none;
+  }
+  
+  /* Aktivierung der Pointer-Events, wenn das Modal sichtbar ist */
+  .modal.active,
+  .modal-overlay.active {
+    pointer-events: auto;
+  }
+  
+  /* Halbtransparentes Overlay für den Modal-Hintergrund */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+  }
+  
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Basis-Stile für das Modal-Fenster */
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    z-index: 1000;
+    min-width: 400px;
+    text-align: left;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  
+  .modal.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  
+  /* Trenner innerhalb des Modals */
+  .modal-hr {
+    margin-top: 40px;
+    border: 1px solid #3a3a3a;
+  }
+  
+  /* Dunkle Variante des Modals (ähnlich GitLab) */
+  .modal-dark {
+    background: #1f1f1f;
+    color: #fff;
+    padding: 20px 30px;
+  }
+  
+  /* Überschrift im dunklen Modal */
+  .modal-dark h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #fff;
+  }
+  
+  /* Nachrichtentext im Modal */
+  .modal-message {
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: #d1d1d1;
+  }
+  
+  /* Beschriftung für Eingabefelder im Modal */
+  .modal-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  /* Eingabefeld im Modal */
+  .modal-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background: #2c2c2c;
+    color: #fff;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  /* Button-Reihe im Modal */
+  .modal-button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  /* Basis-Stile für modale Buttons */
+  .modal-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  /* Safe-Button (z. B. Abbrechen) */
+  .safe-btn {
+    background-color: #3a3a3a;
+    color: #fff;
+  }
+  
+  .safe-btn:hover {
+    background-color: #555;
+  }
+  
+  /* Danger-Button (z. B. Löschen) */
+  .danger-btn {
+    background-color: #db4b4b;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .danger-btn:hover {
+    background-color: #c73232;
+  }
+  
+  /* Hervorgehobene Passphrase */
+  .passphrase {
+    display: inline-block;
+    margin: 0;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    background: rgba(255, 21, 0, 0.3);
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-top: 2px;
+  }
+  

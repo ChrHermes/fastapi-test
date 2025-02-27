@@ -1,23 +1,25 @@
-/* base.css */
 /* ============================================================
-   BASIS-STILE & CSS-VARIABLEN
+   BASE.Css
+   Grundlegende CSS-Variablen und Basisstile für die gesamte Seite.
 ============================================================ */
+
+/* CSS-Variablen für Farben und Layout */
 :root {
     /* Farbvariablen */
     --gc-orange: rgba(231, 91, 45, 1);
     --gc-orange-dark: rgba(200, 70, 30, 1);
     --gc-red: rgba(176, 36, 24, 1);
-    --gc-light-grey: rgba(245, 245, 245, 1);
-    --gc-mid-grey: rgba(210, 210, 210, 1);
+    --gc-light-grey: rgba(237, 237, 237, 1);
     --gc-dark-grey: rgba(74, 74, 74, 1);
     --gc-black: rgba(40, 40, 40, 1);
-
+  
     /* Layoutvariablen */
     --watermark-size: 40vw;
     --container-width: 400px;
-}
-
-body {
+  }
+  
+  /* Basisstile für den Body und globale Schriftarten */
+  body {
     font-family: 'Ubuntu', sans-serif;
     background-color: var(--gc-light-grey);
     color: var(--gc-dark-grey);
@@ -27,10 +29,10 @@ body {
     height: 100vh;
     margin: 0;
     position: relative;
-}
-
-/* Hintergrund-Wasserzeichen */
-body::before {
+  }
+  
+  /* Dekoratives Wasserzeichen im Hintergrund */
+  body::before {
     content: "";
     position: absolute;
     width: var(--container-width);
@@ -47,4 +49,5 @@ body::before {
     filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
     pointer-events: none;
     z-index: 0;
-}
+  }
+  
