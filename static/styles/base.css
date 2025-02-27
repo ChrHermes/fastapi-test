@@ -3,7 +3,7 @@
    Grundlegende CSS-Variablen und Basisstile für die gesamte Seite.
 ============================================================ */
 
-/* CSS-Variablen für Farben und Layout */
+/* CSS-Variablen für Farben, Layout und allgemeine Design Tokens */
 :root {
     /* Farbvariablen */
     --gc-orange: rgba(231, 91, 45, 1);
@@ -27,21 +27,20 @@
     --gc-danger: #db4b4b;              /* Standardfarbe für Danger-Buttons */
     --gc-danger-hover: #c73232;        /* Hover-Farbe für Danger-Buttons */
   
-    /* Weitere mögliche Variablen (Vorschläge):
-       --font-base: 'Ubuntu', sans-serif;
-       --spacing-small: 5px;
-       --spacing-medium: 10px;
-       --spacing-large: 20px;
-       --border-radius: 5px;
-       --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    */
+    /* Weitere Design Tokens */
+    --font-base: 'Ubuntu', sans-serif;
+    --spacing-small: 5px;
+    --spacing-medium: 10px;
+    --spacing-large: 20px;
+    --border-radius: 5px;
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
   
   /* ============================================================
      GLOBALE STILE FÜR BODY & SCHRIFT
   ============================================================ */
   body {
-    font-family: 'Ubuntu', sans-serif;
+    font-family: var(--font-base);
     background-color: var(--gc-light-grey);
     color: var(--gc-dark-grey);
     display: flex;

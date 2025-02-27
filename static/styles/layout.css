@@ -10,10 +10,10 @@
     resize: both;
     height: fit-content;
     align-items: stretch;
-    background: var(--gc-white); /* Verwendung der Variable anstatt direkt "white" */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: var(--gc-white); /* Verwendung der Variable statt "white" */
+    padding: var(--spacing-large);
+    border-radius: calc(var(--border-radius) * 2);
+    box-shadow: var(--box-shadow);
     width: fit-content;
     min-width: var(--container-width);
     text-align: center;

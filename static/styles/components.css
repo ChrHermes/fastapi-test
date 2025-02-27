@@ -8,9 +8,9 @@
 /* Gruppierung der Elemente */
 .group {
     border: 2px solid var(--gc-dark-grey);
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-medium);
+    margin-bottom: var(--spacing-large);
     position: relative;
   }
   
@@ -28,16 +28,16 @@
   .button-container {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: var(--spacing-medium);
   }
   
   /* Allgemeine Button-Stile */
   button {
     flex: 1;
-    padding: 10px;
-    margin: 5px;
+    padding: var(--spacing-medium);
+    margin: var(--spacing-small);
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s;
@@ -52,14 +52,14 @@
   /* Spezielle Button-Stile */
   .button-logout {
     background-color: var(--gc-dark-grey);
-    margin-top: 25px;
+    margin-top: var(--spacing-large);
   }
   
   /* Material Icons innerhalb von Buttons */
   .icon-button {
     font-size: 20px;
     vertical-align: middle;
-    padding-right: 5px;
+    padding-right: var(--spacing-small);
   }
   
   /* --- Logging --- */
@@ -67,8 +67,8 @@
   /* Log-Container */
   .log-container {
     background: var(--gc-white);
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-medium);
     width: 100%;
     height: 300px;
     min-height: 200px;
@@ -77,7 +77,7 @@
     resize: both;
     overflow: auto;
     border: 1px solid var(--gc-dark-grey);
-    margin-bottom: 5px;
+    margin-bottom: var(--spacing-small);
     text-align: left;
     font-size: 0.80em;
     position: relative;
@@ -111,7 +111,7 @@
   .log-controls {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: var(--spacing-small);
     font-size: 12px;
     color: var(--gc-dark-grey);
   }
@@ -145,18 +145,18 @@
   .input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-large);
   }
   
   .input-group label {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: var(--spacing-small);
   }
   
   .input-group input {
-    padding: 10px;
+    padding: var(--spacing-medium);
     border: 2px solid var(--gc-dark-grey);
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s;
@@ -211,8 +211,8 @@
     text-align: left;
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: calc(var(--border-radius) * 1.6);
+    box-shadow: var(--box-shadow);
   }
   
   .modal.active {
@@ -222,7 +222,7 @@
   
   /* Trenner im Modal */
   .modal-hr {
-    margin-top: 40px;
+    margin-top: var(--spacing-large);
     border: 1px solid var(--gc-divider);
   }
   
@@ -230,13 +230,13 @@
   .modal-dark {
     background: var(--gc-modal-dark-bg);
     color: var(--gc-white);
-    padding: 20px 30px;
+    padding: var(--spacing-large);
   }
   
   /* Überschrift im dunklen Modal */
   .modal-dark h2 {
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-medium);
     font-size: 20px;
     color: var(--gc-white);
   }
@@ -244,14 +244,14 @@
   /* Nachrichtentext im Modal */
   .modal-message {
     line-height: 1.2;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-large);
     color: var(--gc-modal-message);
   }
   
   /* Label für Eingabefeld im Modal */
   .modal-label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: var(--spacing-small);
     font-weight: bold;
     color: var(--gc-white);
   }
@@ -259,10 +259,10 @@
   /* Eingabefeld im Modal */
   .modal-input {
     width: 100%;
-    padding: 8px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border-radius: 4px;
+    padding: var(--spacing-medium);
+    margin-top: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+    border-radius: var(--border-radius);
     border: 1px solid var(--gc-modal-input-border);
     background: var(--gc-modal-input-bg);
     color: var(--gc-white);
@@ -274,15 +274,15 @@
   .modal-button-row {
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
+    gap: var(--spacing-small);
   }
   
   /* Modale Buttons */
   .modal-btn {
-    padding: 8px 15px;
+    padding: var(--spacing-small) var(--spacing-medium);
     font-size: 14px;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     transition: background 0.3s;
   }
@@ -316,7 +316,7 @@
     font-weight: bold;
     background: rgba(255, 21, 0, 0.3);
     padding: 2px 4px;
-    border-radius: 4px;
-    margin-top: 2px;
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-small);
   }
   
