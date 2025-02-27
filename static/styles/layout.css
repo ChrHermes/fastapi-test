@@ -1,16 +1,16 @@
 /* ============================================================
-   LAYOUT.Css
+   LAYOUT.CSS
    Styles für Container und allgemeines Seitenlayout.
 ============================================================ */
 
-/* Container-Definition: Umfasst zentrale Layout- und Box-Styles */
+/* Container & Layout */
 .container {
     display: flex;
     flex-direction: column;
     resize: both;
     height: fit-content;
     align-items: stretch;
-    background: white;
+    background: var(--gc-white); /* Verwendung der Variable anstatt direkt "white" */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

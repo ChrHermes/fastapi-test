@@ -1,5 +1,5 @@
 /* ============================================================
-   BASE.Css
+   BASE.CSS
    Grundlegende CSS-Variablen und Basisstile für die gesamte Seite.
 ============================================================ */
 
@@ -16,9 +16,30 @@
     /* Layoutvariablen */
     --watermark-size: 40vw;
     --container-width: 400px;
+  
+    /* Neue Farbvariablen für bisher nicht variable Farben */
+    --gc-white: #ffffff;              /* Für alle Stellen, an denen "white" genutzt wurde */
+    --gc-divider: #3a3a3a;            /* Für Trenner, z. B. in .modal-hr und Button-Hover */
+    --gc-modal-message: #d1d1d1;       /* Für den Text in .modal-message */
+    --gc-modal-input-border: #555;     /* Für den Rahmen in .modal-input und Hover bei Safe-Buttons */
+    --gc-modal-dark-bg: #1f1f1f;        /* Hintergrundfarbe für .modal-dark */
+    --gc-modal-input-bg: #2c2c2c;       /* Hintergrundfarbe für .modal-input */
+    --gc-danger: #db4b4b;              /* Standardfarbe für Danger-Buttons */
+    --gc-danger-hover: #c73232;        /* Hover-Farbe für Danger-Buttons */
+  
+    /* Weitere mögliche Variablen (Vorschläge):
+       --font-base: 'Ubuntu', sans-serif;
+       --spacing-small: 5px;
+       --spacing-medium: 10px;
+       --spacing-large: 20px;
+       --border-radius: 5px;
+       --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    */
   }
   
-  /* Basisstile für den Body und globale Schriftarten */
+  /* ============================================================
+     GLOBALE STILE FÜR BODY & SCHRIFT
+  ============================================================ */
   body {
     font-family: 'Ubuntu', sans-serif;
     background-color: var(--gc-light-grey);
@@ -31,7 +52,7 @@
     position: relative;
   }
   
-  /* Dekoratives Wasserzeichen im Hintergrund */
+  /* Hintergrund-Wasserzeichen */
   body::before {
     content: "";
     position: absolute;

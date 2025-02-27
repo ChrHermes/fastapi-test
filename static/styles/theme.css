@@ -1,9 +1,9 @@
 /* ============================================================
-   THEME.Css
+   THEME.CSS
    Styles für den Dark Mode und den Theme-Toggle-Button.
 ============================================================ */
 
-/* Dark Mode Basisanpassungen */
+/* Dark Mode Einstellungen */
 body.dark-mode {
     background-color: var(--gc-dark-grey);
     color: var(--gc-light-grey);

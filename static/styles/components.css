@@ -1,11 +1,11 @@
 /* ============================================================
-   COMPONENTS.Css
-   Komponenten wie Gruppen, Buttons, Log-Container, Login und Modals.
+   COMPONENTS.CSS
+   Komponenten wie Gruppen, Buttons, Log-Container, Login-Formulare und Modale Fenster.
 ============================================================ */
 
 /* --- Gruppen & Buttons --- */
 
-/* Gruppierung von Elementen mit Rand und Titel */
+/* Gruppierung der Elemente */
 .group {
     border: 2px solid var(--gc-dark-grey);
     border-radius: 5px;
@@ -14,18 +14,17 @@
     position: relative;
   }
   
-  /* Titel der Gruppe, positioniert über dem Rand */
   .group-title {
     position: absolute;
     top: -10px;
     left: 10px;
-    background: white;
+    background: var(--gc-white); /* ersetzt "white" durch Variable */
     padding: 0 5px;
     font-weight: bold;
     color: var(--gc-dark-grey);
   }
   
-  /* Container für Buttons innerhalb einer Gruppe */
+  /* Container für Buttons */
   .button-container {
     display: flex;
     justify-content: space-between;
@@ -43,20 +42,20 @@
     cursor: pointer;
     transition: background 0.3s;
     background: var(--gc-orange);
-    color: white;
+    color: var(--gc-white);
   }
   
   button:hover {
     background: var(--gc-orange-dark);
   }
   
-  /* Spezielle Button-Stile, z. B. für Logout */
+  /* Spezielle Button-Stile */
   .button-logout {
     background-color: var(--gc-dark-grey);
     margin-top: 25px;
   }
   
-  /* Material Icons in Buttons */
+  /* Material Icons innerhalb von Buttons */
   .icon-button {
     font-size: 20px;
     vertical-align: middle;
@@ -65,9 +64,9 @@
   
   /* --- Logging --- */
   
-  /* Container für Log-Ausgaben */
+  /* Log-Container */
   .log-container {
-    background: white;
+    background: var(--gc-white);
     border-radius: 5px;
     padding: 10px;
     width: 100%;
@@ -82,9 +81,30 @@
     text-align: left;
     font-size: 0.80em;
     position: relative;
-    /* Anpassung der Scrollbar für Firefox */
+    /* Für Firefox */
     scrollbar-width: thin;
     scrollbar-color: var(--gc-dark-grey) transparent;
+  
+    /* Webkit Scrollbar (optional, auskommentiert):
+    .log-container::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+  
+    .log-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+  
+    .log-container::-webkit-scrollbar-thumb {
+        background-color: var(--gc-dark-grey);
+        border-radius: 4px;
+        border: 2px solid transparent;
+    }
+  
+    .log-container::-webkit-scrollbar-thumb:hover {
+        background-color: var(--gc-orange);
+    }
+    */
   }
   
   /* Steuerungselemente für Log-Level */
@@ -119,7 +139,7 @@
     border-bottom: 1px solid var(--gc-orange);
   }
   
-  /* --- Login-Formulare --- */
+  /* --- Login --- */
   
   /* Container für Eingabefelder */
   .input-group {
@@ -149,19 +169,19 @@
   
   /* --- Modale Fenster & Overlay --- */
   
-  /* Standardmäßig deaktivierte Pointer-Events */
+  /* Standardmäßig keine Pointer-Events für Modal und Overlay */
   .modal,
   .modal-overlay {
     pointer-events: none;
   }
   
-  /* Aktivierung der Pointer-Events, wenn das Modal sichtbar ist */
+  /* Wenn aktiv, wieder normale Pointer-Events */
   .modal.active,
   .modal-overlay.active {
     pointer-events: auto;
   }
   
-  /* Halbtransparentes Overlay für den Modal-Hintergrund */
+  /* Halbtransparenter Overlay-Hintergrund */
   .modal-overlay {
     position: fixed;
     top: 0;
@@ -180,7 +200,7 @@
     visibility: visible;
   }
   
-  /* Basis-Stile für das Modal-Fenster */
+  /* Basis-Modalklasse */
   .modal {
     position: fixed;
     top: 50%;
@@ -200,16 +220,16 @@
     opacity: 1;
   }
   
-  /* Trenner innerhalb des Modals */
+  /* Trenner im Modal */
   .modal-hr {
     margin-top: 40px;
-    border: 1px solid #3a3a3a;
+    border: 1px solid var(--gc-divider);
   }
   
   /* Dunkle Variante des Modals (ähnlich GitLab) */
   .modal-dark {
-    background: #1f1f1f;
-    color: #fff;
+    background: var(--gc-modal-dark-bg);
+    color: var(--gc-white);
     padding: 20px 30px;
   }
   
@@ -218,22 +238,22 @@
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 20px;
-    color: #fff;
+    color: var(--gc-white);
   }
   
   /* Nachrichtentext im Modal */
   .modal-message {
     line-height: 1.2;
     margin-bottom: 20px;
-    color: #d1d1d1;
+    color: var(--gc-modal-message);
   }
   
-  /* Beschriftung für Eingabefelder im Modal */
+  /* Label für Eingabefeld im Modal */
   .modal-label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #fff;
+    color: var(--gc-white);
   }
   
   /* Eingabefeld im Modal */
@@ -243,9 +263,9 @@
     margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 4px;
-    border: 1px solid #555;
-    background: #2c2c2c;
-    color: #fff;
+    border: 1px solid var(--gc-modal-input-border);
+    background: var(--gc-modal-input-bg);
+    color: var(--gc-white);
     font-size: 14px;
     box-sizing: border-box;
   }
@@ -257,7 +277,7 @@
     gap: 10px;
   }
   
-  /* Basis-Stile für modale Buttons */
+  /* Modale Buttons */
   .modal-btn {
     padding: 8px 15px;
     font-size: 14px;
@@ -267,25 +287,25 @@
     transition: background 0.3s;
   }
   
-  /* Safe-Button (z. B. Abbrechen) */
+  /* Safe-Button (Abbrechen) */
   .safe-btn {
-    background-color: #3a3a3a;
-    color: #fff;
+    background-color: var(--gc-divider);
+    color: var(--gc-white);
   }
   
   .safe-btn:hover {
-    background-color: #555;
+    background-color: var(--gc-modal-input-border);
   }
   
-  /* Danger-Button (z. B. Löschen) */
+  /* Danger-Button (Löschen) */
   .danger-btn {
-    background-color: #db4b4b;
-    color: #fff;
+    background-color: var(--gc-danger);
+    color: var(--gc-white);
     font-weight: bold;
   }
   
   .danger-btn:hover {
-    background-color: #c73232;
+    background-color: var(--gc-danger-hover);
   }
   
   /* Hervorgehobene Passphrase */
