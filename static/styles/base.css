@@ -6,26 +6,26 @@
 /* CSS-Variablen für Farben, Layout und allgemeine Design Tokens */
 :root {
     /* Farbvariablen */
-    --gc-orange: rgba(231, 91, 45, 1);
-    --gc-orange-dark: rgba(200, 70, 30, 1);
-    --gc-red: rgba(176, 36, 24, 1);
-    --gc-light-grey: rgba(237, 237, 237, 1);
-    --gc-dark-grey: rgba(74, 74, 74, 1);
-    --gc-black: rgba(40, 40, 40, 1);
+    --color-orange: rgba(231, 91, 45, 1);
+    --color-orange-dark: rgba(200, 70, 30, 1);
+    --color-red: rgba(176, 36, 24, 1);
+    --color-light-grey: rgba(237, 237, 237, 1);
+    --color-dark-grey: rgba(74, 74, 74, 1);
+    --color-black: rgba(40, 40, 40, 1);
   
     /* Layoutvariablen */
     --watermark-size: 40vw;
     --container-width: 400px;
   
     /* Neue Farbvariablen für bisher nicht variable Farben */
-    --gc-white: #ffffff;              /* Für alle Stellen, an denen "white" genutzt wurde */
-    --gc-divider: #3a3a3a;            /* Für Trenner, z. B. in .modal-hr und Button-Hover */
-    --gc-modal-message: #d1d1d1;       /* Für den Text in .modal-message */
-    --gc-modal-input-border: #555;     /* Für den Rahmen in .modal-input und Hover bei Safe-Buttons */
-    --gc-modal-dark-bg: #1f1f1f;        /* Hintergrundfarbe für .modal-dark */
-    --gc-modal-input-bg: #2c2c2c;       /* Hintergrundfarbe für .modal-input */
-    --gc-danger: #db4b4b;              /* Standardfarbe für Danger-Buttons */
-    --gc-danger-hover: #c73232;        /* Hover-Farbe für Danger-Buttons */
+    --color-white: #ffffff;              /* Für alle Stellen, an denen "white" genutzt wurde */
+    --color-divider: #3a3a3a;            /* Für Trenner, z. B. in .modal-hr und Button-Hover */
+    --color-modal-message: #d1d1d1;       /* Für den Text in .modal-message */
+    --color-modal-input-border: #555;     /* Für den Rahmen in .modal-input und Hover bei Safe-Buttons */
+    --color-modal-dark-bg: #1f1f1f;        /* Hintergrundfarbe für .modal-dark */
+    --color-modal-input-bg: #2c2c2c;       /* Hintergrundfarbe für .modal-input */
+    --color-danger: #db4b4b;              /* Standardfarbe für Danger-Buttons */
+    --color-danger-hover: #c73232;        /* Hover-Farbe für Danger-Buttons */
   
     /* Weitere Design Tokens */
     --font-base: 'Ubuntu', sans-serif;
@@ -41,8 +41,8 @@
   ============================================================ */
   body {
     font-family: var(--font-base);
-    background-color: var(--gc-light-grey);
-    color: var(--gc-dark-grey);
+    background-color: var(--color-light-grey);
+    color: var(--color-dark-grey);
     display: flex;
     justify-content: center;
     align-items: center;

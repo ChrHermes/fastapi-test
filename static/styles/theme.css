@@ -5,8 +5,8 @@
 
 /* Dark Mode Einstellungen */
 body.dark-mode {
-    background-color: var(--gc-dark-grey);
-    color: var(--gc-light-grey);
+    background-color: var(--color-dark-grey);
+    color: var(--color-light-grey);
   }
   
   /* Anpassung des Wasserzeichens im Dark Mode */
@@ -16,24 +16,24 @@ body.dark-mode {
   
   /* Container-Anpassung im Dark Mode */
   body.dark-mode .container {
-    background: var(--gc-black);
+    background: var(--color-black);
   }
   
   /* Gruppen-Styles im Dark Mode */
   body.dark-mode .group {
-    border-color: var(--gc-light-grey);
+    border-color: var(--color-light-grey);
   }
   
   body.dark-mode .group-title {
-    background: var(--gc-black);
-    color: var(--gc-light-grey);
+    background: var(--color-black);
+    color: var(--color-light-grey);
   }
   
   /* Log-Container im Dark Mode */
   body.dark-mode .log-container {
-    background: var(--gc-black);
-    color: var(--gc-light-grey);
-    border-color: var(--gc-light-grey);
+    background: var(--color-black);
+    color: var(--color-light-grey);
+    border-color: var(--color-light-grey);
   }
   
   /* Theme-Toggle Button zum Umschalten zwischen Light und Dark Mode */
@@ -51,6 +51,6 @@ body.dark-mode {
   }
   
   .theme-toggle:hover {
-    background: var(--gc-red);
+    background: var(--color-red);
   }
   

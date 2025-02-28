@@ -10,7 +10,7 @@
     resize: both;
     height: fit-content;
     align-items: stretch;
-    background: var(--gc-white); /* Verwendung der Variable statt "white" */
+    background: var(--color-white); /* Verwendung der Variable statt "white" */
     padding: var(--spacing-large);
     border-radius: calc(var(--border-radius) * 2);
     box-shadow: var(--box-shadow);
