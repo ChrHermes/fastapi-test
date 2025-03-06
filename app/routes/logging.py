@@ -37,13 +37,13 @@ def log_button2(user: str = Depends(get_current_user)):
 
 @router.post("/log/button3")
 def log_button3(user: str = Depends(get_current_user)):
-    write_log("INFO", "Button 3 wurde geklickt")
-    return {"message": "Button 3 wurde geklickt"}
+    write_log("INFO", "System wird heruntergefahren")
+    return {"message": "System wird heruntergefahren"}
 
 @router.post("/log/button4")
 def log_button3(user: str = Depends(get_current_user)):
-    write_log("INFO", "Button 4 wurde geklickt")
-    return {"message": "Button 4 wurde geklickt"}
+    write_log("INFO", "System wird neugestartet")
+    return {"message": "System wird neugestartet"}
 
 @router.post("/log/custom")
 def log_custom(entry: CustomLogEntry, user: str = Depends(get_current_user)):
