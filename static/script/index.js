@@ -2,6 +2,7 @@
 
 // Importiere die Modal-Funktion aus modal.js
 import { showModal } from './modal.js';
+import { checkAndShowUpdateModal } from './updateModal.js';
 
 /* =====================================
    GLOBALE FUNKTIONEN FÜR LOGGING & UI
@@ -114,10 +115,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Button 2: Direkte Anfrage senden
-    document.getElementById("btn2").addEventListener("click", function () {
-        sendRequest("/log/button2");
+    document.getElementById("btnUpdateSoftware").addEventListener("click", () => {
+        checkAndShowUpdateModal();
     });
+
+    // // Button 2: Direkte Anfrage senden
+    // document.getElementById("btn2").addEventListener("click", function () {
+    //     sendRequest("/log/button2");
+    // });
 
     // Button 3: Direkte Anfrage senden
     document.getElementById("btn3").addEventListener("click", function () {
