@@ -1,12 +1,16 @@
 # app/routes/logging.py
 import os
 import json
+from pydantic import BaseModel
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import JSONResponse
 from app.services.log_service import write_log
 from app.utils.auth import get_current_user
 
 router = APIRouter()
+
+class CustomLogEntry(BaseModel):
+    message: str
 
 LOG_FILE = os.path.join("logs", "logs.json")
 
@@ -40,3 +44,13 @@ def log_button3(user: str = Depends(get_current_user)):
 def log_button3(user: str = Depends(get_current_user)):
     write_log("INFO", "Button 4 wurde geklickt")
     return {"message": "Button 4 wurde geklickt"}
+
+@router.post("/log/custom")
+def log_custom(entry: CustomLogEntry, user: str = Depends(get_current_user)):
+    """
+    Nimmt einen benutzerdefinierten Logeintrag entgegen und schreibt ihn mit dem Log-Level "USER" ins Log.
+    """
+    if not entry.message.strip():
+        return JSONResponse(content={"error": "Nachricht darf nicht leer sein."}, status_code=400)
+    write_log("USER", entry.message)
+    return {"message": f"Benutzereintrag wurde gespeichert: {entry.message}"}

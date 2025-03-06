@@ -28,13 +28,17 @@
         <h2 id="modalTitle"></h2>
         <!-- Beschreibung oder Warnhinweis -->
         <p id="modalMessage" class="modal-message"></p>
-        <!-- Eingabefeld für Bestätigungscode -->
-        <hr class="modal-hr">
-        <label for="confirmationInput" class="modal-label">
-            Zum Bestätigen bitte Folgendes eingeben:
-            <span class="passphrase">db-reset</span>
-        </label>
-        <input type="text" id="confirmationInput" class="modal-input">
+        
+        <!-- Container für Passphrase, wird nur angezeigt, wenn passphrase gesetzt ist -->
+        <div id="passphraseContainer" class="passphrase-container">
+            <hr class="modal-hr">
+            <label for="confirmationInput" class="modal-label">
+                Zum Bestätigen bitte Folgendes eingeben:
+                <span id="passphraseText" class="passphrase"></span>
+            </label>
+            <input type="text" id="confirmationInput" class="modal-input">
+        </div>
+        
         <!-- Button-Leiste -->
         <div class="modal-button-row">
             <button id="cancelAction" class="modal-btn safe-btn">Abbruch, Datenbank behalten</button>
@@ -57,7 +61,7 @@
                 </button>
             </div>
         </div>
-        
+      
         <div class="group">
             <span class="group-title">Gruppe B</span>
             <div class="button-container">
@@ -66,6 +70,15 @@
                 </button>
                 <button id="btn4">
                     <span class="material-icons icon-button">restart_alt</span>Hardware Neustart
+                </button>
+            </div>
+        </div>
+
+        <div class="group">
+            <span class="group-title">Gruppe C</span>
+            <div class="button-container">
+                <button id="btnAddNote">
+                    <span class="material-icons icon-button">edit_note</span>Benutzereintrag hinzufügen
                 </button>
             </div>
         </div>

@@ -119,6 +119,36 @@ document.addEventListener("DOMContentLoaded", function () {
         checkAndShowUpdateModal();
     });
 
+    document.getElementById("btnAddNote").addEventListener("click", function () {
+        showModal({
+            title: "Benutzereintrag hinzufügen",
+            message: "Bitte geben Sie Ihren Logeintrag ein:",
+            inputPlaceholder: "Dein Logeintrag hier...",
+            safeButtonText: "Abbrechen",
+            dangerButtonText: "Speichern",
+            onConfirm: () => {
+                const note = document.getElementById("confirmationInput").value;
+                fetch("/log/custom", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ message: note })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Logeintrag gespeichert:", data);
+                    // Logs neu laden, falls der API-Aufruf erfolgreich war
+                    loadLogs();
+                })
+                .catch(error => console.error("Fehler:", error));
+            },
+            onCancel: () => {
+                console.log("Benutzereintrag abgebrochen");
+            }
+        });
+    });
+
     // // Button 2: Direkte Anfrage senden
     // document.getElementById("btn2").addEventListener("click", function () {
     //     sendRequest("/log/button2");

@@ -298,5 +298,110 @@
     "timestamp": "26.02.2025 23:57:03",
     "level": "ERROR",
     "message": "Fehler beim Zurücksetzen der DB: 'NoneType' object has no attribute 'containers'"
+  },
+  {
+    "timestamp": "06.03.2025 17:36:40",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:36:45",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:38:57",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:39:05",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:39:50",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:39:53",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:40:16",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:40:20",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:41:10",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:52:01",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:52:20",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "06.03.2025 17:52:21",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "06.03.2025 17:57:13",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 17:57:40",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 18:35:53",
+    "level": "USER",
+    "message": "test"
+  },
+  {
+    "timestamp": "06.03.2025 18:36:25",
+    "level": "USER",
+    "message": "Box verbaut beim Kunden"
+  },
+  {
+    "timestamp": "06.03.2025 18:37:50",
+    "level": "INFO",
+    "message": "Button 3 wurde geklickt"
+  },
+  {
+    "timestamp": "06.03.2025 18:37:51",
+    "level": "INFO",
+    "message": "Button 4 wurde geklickt"
+  },
+  {
+    "timestamp": "06.03.2025 18:37:52",
+    "level": "INFO",
+    "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "06.03.2025 18:40:03",
+    "level": "USER",
+    "message": "test"
+  },
+  {
+    "timestamp": "06.03.2025 18:40:24",
+    "level": "USER",
+    "message": "Fehlerhaft heruntergefahren, DB manuell rückgesetzt"
   }
 ]
