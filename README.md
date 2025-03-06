@@ -7,7 +7,7 @@
    1. Falls keine Konfiguration existiert, klicke auf + (Add new configuration) und wähle Python. 
 1. Ändere die Einstellungen
    1. Module: `uvicorn`
-   2. Parameters: `main:app --reload`
+   2. Parameters: `app.main:app --reload`
    3. Python interpreter: Wähle den Interpreter deiner virtuellen Umgebung (venv).
 1. Speichern und ausführen
 
