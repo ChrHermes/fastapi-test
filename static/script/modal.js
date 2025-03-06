@@ -108,7 +108,7 @@ export async function showUpdateModal() {
             title: "Software-Aktualisierungen prüfen",
             message: message,
             inputPlaceholder: "Passphrase eingeben",
-            passphrase: "update-confirm",
+            passphrase: "gc-update",
             onConfirm: async () => {
                 const updateResponse = await fetch('/registry/update', { method: 'POST' });
                 if (!updateResponse.ok) {
