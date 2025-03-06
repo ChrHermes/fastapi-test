@@ -121,8 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Weitere Buttons, die direkte POST-Anfragen senden:
-    document.getElementById("btn3").addEventListener("click", () => sendPostRequest("/log/button3"));
-    document.getElementById("btn4").addEventListener("click", () => sendPostRequest("/log/button4"));
+    document.getElementById("btnReboot").addEventListener("click", () => sendPostRequest("/log/reboot"));
+    document.getElementById("btnShutdown").addEventListener("click", () => sendPostRequest("/log/shutdown"));
 
     // Logout-Button: Logout durchführen und zur Login-Seite navigieren
     document.getElementById("logoutButton").addEventListener("click", async () => {

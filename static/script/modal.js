@@ -109,6 +109,8 @@ export async function showUpdateModal() {
             message: message,
             inputPlaceholder: "Passphrase eingeben",
             passphrase: "gc-update",
+            safeButtonText: "Abbrechen",
+            dangerButtonText: "Aktualisierung durchführen",    
             onConfirm: async () => {
                 const updateResponse = await fetch('/registry/update', { method: 'POST' });
                 if (!updateResponse.ok) {
@@ -134,7 +136,7 @@ export function showUserCommentModal({ onConfirm, onCancel } = {}) {
         message: "Bitte geben Sie Ihren Logeintrag ein:",
         inputPlaceholder: "Dein Logeintrag hier...",
         safeButtonText: "Abbrechen",
-        dangerButtonText: "Speichern",
+        dangerButtonText: "Eintrag hinzufügen",
         onConfirm: () => {
             const note = document.getElementById("confirmationInput").value;
             if (typeof onConfirm === "function") {
@@ -163,6 +165,8 @@ export async function showDatabaseResetModal(onResetSuccess) {
             message: `Sie sind dabei, die Datenbank zu löschen. Dies kann nicht rückgängig gemacht werden.<br><br>Größe der Datenbank: <span id="dbSize">${data.size}</span>`,
             inputPlaceholder: "Bestätigungscode",
             passphrase: "db-reset",
+            safeButtonText: "Abbrechen",
+            dangerButtonText: "Datenbank löschen",    
             onConfirm: async () => {
                 const resetResponse = await fetch("/database/reset", { method: "POST" });
                 if (!resetResponse.ok) {

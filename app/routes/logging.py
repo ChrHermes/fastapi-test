@@ -22,28 +22,15 @@ async def log_message(request: Request):
     write_log(level, message)
     return {"status": "ok"}
 
-@router.get("/logs")
-def get_logs():
-    if not os.path.exists(LOG_FILE):
-        return JSONResponse(content={"logs": []})
-    with open(LOG_FILE, "r", encoding="utf-8") as f:
-        logs = json.load(f)
-    return JSONResponse(content={"logs": logs})
-
-@router.post("/log/button2")
-def log_button2(user: str = Depends(get_current_user)):
-    write_log("INFO", "Button 2 wurde geklickt")
-    return {"message": "Button 2 wurde geklickt"}
-
-@router.post("/log/button3")
-def log_button3(user: str = Depends(get_current_user)):
-    write_log("INFO", "System wird heruntergefahren")
-    return {"message": "System wird heruntergefahren"}
-
-@router.post("/log/button4")
+@router.post("/log/reboot")
 def log_button3(user: str = Depends(get_current_user)):
     write_log("INFO", "System wird neugestartet")
     return {"message": "System wird neugestartet"}
+
+@router.post("/log/shutdown")
+def log_button3(user: str = Depends(get_current_user)):
+    write_log("INFO", "System wird heruntergefahren")
+    return {"message": "System wird heruntergefahren"}
 
 @router.post("/log/custom")
 def log_custom(entry: CustomLogEntry, user: str = Depends(get_current_user)):
@@ -54,3 +41,11 @@ def log_custom(entry: CustomLogEntry, user: str = Depends(get_current_user)):
         return JSONResponse(content={"error": "Nachricht darf nicht leer sein."}, status_code=400)
     write_log("USER", entry.message)
     return {"message": f"Benutzereintrag wurde gespeichert: {entry.message}"}
+
+@router.get("/logs")
+def get_logs():
+    if not os.path.exists(LOG_FILE):
+        return JSONResponse(content={"logs": []})
+    with open(LOG_FILE, "r", encoding="utf-8") as f:
+        logs = json.load(f)
+    return JSONResponse(content={"logs": logs})
