@@ -96,12 +96,33 @@ export async function showUpdateModal() {
         const data = await response.json();
 
         // Update-Informationen zusammenfassen
-        let message = 'Verfügbare Updates:<br>';
+        let message = `
+        <table style="width:100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+                <th style="padding-bottom: 8px">Container</th>
+                <th style="padding-bottom: 8px">Status</th>
+            </tr>
+          </thead>
+          <tbody>`;
         const containers = ['backend', 'frontend', 'gateway', 'gcnia'];
         containers.forEach(container => {
             const info = data.updates[container];
-            message += `<strong>${container}</strong>: ${info && info.available ? `Neue Version ${info.newVersion}` : "Kein Update verfügbar"}<br>`;
-        });
+            let status;
+            if (info && info.available) {
+                status = `<span style="color: green;">Neue Version ${info.newVersion}</span>`;
+            } else {
+                status = `<span style="color: red;">Kein Update verfügbar</span>`;
+            }
+            message += `
+                <tr>
+                    <td style="font-size: 0.9em;">${container}</td>
+                    <td style="font-size: 0.9em;">${status}</td>
+                </tr>`;
+            });
+        message += `
+            </tbody>
+            </table>`;
 
         // Modal anzeigen und Passphrase abfragen
         showModal({
