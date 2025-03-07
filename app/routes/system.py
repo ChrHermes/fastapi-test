@@ -56,3 +56,46 @@ def database_info():
         return {"size": f"{size_in_mb:.2f} MB"}
     else:
         return {"size": "0 MB"}
+
+# =====================================
+#          REGISTRY
+# ===================================== 
+
+@router.get("/registry/check")
+def registry_check(user: str = Depends(get_current_user)):
+    """
+    Prüft beispielhaft für die Container 'backend', 'frontend', 'gateway' und 'gcnia'
+    ob ein Softwareupdate vorliegt. Hier wird simuliert, dass für den 'backend'-Container
+    ein Update verfügbar ist (z.B. Version "v2.0"), während für die anderen Container
+    kein Update vorliegt.
+    """
+    updates = {}
+    containers = ['backend', 'frontend', 'gateway', 'gcnia']
+    for container in containers:
+        # Beispielhafte Logik: Nur beim 'backend'-Container wird ein Update angenommen.
+        if container == "backend":
+            updates[container] = {"available": True, "newVersion": "v2.0"}
+        else:
+            updates[container] = {"available": False}
+    write_log("INFO", "Registry-Check durchgeführt")
+    return {"updates": updates}
+
+@router.post("/registry/update")
+def registry_update(user: str = Depends(get_current_user)):
+    """
+    Führt beispielhaft die Softwareaktualisierung für die Container durch, für die
+    ein Update verfügbar ist. Hier wird die Aktualisierung simuliert, indem die
+    Container (sofern vorhanden) neu gestartet werden.
+    """
+    updated = {}
+    containers = ['backend', 'frontend', 'gateway', 'gcnia']
+    for container in containers:
+        try:
+            cont = docker_client.containers.get(container)
+            # Beispielhafte Aktualisierung: Container neu starten
+            cont.restart()
+            updated[container] = "updated"
+        except Exception as e:
+            updated[container] = f"Fehler: {str(e)}"
+    write_log("INFO", "Registry Update durchgeführt")
+    return {"message": "Registry Update durchgeführt", "details": updated}

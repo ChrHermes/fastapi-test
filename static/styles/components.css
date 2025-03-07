@@ -7,7 +7,7 @@
 
 /* Gruppierung der Elemente */
 .group {
-    border: 2px solid var(--color-dark-grey);
+    border: 1px solid var(--color-dark-grey);
     border-radius: var(--border-radius);
     padding: var(--spacing-medium);
     margin-bottom: var(--spacing-large);
