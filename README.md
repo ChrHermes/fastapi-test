@@ -19,3 +19,11 @@ Im Projektordner:
 source .venv/bin/activate
 uvicorn app.main:app --reload
 ```
+
+## Testing
+
+Testdateien erzeugen
+
+```zsh
+dd if=/dev/zero of=./data/gcn.db bs=1K count=54321
+```
