@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("log-level").addEventListener("change", fetchLogs);
 
     // Button: Datenbank-Reset
-    document.getElementById("buttonDatabaseReset").addEventListener("click", () => {
+    document.getElementById("btnDatabaseReset").addEventListener("click", () => {
         // showDatabaseResetModal ruft intern den API-Call zum Abrufen der DB-Infos auf
         showDatabaseResetModal(loadLogs);
     });
@@ -100,24 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Button: Software-Updates prüfen
     document.getElementById("btnUpdateSoftware").addEventListener("click", showUpdateModal);
 
-    // Button: Benutzerdefinierte Logeinträge (Gruppe C)
+    /**
+     * Initialisiert den Event-Listener für den Button zum Hinzufügen eines Benutzerkommentars.
+     * Beim Klick wird showUserCommentModal aufgerufen, wobei loadLogs als Callback übergeben wird,
+     * damit die Logs nach dem Hinzufügen aktualisiert werden.
+     */
     document.getElementById("btnAddNote").addEventListener("click", () => {
-        showUserCommentModal({
-            onConfirm: (note) => {
-                fetch("/log/custom", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: note })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Logeintrag gespeichert:", data);
-                    loadLogs();
-                })
-                .catch(error => console.error("Fehler:", error));
-            },
-            onCancel: () => console.log("Benutzereintrag abgebrochen")
-        });
+        showUserCommentModal(loadLogs);
     });
 
     // Weitere Buttons, die direkte POST-Anfragen senden:

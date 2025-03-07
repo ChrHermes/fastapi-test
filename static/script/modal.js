@@ -147,11 +147,13 @@ export async function showUpdateModal() {
 }
 
 /**
- * Funktion zum Hinzufügen eines Benutzereintrags.
- * Ruft das generische Modal mit entsprechenden Parametern auf.
- * Der Callback erhält den eingegebenen Text.
+ * Zeigt ein Modal an, in dem der Benutzer einen Logeintrag eingeben kann.
+ * Der eingegebene Text wird per POST-Request an "/log/custom" gesendet.
+ * Bei erfolgreichem Speichern wird der Callback onLogAdded (falls übergeben) aufgerufen.
+ *
+ * @param {Function} onLogAdded - Callback, der nach dem Hinzufügen des Logeintrags ausgeführt wird.
  */
-export function showUserCommentModal({ onConfirm, onCancel } = {}) {
+export function showUserCommentModal(onLogAdded) {
     showModal({
         title: "Benutzereintrag hinzufügen",
         message: "Bitte geben Sie Ihren Logeintrag ein:",
@@ -160,11 +162,21 @@ export function showUserCommentModal({ onConfirm, onCancel } = {}) {
         dangerButtonText: "Eintrag hinzufügen",
         onConfirm: () => {
             const note = document.getElementById("confirmationInput").value;
-            if (typeof onConfirm === "function") {
-                onConfirm(note);
-            }
+            fetch("/log/custom", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: note })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Logeintrag gespeichert:", data);
+                if (typeof onLogAdded === "function") {
+                    onLogAdded();
+                }
+            })
+            .catch(error => console.error("Fehler beim Speichern des Logeintrags:", error));
         },
-        onCancel: onCancel || (() => {})
+        onCancel: () => console.log("Benutzereintrag abgebrochen")
     });
 }
 
