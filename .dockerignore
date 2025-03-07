@@ -1,0 +1,14 @@
+# Python-Cache und kompilierte Dateien
+__pycache__
+*.pyc
+
+# Alle Inhalte im logs-Verzeichnis ignorieren, aber das Verzeichnis selbst behalten
+logs/*
+!logs/
+
+# Versionskontrolle ausschließen
+.git
+.gitignore
+
+# Lokale Umgebungsdateien (falls vorhanden)
+.env

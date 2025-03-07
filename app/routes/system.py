@@ -32,17 +32,63 @@ def shutdown_system():
 
 @router.post("/database/reset")
 def database_reset(user: str = Depends(get_current_user)):
+    import time
     try:
-        container = docker_client.containers.get(BACKEND_CONTAINER)
+        if docker_client is None:
+            write_log("WARN", "Docker client nicht verfügbar.")
+            return JSONResponse(content={"error": "Docker client nicht verfügbar."}, status_code=500)
+
+        # 1. Container-Existenz prüfen
+        try:
+            container = docker_client.containers.get(BACKEND_CONTAINER)
+            write_log("WARN", f"Container '{BACKEND_CONTAINER}' gefunden.")
+        except docker.errors.NotFound:
+            write_log("WARN", f"Container '{BACKEND_CONTAINER}' existiert nicht.")
+            return JSONResponse(content={"error": f"Container '{BACKEND_CONTAINER}' existiert nicht."}, status_code=404)
+
+        # 2. Container stoppen und sicherstellen, dass er wirklich gestoppt ist
         container.stop()
-        for file in [DB_PATH, f"{DB_PATH}-wal", f"{DB_PATH}-journal"]:
+        timeout = 10  # maximale Wartezeit in Sekunden
+        while timeout > 0:
+            container.reload()
+            if container.status == "exited":
+                break
+            time.sleep(0.5)
+            timeout -= 0.5
+        if container.status != "exited":
+            write_log("WARN", f"Container '{BACKEND_CONTAINER}' konnte nicht gestoppt werden, aktueller Status: {container.status}")
+            return JSONResponse(content={"error": f"Container '{BACKEND_CONTAINER}' konnte nicht gestoppt werden."}, status_code=500)
+        write_log("WARN", f"Container '{BACKEND_CONTAINER}' erfolgreich gestoppt.")
+
+        # 3. Datenbankdateien löschen
+        db_files = [DB_PATH, f"{DB_PATH}-wal", f"{DB_PATH}-journal"]
+        for file in db_files:
             if os.path.exists(file):
                 os.remove(file)
-        write_log("WARN", "Datenbank wurde erfolgreich zurückgesetzt")
+                write_log("WARN", f"Datei '{file}' wurde gelöscht.")
+            else:
+                write_log("WARN", f"Datei '{file}' existiert nicht.")
+        
+        # 4. Container sicher neu starten
+        container.start()
+        timeout = 10  # maximale Wartezeit in Sekunden
+        while timeout > 0:
+            container.reload()
+            if container.status == "running":
+                break
+            time.sleep(0.5)
+            timeout -= 0.5
+        if container.status != "running":
+            write_log("WARN", f"Container '{BACKEND_CONTAINER}' konnte nicht gestartet werden, aktueller Status: {container.status}")
+            return JSONResponse(content={"error": f"Container '{BACKEND_CONTAINER}' konnte nicht gestartet werden."}, status_code=500)
+        write_log("WARN", f"Container '{BACKEND_CONTAINER}' erfolgreich gestartet.")
+
+        write_log("WARN", "Datenbank wurde erfolgreich zurückgesetzt.")
         return {"message": "Datenbank wurde erfolgreich zurückgesetzt"}
     except Exception as e:
         write_log("ERROR", f"Fehler beim Zurücksetzen der DB: {str(e)}")
         return JSONResponse(content={"error": str(e)}, status_code=500)
+
 
 @router.get("/database/info")
 def database_info():
