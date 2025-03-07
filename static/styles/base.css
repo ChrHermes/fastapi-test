@@ -15,7 +15,7 @@
   
     /* Layoutvariablen */
     --watermark-size: 40vw;
-    --container-width: 400px;
+    --container-width: 600px;
   
     /* Neue Farbvariablen für bisher nicht variable Farben */
     --color-white: #ffffff;              /* Für alle Stellen, an denen "white" genutzt wurde */

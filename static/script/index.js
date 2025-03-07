@@ -62,24 +62,24 @@ async function sendPostRequest(url) {
 /**
  * Passt die Breite des Containers dynamisch an.
  */
-function updateContainerWidth() {
-    const container = document.querySelector(".container");
-    if (container) {
-        container.style.setProperty("--container-width", container.clientWidth + "px");
-    }
-}
+// function updateContainerWidth() {
+//     const container = document.querySelector(".container");
+//     if (container) {
+//         container.style.setProperty("--container-width", container.clientWidth + "px");
+//     }
+// }
 
 // Initiale Anpassung der Container-Größe und Log-Container
-window.addEventListener("load", () => {
-    const logContainer = document.querySelector(".log-container");
-    if (logContainer) {
-        logContainer.style.width = logContainer.clientWidth + "px";
-        logContainer.style.height = logContainer.clientHeight + "px";
-    }
-    updateContainerWidth();
-});
+// window.addEventListener("load", () => {
+//     const logContainer = document.querySelector(".log-container");
+//     if (logContainer) {
+//         logContainer.style.width = logContainer.clientWidth + "px";
+//         logContainer.style.height = logContainer.clientHeight + "px";
+//     }
+//     updateContainerWidth();
+// });
 
-window.addEventListener("resize", updateContainerWidth);
+// window.addEventListener("resize", updateContainerWidth);
 
 /* =====================================
          EVENT LISTENER INITIALISIERUNG

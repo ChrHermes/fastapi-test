@@ -5,17 +5,16 @@
 
 /* Container & Layout */
 .container {
-    display: flex;
-    flex-direction: column;
-    resize: both;
-    height: fit-content;
-    align-items: stretch;
-    background: var(--color-white); /* Verwendung der Variable statt "white" */
-    padding: var(--spacing-large);
-    border-radius: calc(var(--border-radius) * 2);
-    box-shadow: var(--box-shadow);
-    width: fit-content;
-    min-width: var(--container-width);
-    text-align: center;
-  }
-  
+   display: flex;
+   flex-direction: column;
+   /* resize: both; --> entfernt */
+   height: fit-content;
+   align-items: stretch;
+   background: var(--color-white);
+   padding: var(--spacing-large);
+   border-radius: calc(var(--border-radius) * 2);
+   box-shadow: var(--box-shadow);
+   width: 600px;
+   /* min-width: var(--container-width); --> entfällt, da width festgelegt ist */
+   text-align: center;
+}
