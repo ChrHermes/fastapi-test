@@ -188,5 +188,65 @@
     "timestamp": "06.03.2025 19:18:29",
     "level": "INFO",
     "message": "System wird neugestartet"
+  },
+  {
+    "timestamp": "07.03.2025 14:17:00",
+    "level": "INFO",
+    "message": "System wird neugestartet"
+  },
+  {
+    "timestamp": "07.03.2025 14:18:03",
+    "level": "ERROR",
+    "message": "Fehler beim Zurücksetzen der DB: 404 Client Error for http+docker://localhost/v1.47/containers/backend/json: Not Found (\"No such container: backend\")"
+  },
+  {
+    "timestamp": "07.03.2025 14:20:12",
+    "level": "WARN",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "07.03.2025 14:28:44",
+    "level": "WARN",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "07.03.2025 14:38:10",
+    "level": "WARN",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "07.03.2025 14:40:38",
+    "level": "WARN",
+    "message": "Container 'fastapi-test-backend-1' gefunden."
+  },
+  {
+    "timestamp": "07.03.2025 14:40:48",
+    "level": "WARN",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestoppt."
+  },
+  {
+    "timestamp": "07.03.2025 14:40:48",
+    "level": "WARN",
+    "message": "Datei '/data/gcn.db' wurde gelöscht."
+  },
+  {
+    "timestamp": "07.03.2025 14:40:48",
+    "level": "WARN",
+    "message": "Datei '/data/gcn.db-wal' existiert nicht."
+  },
+  {
+    "timestamp": "07.03.2025 14:40:48",
+    "level": "WARN",
+    "message": "Datei '/data/gcn.db-journal' existiert nicht."
+  },
+  {
+    "timestamp": "07.03.2025 14:40:48",
+    "level": "WARN",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestartet."
+  },
+  {
+    "timestamp": "07.03.2025 14:40:48",
+    "level": "WARN",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt."
   }
 ]
