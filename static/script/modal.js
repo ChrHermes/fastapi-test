@@ -8,19 +8,19 @@ export function showModal(options) {
         title = '',
         message = '',
         inputPlaceholder = '',
-        passphrase, // optional; zeigt den Passphrase-Bereich an, wenn gesetzt
-        safeButtonText = 'Abbrechen', // Text für den sicheren Abbruch-Button
-        dangerButtonText = 'Bestätigen', // Text für den gefährlichen Bestätigungs-Button
+        passphrase, // wenn gesetzt, wird der Info-Container angezeigt
+        safeButtonText = 'Abbrechen',
+        dangerButtonText = 'Bestätigen',
         onConfirm = () => {},
         onCancel = () => {},
     } = options;
 
-    // Referenzen zu den DOM-Elementen des Modals
+    // Referenzen zu den DOM-Elementen
     const modal = document.getElementById("confirmationModal");
     const overlay = document.getElementById("modalOverlay");
     const modalTitle = document.getElementById("modalTitle");
     const messageElement = document.getElementById("modalMessage");
-    const passphraseContainer = document.getElementById("passphraseContainer");
+    const passphraseInfoContainer = document.getElementById("passphraseInfoContainer");
     const passphraseText = document.getElementById("passphraseText");
     const inputField = document.getElementById("confirmationInput");
     const dangerButton = document.getElementById("confirmAction");
@@ -29,17 +29,21 @@ export function showModal(options) {
     // Inhalte setzen
     modalTitle.textContent = title;
     messageElement.innerHTML = message;
-
-    // Input anzeigen, wenn entweder passphrase oder inputPlaceholder gesetzt ist
-    if (passphrase || inputPlaceholder) {
-        passphraseContainer.style.display = "block";
-        passphraseText.textContent = passphrase ? passphrase : "";
-        inputField.placeholder = inputPlaceholder;
-        inputField.value = "";
-        inputField.focus();
+    
+    // Passphrase-Info-Container nur anzeigen, wenn eine Passphrase gesetzt ist
+    if (passphrase) {
+        passphraseInfoContainer.style.display = "block";
+        passphraseText.textContent = passphrase;
     } else {
-        passphraseContainer.style.display = "none";
+        passphraseInfoContainer.style.display = "none";
     }
+
+    // Inputfeld konfigurieren (z. B. Platzhalter setzen)
+    if (inputPlaceholder) {
+        inputField.placeholder = inputPlaceholder;
+    }
+    inputField.value = "";
+    inputField.focus();
 
     // Button-Texte anpassen
     dangerButton.textContent = dangerButtonText;
@@ -51,6 +55,7 @@ export function showModal(options) {
 
     // Handler für Bestätigung und Abbruch
     const confirmHandler = () => {
+        // Nur wenn eine Passphrase definiert ist, erfolgt der Check
         if (passphrase && inputField.value !== passphrase) {
             alert("Falscher Bestätigungscode!");
             return;
@@ -71,7 +76,7 @@ export function showModal(options) {
         }
     };
 
-    // Aufräum-Funktion: Entfernt Event-Listener und blendet Modal/Overlay aus
+    // Aufräum-Funktion
     const cleanup = () => {
         dangerButton.removeEventListener("click", confirmHandler);
         safeButton.removeEventListener("click", cancelHandler);
@@ -105,7 +110,7 @@ export async function showUpdateModal() {
             </tr>
           </thead>
           <tbody>`;
-        const containers = ['backend', 'frontend', 'gateway', 'gcnia'];
+        const containers = ['backend', 'frontend', 'gateway', 'gcnia']; 
         containers.forEach(container => {
             const info = data.updates[container];
             let status;

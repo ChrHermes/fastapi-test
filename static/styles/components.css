@@ -219,7 +219,7 @@ button:hover {
 /* Trenner im Modal (Light: Farbe entspricht dem Input-Hintergrund) */
 .modal-hr {
   margin-top: var(--spacing-large);
-  border: 1px solid var(--grey-darkest);
+  border: 1px solid var(--grey-lighter);
 }
 
 /* Überschrift */

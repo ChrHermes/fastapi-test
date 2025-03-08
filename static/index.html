@@ -29,13 +29,17 @@
         <!-- Beschreibung oder Warnhinweis -->
         <p id="modalMessage" class="modal-message"></p>
         
-        <!-- Container für Passphrase, wird nur angezeigt, wenn passphrase gesetzt ist -->
-        <div id="passphraseContainer" class="passphrase-container">
+        <!-- Container für Passphrase-Info (wird nur angezeigt, wenn eine Passphrase definiert ist) -->
+        <div id="passphraseInfoContainer" class="passphrase-info-container" style="display: none;">
             <hr class="modal-hr">
             <label for="confirmationInput" class="modal-label">
                 <span id="inputText">Zum Bestätigen bitte Folgendes eingeben:</span>
                 <span id="passphraseText" class="passphrase"></span>
             </label>
+        </div>
+        
+        <!-- Container für das Eingabefeld (für Passphrase oder Benutzerkommentar) -->
+        <div id="inputContainer" class="input-container">
             <input type="text" id="confirmationInput" class="modal-input">
         </div>
         
