@@ -133,7 +133,7 @@ export async function showUpdateModal() {
         showModal({
             title: "Software-Aktualisierungen prüfen",
             message: message,
-            inputPlaceholder: "Passphrase eingeben",
+            inputPlaceholder: "Bestätigungscode",
             passphrase: "gc-update",
             safeButtonText: "Abbrechen",
             dangerButtonText: "Aktualisierung durchführen",    
@@ -162,7 +162,7 @@ export function showUserCommentModal(onLogAdded) {
     showModal({
         title: "Benutzereintrag hinzufügen",
         message: "Bitte geben Sie Ihren Logeintrag ein:",
-        inputPlaceholder: "Dein Logeintrag hier...",
+        inputPlaceholder: "Protokolleintrag",
         safeButtonText: "Abbrechen",
         dangerButtonText: "Eintrag hinzufügen",
         onConfirm: () => {
