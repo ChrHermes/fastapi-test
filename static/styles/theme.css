@@ -63,38 +63,25 @@ body.dark-mode {
   
   /* ----- Modal ----- */
 
-  /* Light Mode Overrides für das Modal */
-  body:not(.dark-mode) .modal-dark {
-    background: var(--color-white);           /* heller Hintergrund */
-    color: var(--color-dark-grey);             /* dunkle Schrift */
-    border: 1px solid var(--color-divider);     /* optionaler Rahmen */
-    padding: var(--spacing-large);
+  body.dark-mode .modal {
+    background: var(--color-modal-dark-bg); /* z. B. #1f1f1f */
+    color: var(--color-white);
   }
 
-  body:not(.dark-mode) .modal-dark h2 {
-    color: var(--color-dark-grey);
+  body.dark-mode .modal h2 {
+      color: var(--color-white);
   }
 
-  body:not(.dark-mode) .modal-dark .modal-hr {
-    color: var(--color-light-grey);
-  }
-
-  body:not(.dark-mode) .modal-dark .modal-label {
-    color: var(--color-dark-grey);
-  }
-
-  body:not(.dark-mode) .modal-dark .modal-input {
+  body.dark-mode .modal-hr {
     border: 1px solid var(--color-divider);
-    background: #f7f7f7;                         /* helles Input-Feld */
-    color: var(--color-dark-grey);
   }
 
-  body:not(.dark-mode) .modal-dark .modal-message {
-    color: var(--color-dark-grey);
+  body.dark-mode .modal .modal-label {
+      color: var(--color-white);
   }
 
-  /* Optional: Button-Anpassungen im Modal für Light Mode */
-  body:not(.dark-mode) .modal-dark .safe-btn {
-    background-color: #e0e0e0;                   /* hellgrau */
-    color: var(--color-dark-grey);
+  body.dark-mode .modal .modal-input {
+      border: 1px solid var(--color-modal-input-border);
+      background: var(--color-modal-input-bg);
+      color: var(--color-white);
   }

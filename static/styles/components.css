@@ -215,8 +215,8 @@
     opacity: 1;
     visibility: visible;
   }
-  
-  /* Basis-Modalklasse */
+    
+    /* Basis-Modalklasse – Light Theme Standard */
   .modal {
     position: fixed;
     top: 50%;
@@ -225,55 +225,53 @@
     z-index: 1000;
     width: var(--modal-width);
     min-width: 400px;
-    max-width: 90vw; /* oder 95vw, je nach Bedarf */
+    max-width: 90vw;
     text-align: left;
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
     border-radius: calc(var(--border-radius) * 1.6);
     box-shadow: var(--box-shadow);
+
+    /* Light Theme Farben */
+    background: var(--color-white);
+    color: var(--color-dark-grey);
+    padding: var(--spacing-large);
   }
-  
+
   .modal.active {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
-  
+
   /* Trenner im Modal */
   .modal-hr {
     margin-top: var(--spacing-large);
-    border: 1px solid var(--color-divider);
+    border: 1px solid var(--color-modal-message);
   }
-  
-  /* Dunkle Variante des Modals (ähnlich GitLab) */
-  .modal-dark {
-    background: var(--color-modal-dark-bg);
-    color: var(--color-white);
-    padding: var(--spacing-large);
-  }
-  
-  /* Überschrift im dunklen Modal */
-  .modal-dark h2 {
+
+  /* Überschrift */
+  .modal h2 {
     margin-top: 0;
     margin-bottom: var(--spacing-medium);
     font-size: 20px;
-    color: var(--color-white);
+    color: var(--color-dark-grey);
   }
-  
-  /* Nachrichtentext im Modal */
+
+  /* Nachrichtentext */
   .modal-message {
     line-height: 1.2;
     margin-bottom: var(--spacing-large);
-    color: var(--color-modal-message);
+    color: var(--color-dark-grey);
   }
-  
-  /* Label für Eingabefeld im Modal */
+
+  /* Label für Eingabefeld */
   .modal-label {
     display: block;
     margin-bottom: var(--spacing-small);
     font-weight: bold;
-    color: var(--color-white);
+    color: var(--color-dark-grey);
   }
-  
+
   /* Eingabefeld im Modal */
   .modal-input {
     width: 100%;
@@ -281,19 +279,20 @@
     margin-top: var(--spacing-medium);
     margin-bottom: var(--spacing-medium);
     border-radius: var(--border-radius);
-    border: 1px solid var(--color-modal-input-border);
-    background: var(--color-modal-input-bg);
-    color: var(--color-white);
+    border: 1px solid var(--color-divider);
+    background: var(--color-light-grey);
+    color: var(--color-dark-grey);
     font-size: 14px;
     box-sizing: border-box;
   }
-  
+
   /* Button-Reihe im Modal */
   .modal-button-row {
     display: flex;
     justify-content: flex-end;
     gap: var(--spacing-small);
   }
+
   
   /* Modale Buttons */
   .modal-btn {
