@@ -76,6 +76,10 @@ body.dark-mode {
     border: 1px solid var(--color-divider);
   }
 
+  body.dark-mode .modal .modal-message {
+    color: var(--color-white);
+  }
+
   body.dark-mode .modal .modal-label {
       color: var(--color-white);
   }
