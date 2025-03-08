@@ -5,87 +5,86 @@
 
 /* Dark Mode Einstellungen */
 body.dark-mode {
-    background-color: var(--color-dark-grey);
-    color: var(--color-light-grey);
-  }
-  
-  /* Anpassung des Wasserzeichens im Dark Mode */
-  body.dark-mode::before {
-    filter: invert(1) opacity(0.33) drop-shadow(2px 2px 4px rgba(0,0,0,0.25));
-  }
-  
-  /* Container-Anpassung im Dark Mode */
-  body.dark-mode .container {
-    background: var(--color-black);
-  }
-  
-  /* Gruppen-Styles im Dark Mode */
-  body.dark-mode .group {
-    border-color: var(--color-light-grey);
-  }
-  
-  body.dark-mode .group-title {
-    background: var(--color-black);
-    color: var(--color-light-grey);
-  }
-  
-  /* Log-Container im Dark Mode */
-  body.dark-mode .log-container {
-    background: var(--color-black);
-    color: var(--color-light-grey);
-    border-color: var(--color-light-grey);
-  }
+  background-color: var(--grey);
+  color: var(--grey-lightest);
+}
 
-  /* Login-Container im Dark Mode */
-  body.dark-mode .login-container {
-    background: var(--color-black);  /* dunkler Hintergrund */
-    color: var(--color-light-grey);   /* heller Text */
-    /* border: 1px solid var(--color-light-grey); */
-  }
-  
-  /* Theme-Toggle Button zum Umschalten zwischen Light und Dark Mode */
-  .theme-toggle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    padding: var(--spacing-small) var(--spacing-medium);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s;
-  }
-  
-  .theme-toggle:hover {
-    background: var(--color-red);
-  }
-  
-  /* ----- Modal ----- */
+/* Anpassung des Wasserzeichens im Dark Mode */
+body.dark-mode::before {
+  filter: invert(1) opacity(0.33) drop-shadow(2px 2px 4px rgba(0,0,0,0.25));
+}
 
-  body.dark-mode .modal {
-    background: var(--color-modal-dark-bg); /* z. B. #1f1f1f */
-    color: var(--color-white);
-  }
+/* Container-Anpassung im Dark Mode */
+body.dark-mode .container {
+  background: var(--black);
+}
 
-  body.dark-mode .modal h2 {
-      color: var(--color-white);
-  }
+/* Gruppen-Styles im Dark Mode */
+body.dark-mode .group {
+  border-color: var(--grey-lightest);
+}
 
-  body.dark-mode .modal-hr {
-    border: 1px solid var(--color-divider);
-  }
+body.dark-mode .group-title {
+  background: var(--black);
+  color: var(--grey-lightest);
+}
 
-  body.dark-mode .modal .modal-message {
-    color: var(--color-white);
-  }
+/* Log-Container im Dark Mode */
+body.dark-mode .log-container {
+  background: var(--black);
+  color: var(--grey-lightest);
+  border-color: var(--grey-lightest);
+}
 
-  body.dark-mode .modal .modal-label {
-      color: var(--color-white);
-  }
+/* Login-Container im Dark Mode */
+body.dark-mode .login-container {
+  background: var(--black);
+  color: var(--grey-lightest);
+}
 
-  body.dark-mode .modal .modal-input {
-      border: 1px solid var(--color-modal-input-border);
-      background: var(--color-modal-input-bg);
-      color: var(--color-white);
-  }
+/* Theme-Toggle Button zum Umschalten */
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.theme-toggle:hover {
+  background: var(--red);
+}
+
+/* ----- Modal im Dark Mode ----- */
+
+body.dark-mode .modal {
+  background: var(--grey-ultra-dark);
+  color: var(--white);
+}
+
+body.dark-mode .modal h2 {
+  color: var(--white);
+}
+
+body.dark-mode .modal-hr {
+  border: 1px solid var(--grey-darker);
+}
+
+body.dark-mode .modal .modal-message {
+  color: var(--white);
+}
+
+body.dark-mode .modal .modal-label {
+  color: var(--white);
+}
+
+body.dark-mode .modal .modal-input {
+  border: 1px solid var(--grey-medium);
+  background: var(--grey-darkest);
+  color: var(--white);
+}

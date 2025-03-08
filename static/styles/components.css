@@ -7,333 +7,304 @@
 
 /* Gruppierung der Elemente */
 .group {
-    border: 1px solid var(--color-dark-grey);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-small);
-    margin-bottom: var(--spacing-large);
-    position: relative;
-  }
-  
-  .group-title {
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    background: var(--color-white); /* ersetzt "white" durch Variable */
-    padding: 0 5px;
-    font-weight: bold;
-    color: var(--color-dark-grey);
-  }
-  
-  /* Container für Buttons */
-  .button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: var(--spacing-medium);
-  }
-  
-  /* Allgemeine Button-Stile */
-  button {
-    flex: 1;
-    padding: var(--spacing-medium);
-    margin: var(--spacing-small);
-    border: none;
-    border-radius: var(--border-radius);
-    font-size: 15px;
-    cursor: pointer;
-    transition: background 0.3s;
-    background: var(--color-orange);
-    color: var(--color-white);
-  }
-  
-  button:hover {
-    background: var(--color-orange-dark);
-  }
-  
-  /* Spezielle Button-Stile */
-  .button-logout {
-    background-color: var(--color-dark-grey);
-    margin-top: var(--spacing-large);
-  }
-  
-  /* Material Icons innerhalb von Buttons */
-  .icon-button {
-    font-size: 20px;
-    vertical-align: middle;
-    padding-right: var(--spacing-small);
-  }
-  
-  /* --- Login --- */
+  border: 1px solid var(--grey);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-small);
+  margin-bottom: var(--spacing-large);
+  position: relative;
+}
 
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: var(--login-container-width);
-    max-width: 90vw; /* damit es bei Handy-Auflösungen nicht überläuft */
-    padding: var(--spacing-large);
-    border-radius: calc(var(--border-radius) * 2);
-    box-shadow: var(--box-shadow);
-    background: var(--color-white); /* oder deine Wunschfarbe */
-    text-align: center;
-  }
+.group-title {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: var(--white);
+  padding: 0 5px;
+  font-weight: bold;
+  color: var(--grey);
+}
 
-  /* --- Logging --- */
-  
-  /* Log-Container */
-  .log-container {
-    background: var(--color-white);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-medium);
-    /* width: 100%; */
-    height: 200px;
-    min-height: 200px;
-    /* min-width: var(--container-width, 300px); */
-    /* max-width: 100%; */
-    /* resize: both; */
-    overflow: auto;
-    border: 1px solid var(--color-dark-grey);
-    margin-bottom: var(--spacing-small);
-    text-align: left;
-    font-size: 0.80em;
-    position: relative;
-    /* Für Firefox */
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-dark-grey) transparent;
-  
-    /* Webkit Scrollbar (optional, auskommentiert):
-    .log-container::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-    }
-  
-    .log-container::-webkit-scrollbar-track {
-        background: transparent;
-    }
-  
-    .log-container::-webkit-scrollbar-thumb {
-        background-color: var(--color-dark-grey);
-        border-radius: 4px;
-        border: 2px solid transparent;
-    }
-  
-    .log-container::-webkit-scrollbar-thumb:hover {
-        background-color: var(--color-orange);
-    }
-    */
-  }
-  
-  /* Steuerungselemente für Log-Level */
-  .log-controls {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-small);
-    font-size: 12px;
-    color: var(--color-dark-grey);
-  }
-  
-  /* Log-Level Dropdown */
-  .log-level {
-    font-size: 12px;
-    padding: 2px 5px;
-    border: none;
-    border-bottom: 1px solid var(--color-dark-grey);
-    background: transparent;
-    color: var(--color-dark-grey);
-    outline: none;
-    cursor: pointer;
-    appearance: none;
-  }
-  
-  /* Entfernt den Standard-Dropdown-Pfeil in WebKit-Browsern */
-  .log-level::-ms-expand {
-    display: none;
-  }
-  
-  .log-level:hover,
-  .log-level:focus {
-    border-bottom: 1px solid var(--color-orange);
-  }
-  
-  /* --- Login --- */
-  
-  /* Container für Eingabefelder */
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: var(--spacing-large);
-  }
-  
-  .input-group label {
-    font-weight: bold;
-    margin-bottom: var(--spacing-small);
-  }
-  
-  .input-group input {
-    padding: var(--spacing-medium);
-    border: 2px solid var(--color-dark-grey);
-    border-radius: var(--border-radius);
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s;
-    text-align: center;
-  }
-  
-  .input-group input:focus {
-    border-color: var(--color-orange);
-  }
-  
-  /* --- Modale Fenster & Overlay --- */
-  
-  /* Standardmäßig keine Pointer-Events für Modal und Overlay */
-  .modal,
-  .modal-overlay {
-    pointer-events: none;
-  }
-  
-  /* Wenn aktiv, wieder normale Pointer-Events */
-  .modal.active,
-  .modal-overlay.active {
-    pointer-events: auto;
-  }
-  
-  /* Halbtransparenter Overlay-Hintergrund */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-    z-index: 999;
-  }
-  
-  .modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-    
-    /* Basis-Modalklasse – Light Theme Standard */
-  .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    z-index: 1000;
-    width: var(--modal-width);
-    min-width: 400px;
-    max-width: 90vw;
-    text-align: left;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    border-radius: calc(var(--border-radius) * 1.6);
-    box-shadow: var(--box-shadow);
+/* Container für Buttons */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-medium);
+}
 
-    /* Light Theme Farben */
-    background: var(--color-white);
-    color: var(--color-dark-grey);
-    padding: var(--spacing-large);
-  }
+/* Allgemeine Button-Stile */
+button {
+  flex: 1;
+  padding: var(--spacing-medium);
+  margin: var(--spacing-small);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+  background: var(--orange-primary);
+  color: var(--white);
+}
 
-  .modal.active {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
+button:hover {
+  background: var(--orange-secondary);
+}
 
-  /* Trenner im Modal */
-  .modal-hr {
-    margin-top: var(--spacing-large);
-    border: 1px solid var(--color-modal-message);
-  }
+/* Spezielle Button-Stile */
+.button-logout {
+  background-color: var(--grey);
+  margin-top: var(--spacing-large);
+}
 
-  /* Überschrift */
-  .modal h2 {
-    margin-top: 0;
-    margin-bottom: var(--spacing-medium);
-    font-size: 20px;
-    color: var(--color-dark-grey);
-  }
+/* Material Icons innerhalb von Buttons */
+.icon-button {
+  font-size: 20px;
+  vertical-align: middle;
+  padding-right: var(--spacing-small);
+}
 
-  /* Nachrichtentext */
-  .modal-message {
-    line-height: 1.2;
-    margin-bottom: var(--spacing-large);
-    color: var(--color-dark-grey);
-  }
+/* --- Login --- */
 
-  /* Label für Eingabefeld */
-  .modal-label {
-    display: block;
-    margin-bottom: var(--spacing-small);
-    font-weight: bold;
-    color: var(--color-dark-grey);
-  }
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: var(--login-container-width);
+  max-width: 90vw;
+  padding: var(--spacing-large);
+  border-radius: calc(var(--border-radius) * 2);
+  box-shadow: var(--box-shadow);
+  background: var(--white);
+  text-align: center;
+}
 
-  /* Eingabefeld im Modal */
-  .modal-input {
-    width: 100%;
-    padding: var(--spacing-medium);
-    margin-top: var(--spacing-medium);
-    margin-bottom: var(--spacing-medium);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--color-divider);
-    background: var(--color-light-grey);
-    color: var(--color-dark-grey);
-    font-size: 14px;
-    box-sizing: border-box;
-  }
+/* --- Logging --- */
 
-  /* Button-Reihe im Modal */
-  .modal-button-row {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--spacing-small);
-  }
+/* Log-Container */
+.log-container {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-medium);
+  height: 200px;
+  min-height: 200px;
+  overflow: auto;
+  border: 1px solid var(--grey);
+  margin-bottom: var(--spacing-small);
+  text-align: left;
+  font-size: 0.80em;
+  position: relative;
+  /* Für Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--grey) transparent;
+}
 
-  
-  /* Modale Buttons */
-  .modal-btn {
-    padding: var(--spacing-medium);
-    font-size: 16px;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  /* Safe-Button (Abbrechen) */
-  .safe-btn {
-    background-color: var(--color-divider);
-    color: var(--color-white);
-  }
-  
-  .safe-btn:hover {
-    background-color: var(--color-modal-input-border);
-  }
-  
-  /* Danger-Button (Löschen) */
-  .danger-btn {
-    background-color: var(--color-danger);
-    color: var(--color-white);
-    font-weight: bold;
-  }
-  
-  .danger-btn:hover {
-    background-color: var(--color-danger-hover);
-  }
-  
-  /* Hervorgehobene Passphrase */
-  .passphrase {
-    display: inline-block;
-    margin: 0;
-    font-family: "Courier New", Courier, monospace;
-    font-weight: bold;
-    background: rgba(255, 21, 0, 0.3);
-    padding: 2px 4px;
-    border-radius: var(--border-radius);
-    margin-top: var(--spacing-small);
-  }
-  
+/* Steuerungselemente für Log-Level */
+.log-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-small);
+  font-size: 12px;
+  color: var(--grey);
+}
+
+/* Log-Level Dropdown */
+.log-level {
+  font-size: 12px;
+  padding: 2px 5px;
+  border: none;
+  border-bottom: 1px solid var(--grey);
+  background: transparent;
+  color: var(--grey);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+}
+
+.log-level::-ms-expand {
+  display: none;
+}
+
+.log-level:hover,
+.log-level:focus {
+  border-bottom: 1px solid var(--orange-primary);
+}
+
+/* --- Eingabegruppen (Login-Formular) --- */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-large);
+}
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: var(--spacing-small);
+}
+
+.input-group input {
+  padding: var(--spacing-medium);
+  border: 2px solid var(--grey);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+  text-align: center;
+}
+
+.input-group input:focus {
+  border-color: var(--orange-primary);
+}
+
+/* --- Modale Fenster & Overlay --- */
+
+/* Standardmäßig keine Pointer-Events für Modal und Overlay */
+.modal,
+.modal-overlay {
+  pointer-events: none;
+}
+
+/* Wenn aktiv, wieder normale Pointer-Events */
+.modal.active,
+.modal-overlay.active {
+  pointer-events: auto;
+}
+
+/* Halbtransparenter Overlay-Hintergrund */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Basis-Modalklasse – Light Theme Standard */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  z-index: 1000;
+  width: var(--modal-width);
+  min-width: 400px;
+  max-width: 90vw;
+  text-align: left;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  border-radius: calc(var(--border-radius) * 1.6);
+  box-shadow: var(--box-shadow);
+
+  /* Light Theme Farben */
+  background: var(--white);
+  color: var(--grey);
+  padding: var(--spacing-large);
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Trenner im Modal (Light: Farbe entspricht dem Input-Hintergrund) */
+.modal-hr {
+  margin-top: var(--spacing-large);
+  border: 1px solid var(--grey-darkest);
+}
+
+/* Überschrift */
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-medium);
+  font-size: 20px;
+  color: var(--grey);
+}
+
+/* Nachrichtentext */
+.modal-message {
+  line-height: 1.2;
+  margin-bottom: var(--spacing-large);
+  color: var(--grey);
+}
+
+/* Label für Eingabefeld */
+.modal-label {
+  display: block;
+  margin-bottom: var(--spacing-small);
+  font-weight: bold;
+  color: var(--grey);
+}
+
+/* Eingabefeld im Modal */
+.modal-input {
+  width: 100%;
+  padding: var(--spacing-medium);
+  margin-top: var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--grey-darker);
+  background: var(--grey-lightest);
+  color: var(--grey);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Button-Reihe im Modal */
+.modal-button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-small);
+}
+
+/* Modale Buttons */
+.modal-btn {
+  padding: var(--spacing-medium);
+  font-size: 16px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Safe-Button (Abbrechen) */
+.safe-btn {
+  background-color: var(--grey-darker);
+  color: var(--white);
+}
+
+.safe-btn:hover {
+  background-color: var(--grey-medium);
+}
+
+/* Danger-Button (Löschen) */
+.danger-btn {
+  background-color: var(--red-danger);
+  color: var(--white);
+  font-weight: bold;
+}
+
+.danger-btn:hover {
+  background-color: var(--red-danger-hover);
+}
+
+/* Hervorgehobene Passphrase */
+.passphrase {
+  display: inline-block;
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  background: rgba(255, 21, 0, 0.3);
+  padding: 2px 4px;
+  border-radius: var(--border-radius);
+  margin-top: var(--spacing-small);
+}
