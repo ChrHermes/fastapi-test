@@ -16,6 +16,8 @@
     /* Layoutvariablen */
     --watermark-size: 40vw;
     --container-width: 600px;
+    --login-container-width: calc(var(--container-width) / 2);
+    --modal-width: calc(var(--container-width) * 1.1);
   
     /* Neue Farbvariablen für bisher nicht variable Farben */
     --color-white: #ffffff;              /* Für alle Stellen, an denen "white" genutzt wurde */
