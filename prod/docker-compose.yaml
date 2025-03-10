@@ -3,6 +3,7 @@ services:
     image: gcn-mgmt-armv7:latest
     privileged: true
     pid: "host"
+    restart: unless-stopped
     ports:
       - "8080:8000"
     volumes:
