@@ -35,6 +35,19 @@ def delayed_reboot():
     except Exception as e:
         write_log("ERROR", f"Fehler beim Neustart: {str(e)}")
 
+def format_size(size_bytes):
+    """
+    Formatiert eine Größe in Bytes in eine menschenlesbare Form (B, kB, MB, GB, TB).
+    """
+    if size_bytes == 0:
+        return "0 B"
+    units = ["B", "kB", "MB", "GB", "TB"]
+    index = 0
+    while size_bytes >= 1024 and index < len(units) - 1:
+        size_bytes /= 1024.0
+        index += 1
+    return f"{size_bytes:.2f} {units[index]}"
+
 # =====================================
 #          SYSTEM
 # ===================================== 
@@ -129,20 +142,18 @@ def database_reset(user: str = Depends(get_current_user)):
         write_log("ERROR", f"Fehler beim Zurücksetzen der DB: {str(e)}")
         return JSONResponse(content={"error": str(e)}, status_code=500)
 
-
-
 @router.get("/database/info")
 def database_info():
     """
-    Gibt die aktuelle Größe der Datenbank (in MB) zurück.
-    Falls die DB nicht existiert, wird '0 MB' geliefert.
+    Gibt die aktuelle Größe der Datenbank zurück.
+    Dynamische Größenangaben werden in B, kB, MB, GB oder TB zurückgegeben.
+    Falls die DB nicht existiert, wird '0 B' geliefert.
     """
     if os.path.exists(DB_PATH):
         size_in_bytes = os.path.getsize(DB_PATH)
-        size_in_mb = size_in_bytes / (1024 * 1024)
-        return {"size": f"{size_in_mb:.2f} MB"}
+        return {"size": format_size(size_in_bytes)}
     else:
-        return {"size": "0 MB"}
+        return {"size": "0 B"}
 
 # =====================================
 #          REGISTRY
