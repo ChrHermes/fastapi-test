@@ -55,6 +55,10 @@ button:hover {
   margin-top: var(--spacing-large);
 }
 
+.button-logout:hover {
+  background: var(--red-danger-hover);
+}
+
 /* Material Icons innerhalb von Buttons */
 .icon-button {
   font-size: 20px;
@@ -146,6 +150,7 @@ button:hover {
   padding: var(--spacing-medium);
   border: 2px solid var(--grey);
   border-radius: var(--border-radius);
+  font-family: var(--font-base);
   font-size: 16px;
   outline: none;
   transition: border-color 0.3s;
@@ -156,7 +161,25 @@ button:hover {
   border-color: var(--orange-primary);
 }
 
-/* --- Modale Fenster & Overlay --- */
+.password-group {
+  position: relative;
+}
+/* Keine zusätzliche Padding-Rechts-Angabe – damit bleibt die Zentrierung erhalten */
+.password-group .toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #999;
+  cursor: pointer;
+  z-index: 2;
+  user-select: none; /* Verhindert das Markieren des Symbols */
+}
+
+/* ------------------------------------------------------------
+   Modale Fenster & Overlay
+------------------------------------------------------------- */
 
 /* Standardmäßig keine Pointer-Events für Modal und Overlay */
 .modal,

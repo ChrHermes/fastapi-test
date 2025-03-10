@@ -1,4 +1,3 @@
-/* ---------------------------------------------- EVENT LISTENER */
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
 
@@ -31,6 +30,19 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             console.error("Fehler beim Login:", error);
             document.getElementById("error-message").innerText = "Serverfehler. Bitte später versuchen.";
+        }
+    });
+
+    // Toggle Passwortanzeige
+    const togglePassword = document.querySelector(".toggle-password");
+    togglePassword.addEventListener("click", function() {
+        const passwordInput = document.getElementById("password");
+        if (passwordInput.getAttribute("type") === "password") {
+            passwordInput.setAttribute("type", "text");
+            this.textContent = "visibility_off";
+        } else {
+            passwordInput.setAttribute("type", "password");
+            this.textContent = "visibility";
         }
     });
 });

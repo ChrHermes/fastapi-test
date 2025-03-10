@@ -18,7 +18,7 @@
   --black: rgba(40, 40, 40, 1);
 
   /* Orangetöne – markenrelevant */
-  --orange-primary: rgba(231, 91, 45, 1);
+  --orange-primary: rgba(231, 91, 45, 1); /* #fa4d0f */
   --orange-secondary: rgba(200, 70, 30, 1);
 
   /* Rottöne (für danger etc.) */

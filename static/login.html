@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="icon" href="/static/img/favicon.png" type="image/png">
-    <!-- Importierte Stylesheets -->
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Lokale Stylesheets -->
-    <link rel="stylesheet" href="/static/styles/base.css">
-    <link rel="stylesheet" href="/static/styles/layout.css">
-    <link rel="stylesheet" href="/static/styles/components.css">
-    <link rel="stylesheet" href="/static/styles/theme.css">
-    <!-- JavaScript -->
-    <script defer src="/static/script/script.js"></script>
-    <script defer src="/static/script/login.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="icon" href="/static/img/favicon.png" type="image/png">
+  <!-- Importierte Stylesheets -->
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Lokale Stylesheets -->
+  <link rel="stylesheet" href="/static/styles/base.css">
+  <link rel="stylesheet" href="/static/styles/layout.css">
+  <link rel="stylesheet" href="/static/styles/components.css">
+  <link rel="stylesheet" href="/static/styles/theme.css">
+  <!-- JavaScript -->
+  <script defer src="/static/script/script.js"></script>
+  <script defer src="/static/script/login.js"></script>
 </head>
 
 <body>
-    <!-- THEME -->
-    <button id="theme-toggle" class="theme-toggle">🌚</button>
+  <!-- THEME -->
+  <button id="theme-toggle" class="theme-toggle">🌚</button>
 
-    <!-- MAIN -->
-    <div class="login-container">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="username">Benutzername</label>
-                <input type="text" id="username" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Passwort</label>
-                <input type="password" id="password" required>
-            </div>
-            
-            <button id="loginButton" type="submit">
-                <span class="material-icons icon-button">login</span>Anmelden
-            </button>
-        </form>
-        <p id="error-message" style="color: red; margin-top: 10px;"></p>
-    </div>
+  <!-- MAIN -->
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <input type="text" id="username" placeholder="Benutzername" required>
+      </div>
+      <div class="input-group password-group">
+        <input type="password" id="password" placeholder="Passwort" required>
+        <span class="toggle-password material-icons">visibility</span>
+      </div>
+      <button id="loginButton" type="submit">
+        <span class="material-icons icon-button">login</span>Anmelden
+      </button>
+    </form>
+    <p id="error-message" style="color: red; margin-top: 10px;"></p>
+  </div>
 </body>
 </html>
