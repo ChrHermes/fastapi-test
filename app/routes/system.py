@@ -173,7 +173,7 @@ def format_size(size_bytes):
 #          REGISTRY
 # ===================================== 
 
-@router.get("/registry/check")
+@router.get("/docker/check")
 async def check_registry(user: str = Depends(get_current_user)):
     """
     Prüft die Docker-Images in der Registry und extrahiert den "Version"-Label.
@@ -203,7 +203,7 @@ async def check_registry(user: str = Depends(get_current_user)):
     write_log("INFO", "Überprüfung der Registry-Images abgeschlossen")
     return {"images": results}
 
-@router.post("/registry/update")
+@router.post("/docker/update")
 async def update_images(user: str = Depends(get_current_user)):
     """
     Aktualisiert die Docker-Images mittels docker-compose pull.
@@ -226,7 +226,7 @@ async def update_images(user: str = Depends(get_current_user)):
         write_log("ERROR", f"Fehler beim Update der Images: {e.stderr}")
         raise HTTPException(status_code=500, detail=f"Update der Images fehlgeschlagen: {e.stderr}")
 
-@router.post("/compose/restart")
+@router.post("/docker/restart")
 async def restart_compose(user: str = Depends(get_current_user)):
     """
     Startet die docker-compose Umgebung neu.

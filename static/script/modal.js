@@ -96,7 +96,7 @@ export function showModal(options) {
  */
 export async function showUpdateModal() {
     try {
-        const response = await fetch('/registry/check');
+        const response = await fetch('/docker/check');
         if (!response.ok) throw new Error("Fehler beim Prüfen der Softwareaktualisierungen");
         const data = await response.json();
 
@@ -124,7 +124,7 @@ export async function showUpdateModal() {
                     <td style="font-size: 0.9em;">${container}</td>
                     <td style="font-size: 0.9em;">${status}</td>
                 </tr>`;
-            });
+        });
         message += `
             </tbody>
             </table>`;
@@ -138,12 +138,19 @@ export async function showUpdateModal() {
             safeButtonText: "Abbrechen",
             dangerButtonText: "Aktualisierung durchführen",    
             onConfirm: async () => {
-                const updateResponse = await fetch('/registry/update', { method: 'POST' });
+                // Zuerst Images aktualisieren
+                const updateResponse = await fetch('/docker/update', { method: 'POST' });
                 if (!updateResponse.ok) {
-                    alert("Fehler beim Starten der Aktualisierung.");
-                } else {
-                    alert("Aktualisierung wurde gestartet.");
+                    alert("Fehler beim Aktualisieren der Images.");
+                    return;
                 }
+                // Anschließend docker-compose Umgebung neu starten
+                const restartResponse = await fetch('/docker/restart', { method: 'POST' });
+                if (!restartResponse.ok) {
+                    alert("Fehler beim Neustarten der Umgebung.");
+                    return;
+                }
+                alert("Aktualisierung und Neustart wurden erfolgreich gestartet.");
             }
         });
     } catch (error) {
