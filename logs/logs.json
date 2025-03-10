@@ -248,5 +248,55 @@
     "timestamp": "07.03.2025 14:40:48",
     "level": "WARN",
     "message": "Datenbank wurde erfolgreich zurückgesetzt."
+  },
+  {
+    "timestamp": "10.03.2025 09:17:02",
+    "level": "USER",
+    "message": "VB14 beim Kd. verbaut"
+  },
+  {
+    "timestamp": "10.03.2025 08:42:21",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' gefunden."
+  },
+  {
+    "timestamp": "10.03.2025 08:42:31",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestoppt."
+  },
+  {
+    "timestamp": "10.03.2025 08:42:31",
+    "level": "INFO",
+    "message": "Backup-Ordner '/data/backup' wurde erstellt."
+  },
+  {
+    "timestamp": "10.03.2025 08:42:32",
+    "level": "INFO",
+    "message": "Backup der Hauptdatenbank erstellt: /data/backup/gcn.db_20250310_084231"
+  },
+  {
+    "timestamp": "10.03.2025 08:42:32",
+    "level": "INFO",
+    "message": "Datei '/data/gcn.db' wurde gelöscht."
+  },
+  {
+    "timestamp": "10.03.2025 08:42:32",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-wal' existiert nicht."
+  },
+  {
+    "timestamp": "10.03.2025 08:42:32",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-journal' existiert nicht."
+  },
+  {
+    "timestamp": "10.03.2025 08:42:32",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestartet."
+  },
+  {
+    "timestamp": "10.03.2025 08:42:32",
+    "level": "INFO",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt."
   }
 ]
