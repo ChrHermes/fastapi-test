@@ -12,3 +12,4 @@ logs/*
 
 # Lokale Umgebungsdateien (falls vorhanden)
 .env
+prod/.env

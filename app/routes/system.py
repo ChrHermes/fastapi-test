@@ -2,7 +2,9 @@
 
 import os
 import docker
-from fastapi import APIRouter, Depends
+import subprocess
+import time
+from fastapi import APIRouter, Depends, BackgroundTasks
 from app.services.log_service import write_log
 from fastapi.responses import JSONResponse
 from app.utils.auth import get_current_user
@@ -11,20 +13,43 @@ router = APIRouter()
 
 BACKEND_CONTAINER = os.getenv("BACKEND_CONTAINER_NAME", "backend")
 DB_PATH = os.getenv("DB_PATH", "/data/gcn.db")
+DELAY_SHUTDOWN = os.getenv("DELAY_SHUTDOWN", 10)
+DELAY_REBOOT = os.getenv("DELAY_REBOOT", 10)
 
 try:
     docker_client = docker.from_env()
 except Exception as e:
     docker_client = None
 
+def delayed_shutdown():
+    time.sleep(DELAY_SHUTDOWN)
+    try:
+        subprocess.run(["poweroff"], check=True)
+    except Exception as e:
+        write_log("ERROR", f"Fehler beim Herunterfahren: {str(e)}")
+
+def delayed_reboot():
+    time.sleep(DELAY_REBOOT)
+    try:
+        subprocess.run(["reboot"], check=True)
+    except Exception as e:
+        write_log("ERROR", f"Fehler beim Neustart: {str(e)}")
+
 # =====================================
 #          SYSTEM
 # ===================================== 
 
 @router.post("/system/shutdown")
-def shutdown_system():
-    write_log("WARN", "System wird heruntergefahren")
-    return {"message": "System wird heruntergefahren..."}
+def shutdown_system(background_tasks: BackgroundTasks, user: str = Depends(get_current_user)):
+    write_log("WARN", f"Herunterfahren wird in {DELAY_SHUTDOWN} Sekunden eingeleitet")
+    background_tasks.add_task(delayed_shutdown)
+    return {"message": f"Herunterfahren wird in {DELAY_SHUTDOWN} Sekunden eingeleitet"}
+
+@router.post("/system/reboot")
+def reboot_system(background_tasks: BackgroundTasks, user: str = Depends(get_current_user)):
+    write_log("WARN", f"Neustart wird in {DELAY_REBOOT} Sekunden eingeleitet")
+    background_tasks.add_task(delayed_reboot)
+    return {"message": f"Neustart wird in {DELAY_REBOOT} Sekunden eingeleitet"}
 
 # =====================================
 #          DATABASE
@@ -37,16 +62,16 @@ def database_reset(user: str = Depends(get_current_user)):
     import shutil
     try:
         if docker_client is None:
-            write_log("ERROR", "Docker client nicht verfügbar.")
-            return JSONResponse(content={"error": "Docker client nicht verfügbar."}, status_code=500)
+            write_log("ERROR", "Docker client nicht verfügbar")
+            return JSONResponse(content={"error": "Docker client nicht verfügbar"}, status_code=500)
 
         # 1. Container-Existenz prüfen
         try:
             container = docker_client.containers.get(BACKEND_CONTAINER)
-            write_log("INFO", f"Container '{BACKEND_CONTAINER}' gefunden.")
+            write_log("INFO", f"Container '{BACKEND_CONTAINER}' gefunden")
         except docker.errors.NotFound:
-            write_log("ERROR", f"Container '{BACKEND_CONTAINER}' existiert nicht.")
-            return JSONResponse(content={"error": f"Container '{BACKEND_CONTAINER}' existiert nicht."}, status_code=404)
+            write_log("ERROR", f"Container '{BACKEND_CONTAINER}' existiert nicht")
+            return JSONResponse(content={"error": f"Container '{BACKEND_CONTAINER}' existiert nicht"}, status_code=404)
 
         # 2. Container stoppen und sicherstellen, dass er wirklich gestoppt ist
         container.stop()
@@ -59,30 +84,30 @@ def database_reset(user: str = Depends(get_current_user)):
             timeout -= 0.5
         if container.status != "exited":
             write_log("ERROR", f"Container '{BACKEND_CONTAINER}' konnte nicht gestoppt werden, aktueller Status: {container.status}")
-            return JSONResponse(content={"error": f"Container '{BACKEND_CONTAINER}' konnte nicht gestoppt werden."}, status_code=500)
-        write_log("INFO", f"Container '{BACKEND_CONTAINER}' erfolgreich gestoppt.")
+            return JSONResponse(content={"error": f"Container '{BACKEND_CONTAINER}' konnte nicht gestoppt werden"}, status_code=500)
+        write_log("INFO", f"Container '{BACKEND_CONTAINER}' erfolgreich gestoppt")
 
         # 3. Backup der Datenbank erstellen
         if os.path.exists(DB_PATH):
             backup_dir = "/data/backup"
             if not os.path.exists(backup_dir):
                 os.makedirs(backup_dir)
-                write_log("INFO", f"Backup-Ordner '{backup_dir}' wurde erstellt.")
+                write_log("INFO", f"Backup-Ordner '{backup_dir}' wurde erstellt")
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
             backup_filename = os.path.join(backup_dir, f"gcn.db_{timestamp}")
             shutil.copy2(DB_PATH, backup_filename)
             write_log("INFO", f"Backup der Datenbank erstellt: {backup_filename}")
         else:
-            write_log("WARN", f"Datenbank '{DB_PATH}' existiert nicht. Kein Backup erstellt.")
+            write_log("WARN", f"Datenbank '{DB_PATH}' existiert nicht. Kein Backup erstellt")
 
         # 4. Löschen der Datenbankdateien (Datenbank, -wal und -journal)
-        db_files = [DB_PATH, f"{DB_PATH}-wal", f"{DB_PATH}-journal"]
+        db_files = [DB_PATH, f"{DB_PATH}-wal", f"{DB_PATH}-journal", f"{DB_PATH}-shm"]
         for file in db_files:
             if os.path.exists(file):
                 os.remove(file)
-                write_log("INFO", f"Datei '{file}' wurde gelöscht.")
+                write_log("INFO", f"Datei '{file}' wurde gelöscht")
             else:
-                write_log("DEBUG", f"Datei '{file}' existiert nicht.")
+                write_log("DEBUG", f"Datei '{file}' existiert nicht")
 
         # 5. Container sicher neu starten
         container.start()
@@ -95,10 +120,10 @@ def database_reset(user: str = Depends(get_current_user)):
             timeout -= 0.5
         if container.status != "running":
             write_log("ERROR", f"Container '{BACKEND_CONTAINER}' konnte nicht gestartet werden, aktueller Status: {container.status}")
-            return JSONResponse(content={"error": f"Container '{BACKEND_CONTAINER}' konnte nicht gestartet werden."}, status_code=500)
-        write_log("INFO", f"Container '{BACKEND_CONTAINER}' erfolgreich gestartet.")
+            return JSONResponse(content={"error": f"Container '{BACKEND_CONTAINER}' konnte nicht gestartet werden"}, status_code=500)
+        write_log("INFO", f"Container '{BACKEND_CONTAINER}' erfolgreich gestartet")
 
-        write_log("INFO", "Datenbank wurde erfolgreich zurückgesetzt.")
+        write_log("INFO", "Datenbank wurde erfolgreich zurückgesetzt")
         return {"message": "Datenbank wurde erfolgreich zurückgesetzt"}
     except Exception as e:
         write_log("ERROR", f"Fehler beim Zurücksetzen der DB: {str(e)}")

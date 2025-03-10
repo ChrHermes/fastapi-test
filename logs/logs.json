@@ -343,5 +343,10 @@
     "timestamp": "10.03.2025 08:55:32",
     "level": "INFO",
     "message": "Registry-Check durchgeführt"
+  },
+  {
+    "timestamp": "10.03.2025 11:41:39",
+    "level": "ERROR",
+    "message": "Container 'backend' existiert nicht."
   }
 ]

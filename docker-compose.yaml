@@ -1,6 +1,8 @@
 services:
   app:
-    build: .
+    # build: .
+    image: gcn-mgmt:latest
+    privileged: true
     ports:
       - "8080:8000"
     volumes:
