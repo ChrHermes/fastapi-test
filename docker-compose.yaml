@@ -10,6 +10,7 @@ services:
       - ./data:/data # Mount-Pfad zur Datenbank
       - ./logs:/app/logs # Log-Dateien werden im Container abgelegt
       - /var/run/docker.sock:/var/run/docker.sock # Zugriff auf den Docker-Daemon
+      - /opt/gridcal:/opt/gridcal
     environment:
       - BACKEND_CONTAINER_NAME=fastapi-test-backend-1
       - DB_PATH=/data/gcn.db
