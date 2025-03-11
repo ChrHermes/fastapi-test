@@ -26,6 +26,13 @@ IMAGES = ['gcn_backend',
           'gateway',
           'gcnia']
 
+CONTAINER = ['gridcal-frontend-1',
+             'gridcal-gatewaycontrol-1',
+             'gridcal-backend-1',
+             'gridcal-gcfcs-1',
+             'gridcal-gcgw-1',
+             'gridcal-gcnia-1']
+
 try:
     docker_client = docker.from_env()
 except Exception as e:

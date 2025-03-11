@@ -3,8 +3,7 @@ __pycache__/
 dev**/
 
 .DS_Store
-
 *.tar.gz
 *.tar
-
 *.env
+NOTES
