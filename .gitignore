@@ -6,3 +6,5 @@ dev**/
 
 *.tar.gz
 *.tar
+
+*.env
