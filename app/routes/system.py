@@ -19,10 +19,10 @@ DELAY_REBOOT = os.getenv("DELAY_REBOOT", 10)
 
 # Konfiguration: GitLab-Projekt-ID und Personal Access Token
 GITLAB_PAT = os.getenv("GITLAB_PAT", "your_access_token")
-REGISTRY_URL = "https://gitlab.firma.de:5050"
+REGISTRY_URL = os.getenv("REGISTRY_URL", "https://gitlab.de")
 COMPOSE_PATH = "/opt/gridcal"
-IMAGES = ['backend',
-          'frontend',
+IMAGES = ['gcn_backend',
+          'gcn_frontend',
           'gateway',
           'gcnia']
 

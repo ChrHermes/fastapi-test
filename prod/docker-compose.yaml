@@ -14,5 +14,7 @@ services:
     environment:
       - BACKEND_CONTAINER_NAME=gridcal-backend-1
       - DB_PATH=/data/gcn.db
+      - ADMIN_USER=user
+      - ADMIN_PASS=pass
     env_file:
       - .env
