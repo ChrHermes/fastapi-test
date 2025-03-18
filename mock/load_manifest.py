@@ -141,6 +141,10 @@ def main():
         sys.exit(1)
     tag = sys.argv[1]
 
+    # Erstelle den Ausgabeordner ./out, falls nicht vorhanden
+    output_dir = "out"
+    os.makedirs(output_dir, exist_ok=True)
+
     # Schritt 1: Manifest (Index) abrufen
     manifest_url = f"https://{REGISTRY}/v2/{username_lower}/{repo_lower}/manifests/{tag}"
     headers = {
@@ -175,6 +179,12 @@ def main():
     else:
         image_manifest = manifest_index
 
+    # Manifest als Datei speichern im Ordner ./out/
+    manifest_path = os.path.join(output_dir, "manifest.json")
+    with open(manifest_path, "w") as f:
+        json.dump(image_manifest, f, indent=4)
+    print(f"Manifest erfolgreich als {manifest_path} gespeichert.")
+
     # Schritt 2: Aus dem Manifest den Config-Digest auslesen
     if "config" not in image_manifest:
         print("Kein Config-Objekt im Manifest gefunden.")
@@ -192,6 +202,12 @@ def main():
         print(response.text)
         sys.exit(1)
     config_blob = response.json()
+
+    # Config-Blob als Datei speichern im Ordner ./out/
+    config_blob_path = os.path.join(output_dir, "config_blob.json")
+    with open(config_blob_path, "w") as f:
+        json.dump(config_blob, f, indent=4)
+    print(f"Config-Blob erfolgreich als {config_blob_path} gespeichert.")
 
     # Schritt 4: Labels aus dem Config-Blob auslesen
     labels = config_blob.get("config", {}).get("Labels", {})

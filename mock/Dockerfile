@@ -15,7 +15,7 @@ LABEL Version="1.0.3-ghwe3m" \
       Feature="Mehrere Layer und Labels"
 
 # Layer 1: System aktualisieren und mehrere Utilities installieren
-RUN apk update && apk add --no-cache curl wget bash
+RUN apk update && apk add --no-cache curl wget bash zsh
 
 # Layer 2: Erstellen des Arbeitsverzeichnisses
 RUN mkdir -p /app
