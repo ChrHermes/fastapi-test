@@ -49,6 +49,10 @@ export function showModal(options) {
     dangerButton.textContent = dangerButtonText;
     safeButton.textContent = safeButtonText;
 
+    const errorBox = document.getElementById("modalError");
+    errorBox.textContent = "";
+    errorBox.style.display = "none";
+
     // Modal und Overlay einblenden
     modal.classList.add("active");
     overlay.classList.add("active");
@@ -57,9 +61,12 @@ export function showModal(options) {
     const confirmHandler = () => {
         // Nur wenn eine Passphrase definiert ist, erfolgt der Check
         if (passphrase && inputField.value !== passphrase) {
-            alert("Falscher Bestätigungscode!");
+            const errorBox = document.getElementById("modalError");
+            errorBox.textContent = "Falscher Bestätigungscode!";
+            errorBox.style.display = "block";
             return;
         }
+        
         onConfirm();
         cleanup();
     };
