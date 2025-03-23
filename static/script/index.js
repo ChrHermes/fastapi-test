@@ -1,5 +1,5 @@
 // index.js
-import { showModal, showUpdateModal, showUserCommentModal, showDatabaseResetModal } from './modal.js';
+import * as modal from './modal.js';
 
 /* =====================================
    GLOBALE FUNKTIONEN FÜR LOGGING & UI
@@ -94,11 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Button: Datenbank-Reset
     document.getElementById("btnDatabaseReset").addEventListener("click", () => {
         // showDatabaseResetModal ruft intern den API-Call zum Abrufen der DB-Infos auf
-        showDatabaseResetModal(loadLogs);
+        modal.showDatabaseResetModal(loadLogs);
     });
 
-    // Button: Software-Updates prüfen
-    document.getElementById("btnUpdateSoftware").addEventListener("click", showUpdateModal);
+    // Button: Software-Updates prüfen und ggf. Logs neu laden
+    document.getElementById("btnUpdateSoftware").addEventListener("click", () => {
+        modal.showUpdateModal(loadLogs);
+    });
 
     /**
      * Initialisiert den Event-Listener für den Button zum Hinzufügen eines Benutzerkommentars.
@@ -106,12 +108,18 @@ document.addEventListener("DOMContentLoaded", () => {
      * damit die Logs nach dem Hinzufügen aktualisiert werden.
      */
     document.getElementById("btnAddNote").addEventListener("click", () => {
-        showUserCommentModal(loadLogs);
+        modal.showUserCommentModal(loadLogs);
     });
 
-    // Weitere Buttons, die direkte POST-Anfragen senden:
-    document.getElementById("btnReboot").addEventListener("click", () => sendPostRequest("/system/reboot"));
-    document.getElementById("btnShutdown").addEventListener("click", () => sendPostRequest("/system/shutdown"));
+    // Button: Systemneustart mit Sicherheitsabfrage
+    document.getElementById("btnReboot").addEventListener("click", () => {
+        modal.showRebootModal(loadLogs); // Bestätigungsmodal mit Passphrase
+    });
+
+    // Button: System herunterfahren mit Sicherheitsabfrage
+    document.getElementById("btnShutdown").addEventListener("click", () => {
+        modal.showShutdownModal(loadLogs); // Bestätigungsmodal mit Passphrase
+    });
 
     // Logout-Button: Logout durchführen und zur Login-Seite navigieren
     document.getElementById("logoutButton").addEventListener("click", async () => {
