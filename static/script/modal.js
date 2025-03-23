@@ -98,13 +98,23 @@ export function showModal(options) {
  * @param {Function} [onUpdateSuccess] - Optionaler Callback nach erfolgreichem Update.
  */
 export async function showUpdateModal(onUpdateSuccess) {
+    let message = "";
     try {
+        // Abruf der Containerliste vom Backend
+        const containersResponse = await fetch('/docker/containers/');
+        if (!containersResponse.ok) {
+            throw new Error("Fehler beim Abrufen der Container-Liste");
+        }
+        const containersList = await containersResponse.json();
+        
+        // Check der Softwareaktualisierungen
         const response = await fetch('/docker/check');
-        if (!response.ok) throw new Error("Fehler beim Prüfen der Softwareaktualisierungen");
+        if (!response.ok) {
+            throw new Error("Fehler beim Prüfen der Softwareaktualisierungen");
+        }
         const data = await response.json();
 
-        // Update-Informationen zusammenfassen
-        let message = `
+        message = `
         <table style="width:100%; border-collapse: collapse;">
           <thead>
             <tr>
@@ -113,7 +123,8 @@ export async function showUpdateModal(onUpdateSuccess) {
             </tr>
           </thead>
           <tbody>`;
-        const containers = ['backend', 'frontend', 'gateway', 'gcnia']; 
+          
+        const containers = ['backend', 'frontend', 'gateway', 'gcnia'];
         containers.forEach(container => {
             const info = data.updates[container];
             let status;
@@ -128,39 +139,47 @@ export async function showUpdateModal(onUpdateSuccess) {
                     <td style="font-size: 0.9em;">${status}</td>
                 </tr>`;
         });
+        
         message += `
-            </tbody>
-            </table>`;
-
-        // Modal anzeigen und Passphrase abfragen
-        showModal({
-            title: "Software-Aktualisierungen prüfen",
-            message: message,
-            inputPlaceholder: "Bestätigungscode",
-            passphrase: "gc-update",
-            safeButtonText: "Abbrechen",
-            dangerButtonText: "Aktualisierung durchführen",    
-            onConfirm: async () => {
-                // Zuerst Images aktualisieren
-                const updateResponse = await fetch('/docker/update', { method: 'POST' });
-                if (!updateResponse.ok) {
-                    alert("Fehler beim Aktualisieren der Images.");
-                    return;
-                }
-                // Anschließend docker-compose Umgebung neu starten
-                const restartResponse = await fetch('/docker/restart', { method: 'POST' });
-                if (!restartResponse.ok) {
-                    alert("Fehler beim Neustarten der Umgebung.");
-                    return;
-                }
-                alert("Aktualisierung und Neustart wurden erfolgreich gestartet.");
-                if (onUpdateSuccess) onUpdateSuccess(); // Logs nach erfolgreicher Ausführung neu laden
-            }
-        });
+          </tbody>
+        </table>`;
+        
     } catch (error) {
-        console.error("Fehler:", error);
+        // Fehlermeldung in roter Schrift anzeigen
+        message = `<p style="color: red; font-size: 0.9em;">${error.message}</p>`;
     }
+    
+    // Modal immer anzeigen – unabhängig vom Ergebnis des Checks
+    showModal({
+        title: "Software-Aktualisierungen prüfen",
+        message: message,
+        inputPlaceholder: "Bestätigungscode",
+        passphrase: "gc-update",
+        safeButtonText: "Abbrechen",
+        dangerButtonText: "Aktualisierung durchführen",    
+        onConfirm: async () => {
+            alert("Aktualisierung gestartet - dieser Prozess kann einige Minuten dauern...");
+            
+            // Zuerst Images aktualisieren
+            const updateResponse = await fetch('/docker/update', { method: 'POST' });
+            if (!updateResponse.ok) {
+                alert("Fehler beim Aktualisieren der Images.");
+                return;
+            }
+            
+            // Anschließend docker-compose Umgebung neu starten
+            const restartResponse = await fetch('/docker/restart', { method: 'POST' });
+            if (!restartResponse.ok) {
+                alert("Fehler beim Neustarten der Umgebung.");
+                return;
+            }
+            
+            alert("Aktualisierung und Neustart wurden erfolgreich gestartet.");
+            if (onUpdateSuccess) onUpdateSuccess();
+        }
+    });
 }
+
 
 /**
  * Zeigt ein Modal an, in dem der Benutzer einen Logeintrag eingeben kann.

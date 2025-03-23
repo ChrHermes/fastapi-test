@@ -180,6 +180,26 @@ def format_size(size_bytes):
 #          REGISTRY
 # ===================================== 
 
+@router.get("/docker/containers/")
+async def list_containers():
+    """
+    Liefert alle Container, bei denen das Label "com.docker.compose.project"
+    den String "gridcal" enthält.
+    """
+    try:
+        client = docker.from_env()
+        all_containers = client.containers.list(all=True)
+        # Filter: Nur Container mit dem Label 'com.docker.compose.project' == 'gridcal'
+        filtered_containers = [
+            container.name
+            for container in all_containers
+            if "gridcal" in container.labels.get("com.docker.compose.project", "")
+        ]
+        write_log("INFO", filtered_containers)
+        return {"containers": filtered_containers}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Fehler beim Abrufen der Container: {str(e)}")
+
 @router.get("/docker/check")
 async def check_registry(user: str = Depends(get_current_user)):
     """
