@@ -92,9 +92,12 @@ export function showModal(options) {
 }
 
 /**
- * Zeigt das Software-Update-Modal an, welches Update-Informationen per API-Call abruft.
+ * Zeigt ein Modal zur Prüfung und Durchführung von Software-Updates an.
+ * Nach erfolgreicher Ausführung kann ein Callback (z. B. zum Neuladen der Logs) aufgerufen werden.
+ *
+ * @param {Function} [onUpdateSuccess] - Optionaler Callback nach erfolgreichem Update.
  */
-export async function showUpdateModal() {
+export async function showUpdateModal(onUpdateSuccess) {
     try {
         const response = await fetch('/docker/check');
         if (!response.ok) throw new Error("Fehler beim Prüfen der Softwareaktualisierungen");
@@ -151,6 +154,7 @@ export async function showUpdateModal() {
                     return;
                 }
                 alert("Aktualisierung und Neustart wurden erfolgreich gestartet.");
+                if (onUpdateSuccess) onUpdateSuccess(); // Logs nach erfolgreicher Ausführung neu laden
             }
         });
     } catch (error) {
@@ -225,4 +229,58 @@ export async function showDatabaseResetModal(onResetSuccess) {
     } catch (error) {
         console.error("Fehler beim Abrufen der DB-Informationen:", error);
     }
+}
+
+/**
+ * Zeigt ein Bestätigungsmodal zum Systemneustart.
+ * Es ist eine Passphrase erforderlich, damit der Neustart durchgeführt wird.
+ *
+ * @param {Function} onSuccess - Optionaler Callback, z. B. zum Neuladen der Logs.
+ */
+export function showRebootModal(onSuccess) {
+    showModal({
+        title: "Systemneustart bestätigen",
+        message: "Sie sind dabei, das System neu zu starten. Nicht gespeicherte Daten könnten verloren gehen.",
+        inputPlaceholder: "Bestätigungscode",
+        passphrase: "reboot-now", // Der Benutzer muss diese Passphrase eingeben
+        safeButtonText: "Abbrechen",
+        dangerButtonText: "Jetzt neu starten",
+        onConfirm: async () => {
+            // POST-Anfrage an API-Endpunkt für Neustart
+            const response = await fetch("/system/reboot", { method: "POST" });
+            if (!response.ok) {
+                alert("Fehler beim Neustart des Systems.");
+            } else {
+                alert("System wird neu gestartet...");
+                if (onSuccess) onSuccess();
+            }
+        }
+    });
+}
+
+/**
+ * Zeigt ein Bestätigungsmodal zum Herunterfahren des Systems.
+ * Auch hier muss eine definierte Passphrase eingegeben werden.
+ *
+ * @param {Function} onSuccess - Optionaler Callback, z. B. zum Neuladen der Logs.
+ */
+export function showShutdownModal(onSuccess) {
+    showModal({
+        title: "System herunterfahren?",
+        message: "Sie sind dabei, das System herunterzufahren. Es wird anschließend nicht mehr erreichbar sein.",
+        inputPlaceholder: "Bestätigungscode",
+        passphrase: "shutdown-now", // Sicherheitsabfrage
+        safeButtonText: "Abbrechen",
+        dangerButtonText: "Jetzt herunterfahren",
+        onConfirm: async () => {
+            // POST-Anfrage an API-Endpunkt für Shutdown
+            const response = await fetch("/system/shutdown", { method: "POST" });
+            if (!response.ok) {
+                alert("Fehler beim Herunterfahren des Systems.");
+            } else {
+                alert("System wird heruntergefahren...");
+                if (onSuccess) onSuccess();
+            }
+        }
+    });
 }
