@@ -1,9 +1,12 @@
 import docker
 import os
 
-from fastapi.responses import JSONResponse
-
 from app.services.log_service import write_log
+from app.schemas.system import *
+
+# ------------------------------
+#    Docker Client Initialisierung
+# ------------------------------
 
 try:
     docker_client = docker.from_env()
@@ -23,7 +26,7 @@ async def database_reset(backend_container: str,
     try:
         if docker_client is None:
             write_log("ERROR", "Docker client nicht verfügbar")
-            return JSONResponse(content={"error": "Docker client nicht verfügbar"}, status_code=500)
+            raise DockerClientNotAvailableError("Docker client nicht verfügbar")
 
         # ----- 1. Container-Existenz prüfen
         try:
@@ -31,7 +34,7 @@ async def database_reset(backend_container: str,
             write_log("INFO", f"Container '{backend_container}' gefunden")
         except docker.errors.NotFound:
             write_log("ERROR", f"Container '{backend_container}' existiert nicht")
-            return JSONResponse(content={"error": f"Container '{backend_container}' existiert nicht"}, status_code=404)
+            raise ContainerNotFoundError(f"Container '{backend_container}' existiert nicht")
 
         # ----- 2. Container stoppen und sicherstellen, dass er wirklich gestoppt ist
         container.stop()
@@ -44,7 +47,8 @@ async def database_reset(backend_container: str,
             timeout -= 0.5
         if container.status != "exited":
             write_log("ERROR", f"Container '{backend_container}' konnte nicht gestoppt werden, aktueller Status: {container.status}")
-            return JSONResponse(content={"error": f"Container '{backend_container}' konnte nicht gestoppt werden"}, status_code=500)
+            raise ContainerNotFoundError("Container wurde nicht gefunden", container_id="backend_123", additional_info={"operation": "reset"})
+            # raise ContainerStopError(f"Container '{backend_container}' konnte nicht gestoppt werden")
         write_log("INFO", f"Container '{backend_container}' erfolgreich gestoppt")
 
         # ----- 3. Backup der Datenbank erstellen
@@ -61,7 +65,12 @@ async def database_reset(backend_container: str,
             write_log("WARN", f"Datenbank '{database_path}' existiert nicht. Kein Backup erstellt")
 
         # ----- 4. Löschen der Datenbankdateien (Datenbank, -wal und -journal)
-        db_files = [database_path, f"{database_path}-wal", f"{database_path}-journal", f"{database_path}-shm"]
+        db_files = [
+            database_path, 
+            f"{database_path}-wal", 
+            f"{database_path}-journal", 
+            f"{database_path}-shm"
+        ]
         for file in db_files:
             if os.path.exists(file):
                 os.remove(file)
@@ -80,12 +89,15 @@ async def database_reset(backend_container: str,
             timeout -= 0.5
         if container.status != "running":
             write_log("ERROR", f"Container '{backend_container}' konnte nicht gestartet werden, aktueller Status: {container.status}")
-            return JSONResponse(content={"error": f"Container '{backend_container}' konnte nicht gestartet werden"}, status_code=500)
+            raise ContainerStartError(f"Container '{backend_container}' konnte nicht gestartet werden")
         write_log("INFO", f"Container '{backend_container}' erfolgreich gestartet")
 
         write_log("INFO", "Datenbank wurde erfolgreich zurückgesetzt")
         return {"message": "Datenbank wurde erfolgreich zurückgesetzt"}
-    
+        
     except Exception as e:
-        write_log("ERROR", f"Fehler beim Zurücksetzen der DB: {str(e)}")
-        return JSONResponse(content={"error": str(e)}, status_code=500)
+        # Falls es sich nicht um einen bereits definierten Fehler handelt, diesen als generischen DatabaseResetError weiterreichen.
+        if not isinstance(e, DatabaseResetError):
+            write_log("ERROR", f"Fehler beim Zurücksetzen der DB: {str(e)}")
+            raise DatabaseResetError(str(e))
+        raise

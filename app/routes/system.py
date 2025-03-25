@@ -11,6 +11,7 @@ from fastapi.responses import JSONResponse
 
 from app.services.log_service import write_log
 from app.services.system_service import database_reset
+from app.schemas.system import *
 from app.utils.auth import get_current_user
 
 router = APIRouter()
@@ -80,11 +81,20 @@ def delayed_reboot():
 @router.post("/database/reset")
 async def route_database_reset(user: str = Depends(get_current_user)):
     try:
-        res=database_reset(backend_container=BACKEND_CONTAINER,
-                           database_path=DB_PATH)
-    except Exception as e:
-        write_log("ERROR", f"Fehler beim Zurücksetzen der DB: {str(e)}")
-        return JSONResponse(content={"error": str(e)}, status_code=500)
+        result = await database_reset(
+            backend_container=BACKEND_CONTAINER,
+            database_path=DB_PATH
+        )
+        return result
+    except DockerClientNotAvailableError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except ContainerNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except (ContainerStopError, ContainerStartError) as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    except DatabaseResetError as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get("/database/info")
 def database_info():
