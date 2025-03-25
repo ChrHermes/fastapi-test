@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, BackgroundTasks, HTTPException
 from fastapi.responses import JSONResponse
 
 from app.services.log_service import write_log
-from app.services.system_service import database_reset, database_info
+from app.services.database_service import database_reset, database_info
 from app.schemas.errors import *
 from app.utils.auth import get_current_user
 

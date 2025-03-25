@@ -438,5 +438,200 @@
     "timestamp": "25.03.2025 20:58:43",
     "level": "INFO",
     "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:46",
+    "level": "INFO",
+    "message": []
+  },
+  {
+    "timestamp": "25.03.2025 21:26:46",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:46",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcn_backend"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:46",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcn_backend:latest ab von https://gitlab.de/v2/gcn_backend/manifests/latest"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "ERROR",
+    "message": "Fehler bei der Überprüfung von gcn_backend: HTTPSConnectionPool(host='gitlab.de', port=443): Max retries exceeded with url: /v2/gcn_backend/manifests/latest (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gitlab.de'. (_ssl.c:1010)\")))"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcn_frontend"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcn_frontend:latest ab von https://gitlab.de/v2/gcn_frontend/manifests/latest"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "ERROR",
+    "message": "Fehler bei der Überprüfung von gcn_frontend: HTTPSConnectionPool(host='gitlab.de', port=443): Max retries exceeded with url: /v2/gcn_frontend/manifests/latest (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gitlab.de'. (_ssl.c:1010)\")))"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "INFO",
+    "message": "Überprüfe Image: gateway"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "INFO",
+    "message": "Rufe Manifest für gateway:latest ab von https://gitlab.de/v2/gateway/manifests/latest"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "ERROR",
+    "message": "Fehler bei der Überprüfung von gateway: HTTPSConnectionPool(host='gitlab.de', port=443): Max retries exceeded with url: /v2/gateway/manifests/latest (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gitlab.de'. (_ssl.c:1010)\")))"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcnia"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcnia:latest ab von https://gitlab.de/v2/gcnia/manifests/latest"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "ERROR",
+    "message": "Fehler bei der Überprüfung von gcnia: HTTPSConnectionPool(host='gitlab.de', port=443): Max retries exceeded with url: /v2/gcnia/manifests/latest (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gitlab.de'. (_ssl.c:1010)\")))"
+  },
+  {
+    "timestamp": "25.03.2025 21:26:47",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:07",
+    "level": "INFO",
+    "message": []
+  },
+  {
+    "timestamp": "25.03.2025 21:27:07",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:07",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcn_backend"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:07",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcn_backend:latest ab von https://gitlab.de/v2/gcn_backend/manifests/latest"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:07",
+    "level": "ERROR",
+    "message": "Fehler bei der Überprüfung von gcn_backend: HTTPSConnectionPool(host='gitlab.de', port=443): Max retries exceeded with url: /v2/gcn_backend/manifests/latest (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gitlab.de'. (_ssl.c:1010)\")))"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcn_frontend"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcn_frontend:latest ab von https://gitlab.de/v2/gcn_frontend/manifests/latest"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "ERROR",
+    "message": "Fehler bei der Überprüfung von gcn_frontend: HTTPSConnectionPool(host='gitlab.de', port=443): Max retries exceeded with url: /v2/gcn_frontend/manifests/latest (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gitlab.de'. (_ssl.c:1010)\")))"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "INFO",
+    "message": "Überprüfe Image: gateway"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "INFO",
+    "message": "Rufe Manifest für gateway:latest ab von https://gitlab.de/v2/gateway/manifests/latest"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "ERROR",
+    "message": "Fehler bei der Überprüfung von gateway: HTTPSConnectionPool(host='gitlab.de', port=443): Max retries exceeded with url: /v2/gateway/manifests/latest (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gitlab.de'. (_ssl.c:1010)\")))"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcnia"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcnia:latest ab von https://gitlab.de/v2/gcnia/manifests/latest"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "ERROR",
+    "message": "Fehler bei der Überprüfung von gcnia: HTTPSConnectionPool(host='gitlab.de', port=443): Max retries exceeded with url: /v2/gcnia/manifests/latest (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'gitlab.de'. (_ssl.c:1010)\")))"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:08",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:14",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' gefunden"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:24",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestoppt"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:24",
+    "level": "INFO",
+    "message": "Backup der Datenbank erstellt: /data/backup/gcn.db_20250325_2127"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:24",
+    "level": "INFO",
+    "message": "Datei '/data/gcn.db' wurde gelöscht"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:24",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-wal' existiert nicht"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:24",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-journal' existiert nicht"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:24",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-shm' existiert nicht"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:25",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestartet"
+  },
+  {
+    "timestamp": "25.03.2025 21:27:25",
+    "level": "INFO",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
   }
 ]
