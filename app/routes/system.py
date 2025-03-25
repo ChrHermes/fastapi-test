@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, BackgroundTasks, HTTPException
 from fastapi.responses import JSONResponse
 
 from app.services.log_service import write_log
-from app.services.system_service import database_reset
+from app.services.system_service import database_reset, database_info
 from app.schemas.system import *
 from app.utils.auth import get_current_user
 
@@ -97,32 +97,15 @@ async def route_database_reset(user: str = Depends(get_current_user)):
 
 
 @router.get("/database/info")
-def database_info():
-    """
-    Gibt die aktuelle Größe der Datenbank zurück.
-    Dynamische Größenangaben werden in B, kB, MB, GB oder TB zurückgegeben.
-    Falls die DB nicht existiert, wird '0 B' geliefert.
-    """
-    if os.path.exists(DB_PATH):
-        size_in_bytes = os.path.getsize(DB_PATH)
-        return {"size": format_size(size_in_bytes)}
-    else:
-        return {"size": "0 B"}
+async def route_database_info(user: str = Depends(get_current_user)):
+    try:
+        result = await database_info(
+            database_path=DB_PATH
+        )
+        return result
+    except DatabaseInfoError as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-# ----------------- supporting methods
-
-def format_size(size_bytes):
-    """
-    Formatiert eine Größe in Bytes in eine menschenlesbare Form (B, kB, MB, GB, TB).
-    """
-    if size_bytes == 0:
-        return "0 B"
-    units = ["B", "kB", "MB", "GB", "TB"]
-    index = 0
-    while size_bytes >= 1024 and index < len(units) - 1:
-        size_bytes /= 1024.0
-        index += 1
-    return f"{size_bytes:.2f} {units[index]}"
 
 # =====================================
 #          REGISTRY

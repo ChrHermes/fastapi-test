@@ -27,3 +27,9 @@ Testdateien erzeugen
 ```zsh
 dd if=/dev/zero of=./data/gcn.db bs=1K count=54321
 ```
+
+Container Liste gekürzt
+
+```zsh
+docker ps --format "table {{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}"
+```

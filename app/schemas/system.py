@@ -5,6 +5,10 @@ class DatabaseResetError(Exception):
     """Basisfehler beim Zurücksetzen der Datenbank."""
     pass
 
+class DatabaseInfoError(Exception):
+    """Basisfehler beim Zurücksetzen der Datenbank."""
+    pass
+
 class DockerClientNotAvailableError(DatabaseResetError):
     """Fehler: Docker-Client ist nicht verfügbar."""
     pass

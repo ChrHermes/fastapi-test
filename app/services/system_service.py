@@ -25,8 +25,8 @@ async def database_reset(backend_container: str,
     
     try:
         if docker_client is None:
-            write_log("ERROR", "Docker client nicht verfügbar")
-            raise DockerClientNotAvailableError("Docker client nicht verfügbar")
+            write_log("ERROR", "Docker Client nicht verfügbar")
+            raise DockerClientNotAvailableError("Docker Client nicht verfügbar")
 
         # ----- 1. Container-Existenz prüfen
         try:
@@ -101,3 +101,36 @@ async def database_reset(backend_container: str,
             write_log("ERROR", f"Fehler beim Zurücksetzen der DB: {str(e)}")
             raise DatabaseResetError(str(e))
         raise
+
+
+async def database_info(database_path: str):
+    """
+    Gibt die aktuelle Größe der Datenbank zurück.
+    Dynamische Größenangaben werden in B, kB, MB, GB oder TB zurückgegeben.
+    Falls die DB nicht existiert, wird '0 B' geliefert.
+    """
+    try:
+        if os.path.exists(database_path):
+            size_in_bytes = os.path.getsize(database_path)
+            return {"size": format_size(size_in_bytes)}
+        else:
+            raise DatabaseInfoError(f"{database_path} existiert nicht.")
+    except Exception as e:
+        # Falls es sich nicht um einen bereits definierten Fehler handelt, diesen als generischen DatabaseResetError weiterreichen.
+        if not isinstance(e, DatabaseInfoError):
+            write_log("ERROR", f"Fehler beim Auslesen der DB: {str(e)}")
+            raise DatabaseInfoError(str(e))
+        raise
+
+def format_size(size_bytes):
+    """
+    Formatiert eine Größe in Bytes in eine menschenlesbare Form (B, kB, MB, GB, TB).
+    """
+    if size_bytes == 0:
+        return "0 B"
+    units = ["B", "kB", "MB", "GB", "TB"]
+    index = 0
+    while size_bytes >= 1024 and index < len(units) - 1:
+        size_bytes /= 1024.0
+        index += 1
+    return f"{size_bytes:.2f} {units[index]}"
