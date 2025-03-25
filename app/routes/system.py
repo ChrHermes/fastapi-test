@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 
 from app.services.log_service import write_log
 from app.services.system_service import database_reset, database_info
-from app.schemas.system import *
+from app.schemas.errors import *
 from app.utils.auth import get_current_user
 
 router = APIRouter()
@@ -79,7 +79,7 @@ def delayed_reboot():
 # ===================================== 
 
 @router.post("/database/reset")
-async def route_database_reset(user: str = Depends(get_current_user)):
+async def post_database_reset(user: str = Depends(get_current_user)):
     try:
         result = await database_reset(
             backend_container=BACKEND_CONTAINER,
@@ -97,14 +97,14 @@ async def route_database_reset(user: str = Depends(get_current_user)):
 
 
 @router.get("/database/info")
-async def route_database_info(user: str = Depends(get_current_user)):
+async def get_database_info(user: str = Depends(get_current_user)):
     try:
         result = await database_info(
             database_path=DB_PATH
         )
         return result
     except DatabaseInfoError as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) 
 
 
 # =====================================

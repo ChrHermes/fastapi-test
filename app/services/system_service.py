@@ -2,7 +2,7 @@ import docker
 import os
 
 from app.services.log_service import write_log
-from app.schemas.system import *
+from app.schemas.errors import *
 
 # ------------------------------
 #    Docker Client Initialisierung
@@ -121,6 +121,7 @@ async def database_info(database_path: str):
             write_log("ERROR", f"Fehler beim Auslesen der DB: {str(e)}")
             raise DatabaseInfoError(str(e))
         raise
+
 
 def format_size(size_bytes):
     """

@@ -348,5 +348,95 @@
     "timestamp": "10.03.2025 11:41:39",
     "level": "ERROR",
     "message": "Container 'backend' existiert nicht."
+  },
+  {
+    "timestamp": "25.03.2025 20:50:46",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' gefunden"
+  },
+  {
+    "timestamp": "25.03.2025 20:50:56",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestoppt"
+  },
+  {
+    "timestamp": "25.03.2025 20:50:56",
+    "level": "INFO",
+    "message": "Backup der Datenbank erstellt: /data/backup/gcn.db_20250325_2050"
+  },
+  {
+    "timestamp": "25.03.2025 20:50:56",
+    "level": "INFO",
+    "message": "Datei '/data/gcn.db' wurde gelöscht"
+  },
+  {
+    "timestamp": "25.03.2025 20:50:56",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-wal' existiert nicht"
+  },
+  {
+    "timestamp": "25.03.2025 20:50:56",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-journal' existiert nicht"
+  },
+  {
+    "timestamp": "25.03.2025 20:50:56",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-shm' existiert nicht"
+  },
+  {
+    "timestamp": "25.03.2025 20:50:56",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestartet"
+  },
+  {
+    "timestamp": "25.03.2025 20:50:56",
+    "level": "INFO",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "25.03.2025 20:58:33",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' gefunden"
+  },
+  {
+    "timestamp": "25.03.2025 20:58:43",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestoppt"
+  },
+  {
+    "timestamp": "25.03.2025 20:58:43",
+    "level": "INFO",
+    "message": "Backup der Datenbank erstellt: /data/backup/gcn.db_20250325_2058"
+  },
+  {
+    "timestamp": "25.03.2025 20:58:43",
+    "level": "INFO",
+    "message": "Datei '/data/gcn.db' wurde gelöscht"
+  },
+  {
+    "timestamp": "25.03.2025 20:58:43",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-wal' existiert nicht"
+  },
+  {
+    "timestamp": "25.03.2025 20:58:43",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-journal' existiert nicht"
+  },
+  {
+    "timestamp": "25.03.2025 20:58:43",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-shm' existiert nicht"
+  },
+  {
+    "timestamp": "25.03.2025 20:58:43",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestartet"
+  },
+  {
+    "timestamp": "25.03.2025 20:58:43",
+    "level": "INFO",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
   }
 ]
