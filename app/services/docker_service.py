@@ -14,7 +14,7 @@ except Exception as e:
     docker_client = None
 
 # =====================================
-#          DATABASE
+#          DOCKER
 # ===================================== 
 
 def container_stop(container, container_name: str, timeout: float = 60):

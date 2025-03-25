@@ -3,7 +3,6 @@
 import os
 import docker
 import subprocess
-import time
 import requests
 
 from fastapi import APIRouter, Depends, BackgroundTasks, HTTPException
@@ -11,6 +10,7 @@ from fastapi.responses import JSONResponse
 
 from app.services.log_service import write_log
 from app.services.database_service import database_reset, database_info
+from app.services.system_service import delayed_reboot, delayed_shutdown
 from app.schemas.errors import *
 from app.utils.auth import get_current_user
 
@@ -60,19 +60,6 @@ def reboot_system(background_tasks: BackgroundTasks, user: str = Depends(get_cur
 
 # ----------------- supporting methods
 
-def delayed_shutdown():
-    time.sleep(DELAY_SHUTDOWN)
-    try:
-        subprocess.run(["poweroff"], check=True)
-    except Exception as e:
-        write_log("ERROR", f"Fehler beim Herunterfahren: {str(e)}")
-
-def delayed_reboot():
-    time.sleep(DELAY_REBOOT)
-    try:
-        subprocess.run(["reboot"], check=True)
-    except Exception as e:
-        write_log("ERROR", f"Fehler beim Neustart: {str(e)}")
 
 # =====================================
 #          DATABASE
