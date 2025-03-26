@@ -2,6 +2,7 @@
 
 import docker
 import time
+import subprocess
 
 from app.config import settings
 from app.services.log_service import write_log
@@ -95,6 +96,80 @@ def check_registry_images(images: List[str]) -> dict:
     
     write_log("INFO", "Überprüfung der Registry-Images abgeschlossen")
     return {"images": results}
+
+
+# =====================================
+#           COMPOSE OPERATIONS
+# ===================================== 
+
+def restart_compose_environment() -> dict:
+    """
+    Startet die docker-compose Umgebung neu, indem zuerst 'docker-compose down'
+    und anschließend 'docker-compose up -d' ausgeführt wird. Das Arbeitsverzeichnis
+    (settings.COMPOSE_PATH) wird hierfür verwendet.
+    
+    Gibt ein Dictionary mit Status und Output zurück.
+    Wirft eine DockerComposeRestartError, falls ein Fehler auftritt.
+    """
+    write_log("INFO", "Starte Neustart der docker-compose Umgebung")
+    try:
+        # Umgebung stoppen
+        down_command = ["docker-compose", "down"]
+        write_log("INFO", f"Führe Befehl aus: {' '.join(down_command)} im Verzeichnis {settings.COMPOSE_PATH}")
+        subprocess.run(
+            down_command,
+            capture_output=True,
+            text=True,
+            check=True,
+            cwd=settings.COMPOSE_PATH
+        )
+        
+        # Umgebung im Detached-Modus starten
+        up_command = ["docker-compose", "up", "-d"]
+        write_log("INFO", f"Führe Befehl aus: {' '.join(up_command)} im Verzeichnis {settings.COMPOSE_PATH}")
+        result = subprocess.run(
+            up_command,
+            capture_output=True,
+            text=True,
+            check=True,
+            cwd=settings.COMPOSE_PATH
+        )
+        write_log("INFO", "Docker-compose Umgebung wurde erfolgreich neu gestartet")
+        return {"status": "Docker-compose Umgebung wurde erfolgreich neu gestartet", "output": result.stdout}
+    except subprocess.CalledProcessError as e:
+        write_log("ERROR", f"Fehler beim Neustarten der docker-compose Umgebung: {e.stderr}")
+        raise DockerComposeRestartError(f"Neustart der docker-compose Umgebung fehlgeschlagen: {e.stderr}")
+
+
+# =====================================
+#          UPDATE DOCKER IMAGES
+# ===================================== 
+
+def update_docker_images() -> dict:
+    """
+    Aktualisiert die Docker-Images mittels 'docker-compose pull'.
+    Führt den Befehl im Verzeichnis settings.COMPOSE_PATH aus.
+    
+    Gibt ein Dictionary mit Status und Output zurück.
+    Wirft DockerImagesUpdateError bei einem Fehler.
+    """
+    write_log("INFO", "Starte Update der Docker-Images")
+    try:
+        # Erstelle den Pull-Befehl, der alle in settings.IMAGES definierten Images zieht
+        pull_command = ["docker-compose", "pull"] + settings.IMAGES
+        write_log("INFO", f"Führe Befehl aus: {' '.join(pull_command)} im Verzeichnis {settings.COMPOSE_PATH}")
+        result = subprocess.run(
+            pull_command,
+            capture_output=True,
+            text=True,
+            check=True,
+            cwd=settings.COMPOSE_PATH
+        )
+        write_log("INFO", "Docker-Images wurden erfolgreich aktualisiert")
+        return {"status": "Docker-Images wurden erfolgreich aktualisiert", "output": result.stdout}
+    except subprocess.CalledProcessError as e:
+        write_log("ERROR", f"Fehler beim Update der Images: {e.stderr}")
+        raise DockerImagesUpdateError(f"Update der Images fehlgeschlagen: {e.stderr}")
 
 
 # =====================================

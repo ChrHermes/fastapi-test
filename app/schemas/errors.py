@@ -45,6 +45,16 @@ class ContainerStartError(DatabaseResetError):
     pass
 
 
+class DockerComposeRestartError(Exception):
+    """Fehler beim Neustart der docker-compose Umgebung."""
+    pass
+
+
+class DockerImagesUpdateError(Exception):
+    """Fehler beim Aktualisieren der Docker-Images."""
+    pass
+
+
 class RegistryCheckError(DockerServiceError):
     """Allgemeiner Fehler bei der Überprüfung der Registry-Images."""
     pass
@@ -58,4 +68,5 @@ class ManifestError(DockerServiceError):
 class ConfigBlobError(DockerServiceError):
     """Fehler, wenn der Config-Blob nicht abgerufen werden konnte oder die erwarteten Informationen fehlen."""
     pass
+
 
