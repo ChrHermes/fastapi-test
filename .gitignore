@@ -7,4 +7,6 @@ dev**/
 *.tar
 *.env
 *.db
+*.db_*
+
 NOTES

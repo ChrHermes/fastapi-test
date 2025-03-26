@@ -1,8 +1,9 @@
 # app/main.py
+
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from app import app
-from app.routes import auth, view, logging as log_routes, system
+from app.routes import auth, view, logging as log_routes, system, database, docker
 
 # Beispiel: Einbinden einer globalen Middleware
 @app.middleware("http")
@@ -22,3 +23,5 @@ app.include_router(auth.router)
 app.include_router(view.router)
 app.include_router(log_routes.router)
 app.include_router(system.router)
+app.include_router(database.router)
+app.include_router(docker.router)

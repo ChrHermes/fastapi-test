@@ -225,7 +225,10 @@ export function showUserCommentModal(onLogAdded) {
 export async function showDatabaseResetModal(onResetSuccess) {
     try {
         const response = await fetch("/database/info");
-        if (!response.ok) throw new Error("Fehler beim Laden der DB-Informationen.");
+        if (!response.ok){
+            alert("Fehler beim Laden der DB-Informationen.");
+            throw new Error("Fehler beim Laden der DB-Informationen.");
+        }
         const data = await response.json();
         // Die DB-Größe wird direkt in der Nachricht eingebaut
         showModal({

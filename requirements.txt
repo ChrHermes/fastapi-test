@@ -3,4 +3,5 @@ uvicorn
 aiofiles
 python-dotenv
 pydantic
+pydantic-settings
 docker
