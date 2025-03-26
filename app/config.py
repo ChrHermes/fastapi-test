@@ -5,10 +5,12 @@ from typing import List
 
 class Settings(BaseSettings):
     # Allgemeine Konfiguration
+    ADMIN_USER: str = "SuperAdmin"
+    ADMIN_PASS: str = "Asdfg_Poiuz65"
+    
+    # Weitere Konfigurationen können hier ergänzt werden:
     BACKEND_CONTAINER_NAME: str = "backend"
     DB_PATH: str = "/data/gcn.db"
-    
-    # Systembezogene Konfiguration
     DELAY_SHUTDOWN: int = 10
     DELAY_REBOOT: int = 10
 
