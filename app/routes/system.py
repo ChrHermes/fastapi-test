@@ -6,12 +6,12 @@ import subprocess
 import requests
 
 from fastapi import APIRouter, Depends, BackgroundTasks, HTTPException
-from fastapi.responses import JSONResponse
 
 from app.config import settings
 from app.services.log_service import write_log
 from app.services.database_service import database_reset, database_info
 from app.services.system_service import delayed_reboot, delayed_shutdown
+from app.services.docker_service import check_registry_images
 from app.schemas.errors import *
 from app.utils.auth import get_current_user
 
@@ -98,35 +98,15 @@ async def list_containers():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Fehler beim Abrufen der Container: {str(e)}")
 
+
 @router.get("/docker/check")
 async def check_registry(user: str = Depends(get_current_user)):
     """
     Prüft die Docker-Images in der Registry und extrahiert den "Version"-Label.
     """
-    write_log("INFO", "Starte Überprüfung der Registry-Images")
-    results = {}
-    for image in settings.IMAGES:
-        try:
-            write_log("INFO", f"Überprüfe Image: {image}")
-            manifest = get_manifest(image)
-            config_digest = manifest.get("config", {}).get("digest")
-            if not config_digest:
-                raise Exception("Kein Config-Digest im Manifest gefunden")
-            
-            config_blob = get_config_blob(image, config_digest)
-            version_label = config_blob.get("config", {}).get("Labels", {}).get("Version", "unbekannt")
-            write_log("INFO", f"Image {image} hat Version: {version_label}")
-            
-            results[image] = {
-                "version": version_label,
-                "manifest_digest": config_digest
-            }
-        except Exception as e:
-            write_log("ERROR", f"Fehler bei der Überprüfung von {image}: {str(e)}")
-            results[image] = {"error": str(e)}
-    
-    write_log("INFO", "Überprüfung der Registry-Images abgeschlossen")
-    return {"images": results}
+    # Übergibt die Liste der Images aus dem zentralen Config-Modul
+    return check_registry_images(settings.IMAGES)
+
 
 @router.post("/docker/update")
 async def update_images(user: str = Depends(get_current_user)):
@@ -150,6 +130,7 @@ async def update_images(user: str = Depends(get_current_user)):
     except subprocess.CalledProcessError as e:
         write_log("ERROR", f"Fehler beim Update der Images: {e.stderr}")
         raise HTTPException(status_code=500, detail=f"Update der Images fehlgeschlagen: {e.stderr}")
+
 
 @router.post("/docker/restart")
 async def restart_compose(user: str = Depends(get_current_user)):
@@ -186,34 +167,3 @@ async def restart_compose(user: str = Depends(get_current_user)):
     except subprocess.CalledProcessError as e:
         write_log("ERROR", f"Fehler beim Neustarten der docker-compose Umgebung: {e.stderr}")
         raise HTTPException(status_code=500, detail=f"Neustart der docker-compose Umgebung fehlgeschlagen: {e.stderr}")
-
-
-# ----------------- supporting methods
-
-def get_manifest(image: str, tag: str = "latest"):
-    manifest_url = f"{settings.REGISTRY_URL}/v2/{image}/manifests/{tag}"
-    headers = {
-        "Accept": "application/vnd.docker.distribution.manifest.v2+json",
-        "Authorization": f"Bearer {settings.GITLAB_PAT}"
-    }
-    write_log("INFO", f"Rufe Manifest für {image}:{tag} ab von {manifest_url}")
-    response = requests.get(manifest_url, headers=headers)
-    if response.status_code != 200:
-        write_log("ERROR", f"Fehler beim Laden des Manifests für {image}:{tag}. Status Code: {response.status_code}")
-        raise Exception(f"Manifest für {image}:{tag} konnte nicht geladen werden: {response.status_code}")
-    write_log("INFO", f"Manifest für {image}:{tag} erfolgreich geladen")
-    return response.json()
-
-def get_config_blob(image: str, digest: str):
-    blob_url = f"{settings.REGISTRY_URL}/v2/{image}/blobs/{digest}"
-    headers = {
-        "Authorization": f"Bearer {settings.GITLAB_PAT}"
-    }
-    write_log("INFO", f"Rufe Config-Blob für {image} mit Digest {digest} ab von {blob_url}")
-    response = requests.get(blob_url, headers=headers)
-    if response.status_code != 200:
-        write_log("ERROR", f"Fehler beim Laden des Config-Blobs für {image} (Digest: {digest}). Status Code: {response.status_code}")
-        raise Exception(f"Config-Blob für {image} (Digest: {digest}) konnte nicht geladen werden: {response.status_code}")
-    write_log("INFO", f"Config-Blob für {image} erfolgreich geladen")
-    return response.json()
-
