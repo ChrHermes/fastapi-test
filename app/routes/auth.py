@@ -1,4 +1,5 @@
 # app/routes/auth.py
+
 import os
 from fastapi import APIRouter, Request, Depends, Response, HTTPException
 from fastapi.responses import FileResponse, RedirectResponse, JSONResponse

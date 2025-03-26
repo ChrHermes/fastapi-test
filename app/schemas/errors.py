@@ -1,6 +1,9 @@
+# app/schemas/errors.py
+
 # ------------------------------
-#    Eigene Ausnahmeklassen
+#    DATABASE
 # ------------------------------
+
 class DatabaseResetError(Exception):
     """Basisfehler beim Zurücksetzen der Datenbank."""
     pass
@@ -8,6 +11,11 @@ class DatabaseResetError(Exception):
 class DatabaseInfoError(Exception):
     """Basisfehler beim Zurücksetzen der Datenbank."""
     pass
+
+
+# ------------------------------
+#    DOCKER
+# ------------------------------
 
 class DockerClientNotAvailableError(DatabaseResetError):
     """Fehler: Docker-Client ist nicht verfügbar."""

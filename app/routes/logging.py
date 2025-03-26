@@ -1,4 +1,5 @@
 # app/routes/logging.py
+
 import os
 import json
 from pydantic import BaseModel

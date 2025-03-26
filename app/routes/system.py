@@ -49,13 +49,13 @@ except Exception as e:
 @router.post("/system/shutdown")
 def shutdown_system(background_tasks: BackgroundTasks, user: str = Depends(get_current_user)):
     write_log("WARN", f"Herunterfahren wird in {DELAY_SHUTDOWN} Sekunden eingeleitet")
-    background_tasks.add_task(delayed_shutdown)
+    background_tasks.add_task(delayed_shutdown(DELAY_SHUTDOWN))
     return {"message": f"Herunterfahren wird in {DELAY_SHUTDOWN} Sekunden eingeleitet"}
 
 @router.post("/system/reboot")
 def reboot_system(background_tasks: BackgroundTasks, user: str = Depends(get_current_user)):
     write_log("WARN", f"Neustart wird in {DELAY_REBOOT} Sekunden eingeleitet")
-    background_tasks.add_task(delayed_reboot)
+    background_tasks.add_task(delayed_reboot(DELAY_REBOOT))
     return {"message": f"Neustart wird in {DELAY_REBOOT} Sekunden eingeleitet"}
 
 # ----------------- supporting methods
