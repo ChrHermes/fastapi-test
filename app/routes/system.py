@@ -8,6 +8,7 @@ import requests
 from fastapi import APIRouter, Depends, BackgroundTasks, HTTPException
 from fastapi.responses import JSONResponse
 
+from app.config import settings
 from app.services.log_service import write_log
 from app.services.database_service import database_reset, database_info
 from app.services.system_service import delayed_reboot, delayed_shutdown
@@ -15,27 +16,6 @@ from app.schemas.errors import *
 from app.utils.auth import get_current_user
 
 router = APIRouter()
-
-BACKEND_CONTAINER = os.getenv("BACKEND_CONTAINER_NAME", "backend")
-DB_PATH = os.getenv("DB_PATH", "/data/gcn.db")
-DELAY_SHUTDOWN = os.getenv("DELAY_SHUTDOWN", 10)
-DELAY_REBOOT = os.getenv("DELAY_REBOOT", 10)
-
-# Konfiguration: GitLab-Projekt-ID und Personal Access Token
-GITLAB_PAT = os.getenv("GITLAB_PAT", "your_access_token")
-REGISTRY_URL = os.getenv("REGISTRY_URL", "https://gitlab.de")
-COMPOSE_PATH = "/opt/gridcal"
-IMAGES = ['gcn_backend',
-          'gcn_frontend',
-          'gateway',
-          'gcnia']
-
-CONTAINER = ['gridcal-frontend-1',
-             'gridcal-gatewaycontrol-1',
-             'gridcal-backend-1',
-             'gridcal-gcfcs-1',
-             'gridcal-gcgw-1',
-             'gridcal-gcnia-1']
 
 try:
     docker_client = docker.from_env()
@@ -48,15 +28,15 @@ except Exception as e:
 
 @router.post("/system/shutdown")
 def shutdown_system(background_tasks: BackgroundTasks, user: str = Depends(get_current_user)):
-    write_log("WARN", f"Herunterfahren wird in {DELAY_SHUTDOWN} Sekunden eingeleitet")
-    background_tasks.add_task(delayed_shutdown(DELAY_SHUTDOWN))
-    return {"message": f"Herunterfahren wird in {DELAY_SHUTDOWN} Sekunden eingeleitet"}
+    write_log("WARN", f"Herunterfahren wird in {settings.DELAY_SHUTDOWN} Sekunden eingeleitet")
+    background_tasks.add_task(delayed_shutdown(settings.DELAY_SHUTDOWN))
+    return {"message": f"Herunterfahren wird in {settings.DELAY_SHUTDOWN} Sekunden eingeleitet"}
 
 @router.post("/system/reboot")
 def reboot_system(background_tasks: BackgroundTasks, user: str = Depends(get_current_user)):
-    write_log("WARN", f"Neustart wird in {DELAY_REBOOT} Sekunden eingeleitet")
-    background_tasks.add_task(delayed_reboot(DELAY_REBOOT))
-    return {"message": f"Neustart wird in {DELAY_REBOOT} Sekunden eingeleitet"}
+    write_log("WARN", f"Neustart wird in {settings.DELAY_REBOOT} Sekunden eingeleitet")
+    background_tasks.add_task(delayed_reboot(settings.DELAY_REBOOT))
+    return {"message": f"Neustart wird in {settings.DELAY_REBOOT} Sekunden eingeleitet"}
 
 # ----------------- supporting methods
 
@@ -69,8 +49,8 @@ def reboot_system(background_tasks: BackgroundTasks, user: str = Depends(get_cur
 async def post_database_reset(user: str = Depends(get_current_user)):
     try:
         result = await database_reset(
-            backend_container=BACKEND_CONTAINER,
-            database_path=DB_PATH
+            backend_container=settings.BACKEND_CONTAINER,
+            database_path=settings.DB_PATH
         )
         return result
     except DockerClientNotAvailableError as e:
@@ -87,7 +67,7 @@ async def post_database_reset(user: str = Depends(get_current_user)):
 async def get_database_info(user: str = Depends(get_current_user)):
     try:
         result = await database_info(
-            database_path=DB_PATH
+            database_path=settings.DB_PATH
         )
         return result
     except DatabaseInfoError as e:
@@ -125,7 +105,7 @@ async def check_registry(user: str = Depends(get_current_user)):
     """
     write_log("INFO", "Starte Überprüfung der Registry-Images")
     results = {}
-    for image in IMAGES:
+    for image in settings.IMAGES:
         try:
             write_log("INFO", f"Überprüfe Image: {image}")
             manifest = get_manifest(image)
@@ -156,14 +136,14 @@ async def update_images(user: str = Depends(get_current_user)):
     """
     write_log("INFO", "Starte Update der Docker-Images")
     try:
-        pull_command = ["docker-compose", "pull"] + IMAGES
-        write_log("INFO", f"Führe Befehl aus: {' '.join(pull_command)} im Verzeichnis {COMPOSE_PATH}")
+        pull_command = ["docker-compose", "pull"] + settings.IMAGES
+        write_log("INFO", f"Führe Befehl aus: {' '.join(pull_command)} im Verzeichnis {settings.COMPOSE_PATH}")
         result = subprocess.run(
             pull_command,
             capture_output=True,
             text=True,
             check=True,
-            cwd=COMPOSE_PATH
+            cwd=settings.COMPOSE_PATH
         )
         write_log("INFO", "Docker-Images wurden erfolgreich aktualisiert")
         return {"status": "Docker-Images wurden erfolgreich aktualisiert", "output": result.stdout}
@@ -182,24 +162,24 @@ async def restart_compose(user: str = Depends(get_current_user)):
     try:
         # Umgebung stoppen
         down_command = ["docker-compose", "down"]
-        write_log("INFO", f"Führe Befehl aus: {' '.join(down_command)} im Verzeichnis {COMPOSE_PATH}")
+        write_log("INFO", f"Führe Befehl aus: {' '.join(down_command)} im Verzeichnis {settings.COMPOSE_PATH}")
         subprocess.run(
             down_command,
             capture_output=True,
             text=True,
             check=True,
-            cwd=COMPOSE_PATH
+            cwd=settings.COMPOSE_PATH
         )
         
         # Umgebung im Detached-Modus starten
         up_command = ["docker-compose", "up", "-d"]
-        write_log("INFO", f"Führe Befehl aus: {' '.join(up_command)} im Verzeichnis {COMPOSE_PATH}")
+        write_log("INFO", f"Führe Befehl aus: {' '.join(up_command)} im Verzeichnis {settings.COMPOSE_PATH}")
         result = subprocess.run(
             up_command,
             capture_output=True,
             text=True,
             check=True,
-            cwd=COMPOSE_PATH
+            cwd=settings.COMPOSE_PATH
         )
         write_log("INFO", "Docker-compose Umgebung wurde erfolgreich neu gestartet")
         return {"status": "Docker-compose Umgebung wurde erfolgreich neu gestartet", "output": result.stdout}
@@ -211,10 +191,10 @@ async def restart_compose(user: str = Depends(get_current_user)):
 # ----------------- supporting methods
 
 def get_manifest(image: str, tag: str = "latest"):
-    manifest_url = f"{REGISTRY_URL}/v2/{image}/manifests/{tag}"
+    manifest_url = f"{settings.REGISTRY_URL}/v2/{image}/manifests/{tag}"
     headers = {
         "Accept": "application/vnd.docker.distribution.manifest.v2+json",
-        "Authorization": f"Bearer {GITLAB_PAT}"
+        "Authorization": f"Bearer {settings.GITLAB_PAT}"
     }
     write_log("INFO", f"Rufe Manifest für {image}:{tag} ab von {manifest_url}")
     response = requests.get(manifest_url, headers=headers)
@@ -225,9 +205,9 @@ def get_manifest(image: str, tag: str = "latest"):
     return response.json()
 
 def get_config_blob(image: str, digest: str):
-    blob_url = f"{REGISTRY_URL}/v2/{image}/blobs/{digest}"
+    blob_url = f"{settings.REGISTRY_URL}/v2/{image}/blobs/{digest}"
     headers = {
-        "Authorization": f"Bearer {GITLAB_PAT}"
+        "Authorization": f"Bearer {settings.GITLAB_PAT}"
     }
     write_log("INFO", f"Rufe Config-Blob für {image} mit Digest {digest} ab von {blob_url}")
     response = requests.get(blob_url, headers=headers)
