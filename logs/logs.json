@@ -633,5 +633,55 @@
     "timestamp": "25.03.2025 21:27:25",
     "level": "INFO",
     "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:01",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' gefunden"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:11",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestoppt"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:11",
+    "level": "INFO",
+    "message": "Backup-Ordner '/data/backup' wurde erstellt"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:11",
+    "level": "INFO",
+    "message": "Backup der Datenbank erstellt: /data/backup/gcn.db_20250326_1637"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:12",
+    "level": "INFO",
+    "message": "Datei '/data/gcn.db' wurde gelöscht"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:12",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-wal' existiert nicht"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:12",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-journal' existiert nicht"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:12",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-shm' existiert nicht"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:12",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestartet"
+  },
+  {
+    "timestamp": "26.03.2025 16:37:12",
+    "level": "INFO",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
   }
 ]

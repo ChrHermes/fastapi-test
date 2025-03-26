@@ -25,7 +25,7 @@ except Exception as e:
 async def post_database_reset(user: str = Depends(get_current_user)):
     try:
         result = await database_reset(
-            backend_container=settings.BACKEND_CONTAINER,
+            backend_container=settings.BACKEND_CONTAINER_NAME,
             database_path=settings.DB_PATH
         )
         return result

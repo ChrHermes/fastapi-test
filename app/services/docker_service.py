@@ -4,6 +4,8 @@ import docker
 import time
 import subprocess
 
+from typing import List
+
 from app.config import settings
 from app.services.log_service import write_log
 from app.schemas.errors import *
