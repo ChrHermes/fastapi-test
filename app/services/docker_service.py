@@ -19,6 +19,28 @@ try:
 except Exception as e:
     docker_client = None
 
+
+# =====================================
+#           COMPOSE OPERATIONS
+# ===================================== 
+
+def list_docker_containers(project_label: str = "gridcal") -> list:
+    """
+    Liefert alle Container, bei denen das Label "com.docker.compose.project"
+    den angegebenen project_label enthält.
+    """
+    client = docker.from_env()
+    all_containers = client.containers.list(all=True)
+    # Filter: Nur Container mit dem Label 'com.docker.compose.project' == project_label
+    filtered_containers = [
+        container.name
+        for container in all_containers
+        if project_label in container.labels.get("com.docker.compose.project", "")
+    ]
+    write_log("INFO", f"Gefundene Container: {filtered_containers}")
+    return filtered_containers
+
+
 # =====================================
 #          START/STOP CONTAINER
 # ===================================== 

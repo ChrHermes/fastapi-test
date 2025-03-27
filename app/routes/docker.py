@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from app.config import settings
 from app.services.log_service import write_log
-from app.services.docker_service import check_registry_images, restart_compose_environment, update_docker_images
+from app.services.docker_service import check_registry_images, restart_compose_environment, update_docker_images, list_docker_containers
 from app.schemas.errors import *
 from app.utils.auth import get_current_user
 
@@ -29,16 +29,8 @@ async def list_containers():
     den String "gridcal" enthält.
     """
     try:
-        client = docker.from_env()
-        all_containers = client.containers.list(all=True)
-        # Filter: Nur Container mit dem Label 'com.docker.compose.project' == 'gridcal'
-        filtered_containers = [
-            container.name
-            for container in all_containers
-            if "gridcal" in container.labels.get("com.docker.compose.project", "")
-        ]
-        write_log("INFO", filtered_containers)
-        return {"containers": filtered_containers}
+        containers = list_docker_containers(settings.COMPOSE_NAME)
+        return {"containers": containers}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Fehler beim Abrufen der Container: {str(e)}")
 
