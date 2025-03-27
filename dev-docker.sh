@@ -5,32 +5,84 @@ YELLOW='\033[0;33m'
 RESET='\033[0m'
 URL_COLOR='\033[38;2;79;163;255m'
 
-# Konfigurierbare Grenzwerte für Dummy-Datenbank (in MB)
+# Standardgrenzen für Dummy-Datenbank (in MB)
 MIN_MB=18
 MAX_MB=36
+
+# Flags
+BUILD_ENABLED=false
+CLEAN_ENABLED=true
+CLEAN_ONLY=false
 
 info() {
     printf "\n${YELLOW}[INFO] $1${RESET}\n"
 }
 
+show_help() {
+    echo -e "
+Verfügbare Optionen:
+  --build            Führe docker-compose mit --build aus
+  --clean-only       Führt nur das Entfernen der Datenbankdatei aus
+  --no-clean         Lässt Datenbankdatei beim Beenden bestehen
+  --min <MB>         Minimale Größe der Dummy-Datenbank
+  --max <MB>         Maximale Größe der Dummy-Datenbank
+  --help             Zeigt diese Hilfe an
+"
+    exit 0
+}
+
+# Argumente verarbeiten
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --build)
+            BUILD_ENABLED=true
+            shift
+            ;;
+        --no-clean)
+            CLEAN_ENABLED=false
+            shift
+            ;;
+        --clean-only)
+            CLEAN_ONLY=true
+            shift
+            ;;
+        --min)
+            MIN_MB="$2"
+            shift 2
+            ;;
+        --max)
+            MAX_MB="$2"
+            shift 2
+            ;;
+        --help)
+            show_help
+            ;;
+        *)
+            echo "Unbekannte Option: $1"
+            show_help
+            ;;
+    esac
+done
+
 create_dummy_db() {
-    # Zufällige Größe in MB und zusätzliche KB
     SIZE_MB=$((RANDOM % (MAX_MB - MIN_MB + 1) + MIN_MB))
     EXTRA_KB=$((RANDOM % 1024))
     SIZE_KB=$((SIZE_MB * 1024 + EXTRA_KB))
 
     info "Erstelle Dummy-Datenbankdatei mit zufälliger Größe von ${SIZE_MB} MB + ${EXTRA_KB} kB (${SIZE_KB} kB)..."
+    dd if=/dev/zero of=./data/gcn.db bs=1K count=$SIZE_KB status=none
 
-    dd if=/dev/zero of=./data/gcn.db bs=1K count=$SIZE_KB
-
-    # Tatsächliche Dateigröße anzeigen
     ACTUAL_SIZE=$(du -h ./data/gcn.db | cut -f1)
     info "Tatsächliche Größe der Datei: ${ACTUAL_SIZE}"
 }
 
 start_docker() {
     info "Starte Docker-Container..."
-    docker-compose up --build -d
+    if [ "$BUILD_ENABLED" = true ]; then
+        docker-compose up --build -d
+    else
+        docker-compose up -d
+    fi
 }
 
 show_logs() {
@@ -41,9 +93,14 @@ show_logs() {
 }
 
 stop_docker() {
-    info "Beende Docker und entferne Datenbank..."
+    info "Beende Docker-Container..."
     docker-compose down --remove-orphans
-    rm -f ./data/gcn.db*
+    if [ "$CLEAN_ENABLED" = true ]; then
+        info "Entferne Datenbankdatei..."
+        rm -f ./data/gcn.db*
+    else
+        info "Cleanup deaktiviert (--no-clean gesetzt)"
+    fi
 }
 
 restart() {
@@ -62,6 +119,14 @@ cleanup() {
 }
 
 trap cleanup SIGINT SIGTERM
+
+# Nur Cleanup-Modus
+if [ "$CLEAN_ONLY" = true ]; then
+    info "Nur-Cleanup-Modus aktiviert (--clean-only)"
+    CLEAN_ENABLED=true
+    stop_docker
+    exit 0
+fi
 
 # Ablauf starten
 create_dummy_db

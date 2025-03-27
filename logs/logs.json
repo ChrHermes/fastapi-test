@@ -683,5 +683,80 @@
     "timestamp": "26.03.2025 16:37:12",
     "level": "INFO",
     "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "INFO",
+    "message": []
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcn_backend"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcn_backend:latest ab von gitlab.intern.psinsight.de:5050/gridcal-node-1//v2/gcn_backend/manifests/latest"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcn_backend: name 'requests' is not defined"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcn_frontend"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcn_frontend:latest ab von gitlab.intern.psinsight.de:5050/gridcal-node-1//v2/gcn_frontend/manifests/latest"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcn_frontend: name 'requests' is not defined"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "INFO",
+    "message": "Überprüfe Image: gateway"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:34",
+    "level": "INFO",
+    "message": "Rufe Manifest für gateway:latest ab von gitlab.intern.psinsight.de:5050/gridcal-node-1//v2/gateway/manifests/latest"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gateway: name 'requests' is not defined"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcnia"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcnia:latest ab von gitlab.intern.psinsight.de:5050/gridcal-node-1//v2/gcnia/manifests/latest"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcnia: name 'requests' is not defined"
+  },
+  {
+    "timestamp": "27.03.2025 13:26:35",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
   }
 ]
