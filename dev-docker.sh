@@ -27,6 +27,11 @@ Verfügbare Optionen:
   --min <MB>         Minimale Größe der Dummy-Datenbank
   --max <MB>         Maximale Größe der Dummy-Datenbank
   --help             Zeigt diese Hilfe an
+
+Tastaturbefehle während Laufzeit:
+  r   Nur App-Container neu bauen und starten
+  t   Kompletter Neustart (inkl. Datenbank)
+  q   Sauber beenden und Umgebung herunterfahren
 "
     exit 0
 }
@@ -87,7 +92,7 @@ start_docker() {
 
 show_logs() {
     info "Server läuft auf ${URL_COLOR}http://127.0.0.1:8080${RESET}"
-    info "Docker-Logs werden angezeigt. 'r' = Neustart, 'q' = Beenden."
+    info "Docker-Logs werden angezeigt. 'r' = App-Container neustarten, 't' = kompletter Neustart, 'q' = Beenden."
     docker-compose logs -f &
     LOG_PID=$!
 }
@@ -110,6 +115,13 @@ restart() {
     create_dummy_db
     start_docker
     show_logs
+}
+
+rebuild_app_container() {
+    APP_CONTAINER_NAME="app"  # ggf. anpassen an deinen Compose-Dienstnamen
+    info "Baue und starte nur den Container '${APP_CONTAINER_NAME}' neu..."
+    docker-compose build "$APP_CONTAINER_NAME"
+    docker-compose up -d --no-deps --force-recreate "$APP_CONTAINER_NAME"
 }
 
 cleanup() {
@@ -138,6 +150,9 @@ while true; do
     read -rsn1 key
     case "$key" in
         r|R)
+            rebuild_app_container
+            ;;
+        t|T)
             restart
             ;;
         q|Q)

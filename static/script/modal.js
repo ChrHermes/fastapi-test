@@ -106,6 +106,7 @@ export async function showUpdateModal(onUpdateSuccess) {
             throw new Error("Fehler beim Abrufen der Container-Liste");
         }
         const containersList = await containersResponse.json();
+        console.log(containersList) /* DEBUG */
         
         // Check der Softwareaktualisierungen
         const response = await fetch('/docker/check');
