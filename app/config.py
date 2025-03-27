@@ -21,15 +21,15 @@ class Settings(BaseSettings):
     # Compose-Pfad und Image/Container Listen
     COMPOSE_PATH: str = "/opt/gridcal"
     COMPOSE_NAME: str = "gridcal"
-    CONTAINER: List[str] = [
+
+    IMAGES: List[str] = [
+        'gcgw',
+        'gcfcs',
+        'gcnia'
+        'backend',
         'frontend',
         'gatewaycontrol',
-        'backend',
-        'gcfcs',
-        'gcgw',
-        'gcnia'
     ]
-    IMAGES: List[str] = ['gcn_backend', 'gcn_frontend', 'gateway', 'gcnia']
 
     class Config:
         env_file = ".env"

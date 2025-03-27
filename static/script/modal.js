@@ -106,6 +106,7 @@ export async function showUpdateModal(onUpdateSuccess) {
             throw new Error("Fehler beim Abrufen der Container-Liste");
         }
         const containersList = await containersResponse.json();
+
         console.log(containersList) /* DEBUG */
         
         // Check der Softwareaktualisierungen
@@ -125,7 +126,7 @@ export async function showUpdateModal(onUpdateSuccess) {
           </thead>
           <tbody>`;
           
-        const containers = ['backend', 'frontend', 'gateway', 'gcnia'];
+        /*const containers = ['backend', 'frontend', 'gateway', 'gcnia'];
         containers.forEach(container => {
             const info = data.updates[container];
             let status;
@@ -139,7 +140,7 @@ export async function showUpdateModal(onUpdateSuccess) {
                     <td style="font-size: 0.9em;">${container}</td>
                     <td style="font-size: 0.9em;">${status}</td>
                 </tr>`;
-        });
+        });*/
         
         message += `
           </tbody>

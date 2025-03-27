@@ -13,6 +13,7 @@ VENV_DIR=".venv"
 # Flags
 CLEAN_ENABLED=true
 CLEAN_ONLY=false
+INSTALL_REQUIREMENTS=false
 
 # Argumente parsen
 for arg in "$@"; do
@@ -23,11 +24,28 @@ for arg in "$@"; do
         --clean-only)
             CLEAN_ONLY=true
             ;;
+        --install)
+            INSTALL_REQUIREMENTS=true
+            ;;
+        --help)
+            show_help
+            ;;
     esac
 done
 
 info() {
     printf "\n${YELLOW}[INFO] $1${RESET}\n"
+}
+
+show_help() {
+    echo -e "
+Verfügbare Optionen:
+  --install         Installiert die Abhängigkeiten aus requirements.txt in der virtuellen Umgebung
+  --no-clean        Lässt __pycache__ beim Beenden bestehen
+  --clean-only      Führt nur das Entfernen von __pycache__-Ordnern unter app/ aus
+  --help            Zeigt diese Hilfe an
+"
+    exit 0
 }
 
 cleanup_pycache() {
@@ -63,6 +81,11 @@ fi
 
 # Aktivieren der virtuellen Umgebung
 source "$VENV_DIR/bin/activate"
+
+if [ "$INSTALL_REQUIREMENTS" = true ]; then
+    info "Installiere Python-Abhängigkeiten aus requirements.txt..."
+    pip install -r requirements.txt
+fi
 
 # Uvicorn starten
 info "Starte Uvicorn mit automatischem Reload..."
