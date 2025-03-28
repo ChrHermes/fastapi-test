@@ -1,18 +1,26 @@
 #!/bin/bash
 
-# Farbdefinitionen
+#########################################
+#            Farbdefinitionen           #
+#########################################
+
 YELLOW='\033[0;33m'
 RESET='\033[0m'
 URL_COLOR='\033[38;2;79;163;255m'
 
-# Standardgrenzen für Dummy-Datenbank (in MB)
+#########################################
+#         Standardparameter & Flags     #
+#########################################
+
 MIN_MB=18
 MAX_MB=36
-
-# Flags
 BUILD_ENABLED=false
 CLEAN_ENABLED=true
 CLEAN_ONLY=false
+
+#########################################
+#               Funktionen              #
+#########################################
 
 info() {
     printf "\n${YELLOW}[INFO] $1${RESET}\n"
@@ -36,7 +44,10 @@ Tastaturbefehle während Laufzeit:
     exit 0
 }
 
-# Argumente verarbeiten
+#########################################
+#          Argumente verarbeiten        #
+#########################################
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --build)
@@ -69,6 +80,10 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+#########################################
+#         Dummy-Datenbank erstellen     #
+#########################################
+
 create_dummy_db() {
     SIZE_MB=$((RANDOM % (MAX_MB - MIN_MB + 1) + MIN_MB))
     EXTRA_KB=$((RANDOM % 1024))
@@ -81,6 +96,10 @@ create_dummy_db() {
     info "Tatsächliche Größe der Datei: ${ACTUAL_SIZE}"
 }
 
+#########################################
+#           Docker starten              #
+#########################################
+
 start_docker() {
     info "Starte Docker-Container...\n"
     if [ "$BUILD_ENABLED" = true ]; then
@@ -92,7 +111,6 @@ start_docker() {
 
 show_logs() {
     info "Server läuft auf ${URL_COLOR}http://127.0.0.1:8080${RESET}"
-    #                                    [INFO] 
     info "Docker-Logs werden angezeigt.\n       ('r' = App-Container neustarten, 't' = kompletter Neustart, 'q' = Beenden.)"
     docker-compose logs -f &
     LOG_PID=$!
@@ -131,9 +149,16 @@ cleanup() {
     exit 0
 }
 
+#########################################
+#          Signal-Handler setzen        #
+#########################################
+
 trap cleanup SIGINT SIGTERM
 
-# Nur Cleanup-Modus
+#########################################
+#            Nur Cleanup-Modus          #
+#########################################
+
 if [ "$CLEAN_ONLY" = true ]; then
     info "Nur-Cleanup-Modus aktiviert (--clean-only)"
     CLEAN_ENABLED=true
@@ -141,12 +166,14 @@ if [ "$CLEAN_ONLY" = true ]; then
     exit 0
 fi
 
-# Ablauf starten
+#########################################
+#               Hauptablauf             #
+#########################################
+
 create_dummy_db
 start_docker
 show_logs
 
-# Tasteneingaben auswerten
 while true; do
     read -rsn1 key
     case "$key" in

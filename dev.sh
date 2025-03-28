@@ -1,37 +1,26 @@
 #!/bin/bash
 
-# Farbdefinitionen
+#########################################
+#            Farbdefinitionen           #
+#########################################
+
 YELLOW='\033[0;33m'
 RESET='\033[0m'
 
-# Sofort abbrechen bei Fehlern
-set -e
+#########################################
+#         Skript-Optionen & Flags       #
+#########################################
 
-# Pfad zur virtuellen Umgebung
-VENV_DIR=".venv"
+set -e  # Sofort abbrechen bei Fehlern
 
-# Flags
-CLEAN_ENABLED=true
-CLEAN_ONLY=false
-INSTALL_REQUIREMENTS=false
+VENV_DIR=".venv"             # Standardpfad zur virtuellen Umgebung
+CLEAN_ENABLED=true           # __pycache__ beim Beenden löschen
+CLEAN_ONLY=false             # Nur Cleanup ohne Start
+INSTALL_REQUIREMENTS=false   # Requirements installieren
 
-# Argumente parsen
-for arg in "$@"; do
-    case "$arg" in
-        --no-clean)
-            CLEAN_ENABLED=false
-            ;;
-        --clean-only)
-            CLEAN_ONLY=true
-            ;;
-        --install)
-            INSTALL_REQUIREMENTS=true
-            ;;
-        --help)
-            show_help
-            ;;
-    esac
-done
+#########################################
+#               Funktionen              #
+#########################################
 
 info() {
     printf "\n${YELLOW}[INFO] $1${RESET}\n"
@@ -40,6 +29,7 @@ info() {
 show_help() {
     echo -e "
 Verfügbare Optionen:
+  --venv <pfad>     Pfad zur virtuellen Umgebung (Standard: .venv)
   --install         Installiert die Abhängigkeiten aus requirements.txt in der virtuellen Umgebung
   --no-clean        Lässt __pycache__ beim Beenden bestehen
   --clean-only      Führt nur das Entfernen von __pycache__-Ordnern unter app/ aus
@@ -63,23 +53,63 @@ on_interrupt() {
     exit 0
 }
 
-# Nur Cleanup-Modus
+#########################################
+#          Argumente parsen             #
+#########################################
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --no-clean)
+            CLEAN_ENABLED=false
+            shift
+            ;;
+        --clean-only)
+            CLEAN_ONLY=true
+            shift
+            ;;
+        --install)
+            INSTALL_REQUIREMENTS=true
+            shift
+            ;;
+        --venv)
+            VENV_DIR="$2"
+            shift 2
+            ;;
+        --help)
+            show_help
+            ;;
+        *)
+            echo "Unbekannte Option: $1"
+            show_help
+            ;;
+    esac
+done
+
+#########################################
+#            Nur Cleanup-Modus          #
+#########################################
+
 if [ "$CLEAN_ONLY" = true ]; then
     cleanup_pycache
     exit 0
 fi
 
-# Trap für Strg+C (SIGINT)
+#########################################
+#        Signal-Handler setzen          #
+#########################################
+
 trap on_interrupt SIGINT
 
-# Prüfen, ob die virtuelle Umgebung existiert
+#########################################
+#   Virtuelle Umgebung prüfen/aktivieren#
+#########################################
+
 if [[ ! -d "$VENV_DIR" ]]; then
     info "Virtuelle Umgebung nicht gefunden: $VENV_DIR"
     info "Bitte zuerst: python -m venv $VENV_DIR && source $VENV_DIR/bin/activate && pip install -r requirements.txt"
     exit 1
 fi
 
-# Aktivieren der virtuellen Umgebung
 source "$VENV_DIR/bin/activate"
 
 if [ "$INSTALL_REQUIREMENTS" = true ]; then
@@ -87,6 +117,9 @@ if [ "$INSTALL_REQUIREMENTS" = true ]; then
     pip install -r requirements.txt
 fi
 
-# Uvicorn starten
+#########################################
+#        Uvicorn starten                #
+#########################################
+
 info "Starte Uvicorn mit automatischem Reload..."
 uvicorn app.main:app --reload
