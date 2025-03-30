@@ -1,5 +1,7 @@
 // index.js
+
 import * as modal from './modal.js';
+import { fetchWithSpinner } from './spinner.js';
 
 /* =====================================
    GLOBALE FUNKTIONEN FÜR LOGGING & UI

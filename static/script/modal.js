@@ -1,5 +1,7 @@
 // modal.js
 
+import { fetchWithSpinner } from './spinner.js';
+
 /**
  * Generisches Modal, das via Options-Objekt konfiguriert wird.
  */
@@ -241,12 +243,16 @@ export async function showDatabaseResetModal(onResetSuccess) {
             safeButtonText: "Abbrechen",
             dangerButtonText: "Datenbank löschen",    
             onConfirm: async () => {
-                const resetResponse = await fetch("/database/reset", { method: "POST" });
-                if (!resetResponse.ok) {
-                    alert("Fehler beim Zurücksetzen der Datenbank.");
-                } else {
-                    alert("Datenbank wurde zurückgesetzt.");
-                    if (onResetSuccess) onResetSuccess();
+                try {
+                    const resetResponse = await fetchWithSpinner("/database/reset", { method: "POST" }, 30);
+                    if (!resetResponse.ok) {
+                        alert("Fehler beim Zurücksetzen der Datenbank.");
+                    } else {
+                        alert("Datenbank wurde zurückgesetzt.");
+                        if (onResetSuccess) onResetSuccess();
+                    }
+                } catch (error) {
+                    alert("Fehler: " + error.message);
                 }
             }
         });
