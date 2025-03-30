@@ -5,12 +5,12 @@
 
 :root {
   /* Graustufen (ohne Schwarz & Weiß) */
-  --grey-lightest: rgba(237, 237, 237, 1);
-  --grey-lighter: #d1d1d1;
-  --grey-medium: #555;
-  --grey: rgba(74, 74, 74, 1);
-  --grey-darker: #3a3a3a;
-  --grey-darkest: #2c2c2c;
+  --grey-lightest:   #ededed;
+  --grey-lighter:    #a1a1a1; /* vorher #d1d1d1 */ 
+  --grey-medium:     #555555;
+  --grey:            #4a4a4a;
+  --grey-darker:     #3a3a3a;
+  --grey-darkest:    #2c2c2c;
   --grey-ultra-dark: #1f1f1f;
 
   /* Schwarz & Weiß */
@@ -18,7 +18,7 @@
   --black: rgba(40, 40, 40, 1);
 
   /* Orangetöne – markenrelevant */
-  --orange-primary: rgba(231, 91, 45, 1); /* #fa4d0f */
+  --orange-primary:   rgba(231, 91, 45, 1); /* #fa4d0f */
   --orange-secondary: rgba(200, 70, 30, 1);
 
   /* Rottöne (für danger etc.) */
@@ -43,20 +43,20 @@
 
   /* Toast-Variablen */
   --toast-success-border: #4caf50;
-  --toast-success-bg: #f0fff0;
-  --toast-success-text: #4caf50;
+  --toast-success-bg:     #f0fff0;
+  --toast-success-text:   #4caf50;
 
   --toast-info-border: #2196f3;
-  --toast-info-bg: #f0f8ff;
-  --toast-info-text: #2196f3;
+  --toast-info-bg:     #f0f8ff;
+  --toast-info-text:   #2196f3;
 
   --toast-warning-border: #ff9800;
-  --toast-warning-bg: #fffaf0;
-  --toast-warning-text: #ff9800;
+  --toast-warning-bg:     #fffaf0;
+  --toast-warning-text:   #ff9800;
 
   --toast-error-border: #f44336;
-  --toast-error-bg: #fff0f0;
-  --toast-error-text: #f44336;
+  --toast-error-bg:     #fff0f0;
+  --toast-error-text:   #f44336;
 
   --toast-icon-size: 22px;
   --toast-font-size: 15px;
@@ -78,7 +78,7 @@ body {
 body.login-page::before {
   content: "";
   position: absolute;
-  width: var(--container-width);
+  width: var(--login-container-width);
   height: auto;
   aspect-ratio: 3 / 1;
   background-image: url('/static/img/watermark.png');
@@ -86,7 +86,7 @@ body.login-page::before {
   background-repeat: no-repeat;
   background-position: center;
   left: 50%;
-  bottom: 10%;
+  top: 5%; /* Direkt am oberen Rand */
   transform: translateX(-50%);
   opacity: 0.1;
   filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));

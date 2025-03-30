@@ -60,6 +60,17 @@ body.dark-mode .login-container {
   background: var(--red);
 }
 
+/* Anpassung des Theme-Toggle Icons */
+.theme-toggle .material-icons {
+  /* Standard: Textfarbe im Light Mode */
+  color: var(--grey-lighter);
+}
+
+body.dark-mode .theme-toggle .material-icons {
+  /* Im Dark Mode: helle Textfarbe */
+  color: var(--grey-darkest);
+}
+
 /* ----- Modal im Dark Mode ----- */
 
 body.dark-mode .modal {
