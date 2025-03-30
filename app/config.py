@@ -15,9 +15,11 @@ class Settings(BaseSettings):
     DELAY_REBOOT: int = 10
 
     # GitLab-Konfiguration
-    GITLAB_PAT: str = "your_access_token"
-    REGISTRY_URL: str = "https://gitlab.de"
-    
+    GIT_USER: str = "username"
+    GIT_PAT: str = "personal_access_token"
+    GIT_REGISTRY: str = "https://gitlab.de"
+    GIT_REPOSITORY: str = "project_name"
+
     # Compose-Pfad und Image/Container Listen
     COMPOSE_PATH: str = "/opt/gridcal"
     COMPOSE_NAME: str = "gridcal"
@@ -34,6 +36,8 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         env_file_encoding = 'utf-8'
+        env_prefix = ""
+        extra = "allow"
 
 
 # Erzeugung einer globalen Settings-Instanz, die überall importiert werden kann

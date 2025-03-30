@@ -3,6 +3,7 @@
 import docker
 import time
 import subprocess
+import requests
 
 from typing import List
 
@@ -201,10 +202,10 @@ def update_docker_images() -> dict:
 # ===================================== 
 
 def get_manifest(image: str, tag: str = "latest"):
-    manifest_url = f"{settings.REGISTRY_URL}/v2/{image}/manifests/{tag}"
+    manifest_url = f"{settings.GIT_REGISTRY}/v2/{image}/manifests/{tag}"
     headers = {
         "Accept": "application/vnd.docker.distribution.manifest.v2+json",
-        "Authorization": f"Bearer {settings.GITLAB_PAT}"
+        "Authorization": f"Bearer {settings.GIT_PAT}"
     }
     write_log("INFO", f"Rufe Manifest für {image}:{tag} ab von {manifest_url}")
     response = requests.get(manifest_url, headers=headers)
@@ -216,9 +217,9 @@ def get_manifest(image: str, tag: str = "latest"):
 
 
 def get_config_blob(image: str, digest: str):
-    blob_url = f"{settings.REGISTRY_URL}/v2/{image}/blobs/{digest}"
+    blob_url = f"{settings.GIT_REGISTRY}/v2/{image}/blobs/{digest}"
     headers = {
-        "Authorization": f"Bearer {settings.GITLAB_PAT}"
+        "Authorization": f"Bearer {settings.GIT_PAT}"
     }
     write_log("INFO", f"Rufe Config-Blob für {image} mit Digest {digest} ab von {blob_url}")
     response = requests.get(blob_url, headers=headers)
