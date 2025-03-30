@@ -1,37 +1,37 @@
-// modal.js
-
 import { fetchWithSpinner } from './spinner.js';
 
+/* =====================================
+   BASIS-MODAL-FUNKTION
+   Diese Funktion bildet die Grundlage für alle spezifischen Modals,
+   die im weiteren Verlauf verwendet werden.
+===================================== */
+
 /**
- * Generisches Modal, das via Options-Objekt konfiguriert wird.
+ * Zeigt ein generisches Modal an, das über ein Options-Objekt konfiguriert wird.
+ * Die hier verwendeten DOM-Elemente werden einmalig zwischengespeichert, um wiederholte
+ * Abfragen zu vermeiden.
+ *
+ * @param {Object} options - Konfigurationsobjekt für das Modal.
  */
 export function showModal(options) {
     const {
         title = '',
         message = '',
         inputPlaceholder = '',
-        passphrase, // wenn gesetzt, wird der Info-Container angezeigt
+        passphrase, // Wenn gesetzt, wird der Info-Container angezeigt.
         safeButtonText = 'Abbrechen',
         dangerButtonText = 'Bestätigen',
         onConfirm = () => {},
         onCancel = () => {},
     } = options;
 
-    // Referenzen zu den DOM-Elementen
-    const modal = document.getElementById("confirmationModal");
-    const overlay = document.getElementById("modalOverlay");
-    const modalTitle = document.getElementById("modalTitle");
-    const messageElement = document.getElementById("modalMessage");
-    const passphraseInfoContainer = document.getElementById("passphraseInfoContainer");
-    const passphraseText = document.getElementById("passphraseText");
-    const inputField = document.getElementById("confirmationInput");
-    const dangerButton = document.getElementById("confirmAction");
-    const safeButton = document.getElementById("cancelAction");
+    // Abrufen der DOM-Elemente über eine Cache-Funktion.
+    const { modal, overlay, modalTitle, messageElement, passphraseInfoContainer, passphraseText, inputField, dangerButton, safeButton } = getModalElements();
 
     // Inhalte setzen
     modalTitle.textContent = title;
     messageElement.innerHTML = message;
-    
+
     // Passphrase-Info-Container nur anzeigen, wenn eine Passphrase gesetzt ist
     if (passphrase) {
         passphraseInfoContainer.style.display = "block";
@@ -40,7 +40,7 @@ export function showModal(options) {
         passphraseInfoContainer.style.display = "none";
     }
 
-    // Inputfeld konfigurieren (z. B. Platzhalter setzen)
+    // Inputfeld konfigurieren
     if (inputPlaceholder) {
         inputField.placeholder = inputPlaceholder;
     }
@@ -57,8 +57,7 @@ export function showModal(options) {
 
     // Handler für Bestätigung und Abbruch
     const confirmHandler = () => {
-        // Nur wenn eine Passphrase definiert ist, erfolgt der Check
-        if (passphrase && inputField.value !== passphrase) {
+        if (passphrase && inputField.value.trim() !== passphrase) {
             alert("Falscher Bestätigungscode!");
             return;
         }
@@ -78,20 +77,53 @@ export function showModal(options) {
         }
     };
 
-    // Aufräum-Funktion
+    // Aufräum-Funktion: Entfernt den ESC-Listener und blendet Modal und Overlay aus.
     const cleanup = () => {
-        dangerButton.removeEventListener("click", confirmHandler);
-        safeButton.removeEventListener("click", cancelHandler);
         document.removeEventListener("keydown", escHandler);
         modal.classList.remove("active");
         overlay.classList.remove("active");
     };
 
-    // Event-Listener registrieren
-    dangerButton.addEventListener("click", confirmHandler);
+    // Event-Listener registrieren – einmalige Ausführung garantiert durch { once: true }.
+    dangerButton.addEventListener("click", confirmHandler, { once: true });
     safeButton.addEventListener("click", cancelHandler, { once: true });
     document.addEventListener("keydown", escHandler);
 }
+
+/**
+ * Liefert die referenzierten DOM-Elemente und cached sie zur Vermeidung mehrfacher Abfragen.
+ */
+const modalElementsCache = {};
+function getModalElements() {
+    if (!modalElementsCache.modal) {
+        modalElementsCache.modal = document.getElementById("confirmationModal");
+        modalElementsCache.overlay = document.getElementById("modalOverlay");
+        modalElementsCache.modalTitle = document.getElementById("modalTitle");
+        modalElementsCache.messageElement = document.getElementById("modalMessage");
+        modalElementsCache.passphraseInfoContainer = document.getElementById("passphraseInfoContainer");
+        modalElementsCache.passphraseText = document.getElementById("passphraseText");
+        modalElementsCache.inputField = document.getElementById("confirmationInput");
+        modalElementsCache.dangerButton = document.getElementById("confirmAction");
+        modalElementsCache.safeButton = document.getElementById("cancelAction");
+    }
+    return {
+        modal: modalElementsCache.modal,
+        overlay: modalElementsCache.overlay,
+        modalTitle: modalElementsCache.modalTitle,
+        messageElement: modalElementsCache.messageElement,
+        passphraseInfoContainer: modalElementsCache.passphraseInfoContainer,
+        passphraseText: modalElementsCache.passphraseText,
+        inputField: modalElementsCache.inputField,
+        dangerButton: modalElementsCache.dangerButton,
+        safeButton: modalElementsCache.safeButton,
+    };
+}
+
+/* =====================================
+   SPEZIFISCHE MODAL-FUNKTIONEN
+   Die folgenden Funktionen nutzen die Basisfunktion showModal,
+   um kontextspezifische Modals anzuzeigen.
+===================================== */
 
 /**
  * Zeigt ein Modal zur Prüfung und Durchführung von Software-Updates an.
@@ -153,7 +185,7 @@ export async function showUpdateModal(onUpdateSuccess) {
         message = `<p style="color: red; font-size: 0.9em;">${error.message}</p>`;
     }
     
-    // Modal immer anzeigen – unabhängig vom Ergebnis des Checks
+    // Modal anzeigen – unabhängig vom Ergebnis des Checks
     showModal({
         title: "Software-Aktualisierungen prüfen",
         message: message,
@@ -184,7 +216,6 @@ export async function showUpdateModal(onUpdateSuccess) {
     });
 }
 
-
 /**
  * Zeigt ein Modal an, in dem der Benutzer einen Logeintrag eingeben kann.
  * Der eingegebene Text wird per POST-Request an "/log/custom" gesendet.
@@ -199,21 +230,22 @@ export function showUserCommentModal(onLogAdded) {
         inputPlaceholder: "Protokolleintrag",
         safeButtonText: "Abbrechen",
         dangerButtonText: "Eintrag hinzufügen",
-        onConfirm: () => {
+        onConfirm: async () => {
             const note = document.getElementById("confirmationInput").value;
-            fetch("/log/custom", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: note })
-            })
-            .then(response => response.json())
-            .then(data => {
+            try {
+                const response = await fetch("/log/custom", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: note })
+                });
+                const data = await response.json();
                 console.log("Logeintrag gespeichert:", data);
                 if (typeof onLogAdded === "function") {
                     onLogAdded();
                 }
-            })
-            .catch(error => console.error("Fehler beim Speichern des Logeintrags:", error));
+            } catch (error) {
+                console.error("Fehler beim Speichern des Logeintrags:", error);
+            }
         },
         onCancel: () => console.log("Benutzereintrag abgebrochen")
     });
@@ -224,24 +256,23 @@ export function showUserCommentModal(onLogAdded) {
  * Ruft zunächst die DB-Informationen ab und zeigt dann das Modal an.
  * Bei korrekter Bestätigung wird der Reset-Vorgang per API-Call gestartet.
  *
- * @param {function} onResetSuccess - Optionaler Callback, der bei erfolgreichem Reset aufgerufen wird (z. B. zum Neuladen der Logs).
+ * @param {Function} onResetSuccess - Optionaler Callback, der bei erfolgreichem Reset ausgeführt wird.
  */
 export async function showDatabaseResetModal(onResetSuccess) {
     try {
         const response = await fetch("/database/info");
-        if (!response.ok){
+        if (!response.ok) {
             alert("Fehler beim Laden der DB-Informationen.");
             throw new Error("Fehler beim Laden der DB-Informationen.");
         }
         const data = await response.json();
-        // Die DB-Größe wird direkt in der Nachricht eingebaut
         showModal({
             title: "Datenbank wirklich löschen?",
             message: `Sie sind dabei, die Datenbank zu löschen. Dies kann nicht rückgängig gemacht werden.<br><br>Größe der Datenbank: <span id="dbSize">${data.size}</span>`,
             inputPlaceholder: "Bestätigungscode",
             passphrase: "db-reset",
             safeButtonText: "Abbrechen",
-            dangerButtonText: "Datenbank löschen",    
+            dangerButtonText: "Datenbank löschen",
             onConfirm: async () => {
                 try {
                     const resetResponse = await fetchWithSpinner("/database/reset", { method: "POST" }, 30);
@@ -262,8 +293,8 @@ export async function showDatabaseResetModal(onResetSuccess) {
 }
 
 /**
- * Zeigt ein Bestätigungsmodal zum Systemneustart.
- * Es ist eine Passphrase erforderlich, damit der Neustart durchgeführt wird.
+ * Zeigt ein Bestätigungsmodal zum Systemneustart an.
+ * Es wird eine Passphrase abgefragt, um den Neustart durchzuführen.
  *
  * @param {Function} onSuccess - Optionaler Callback, z. B. zum Neuladen der Logs.
  */
@@ -272,11 +303,10 @@ export function showRebootModal(onSuccess) {
         title: "Systemneustart bestätigen",
         message: "Sie sind dabei, das System neu zu starten. Nicht gespeicherte Daten könnten verloren gehen.",
         inputPlaceholder: "Bestätigungscode",
-        passphrase: "reboot-now", // Der Benutzer muss diese Passphrase eingeben
+        passphrase: "reboot-now",
         safeButtonText: "Abbrechen",
         dangerButtonText: "Jetzt neu starten",
         onConfirm: async () => {
-            // POST-Anfrage an API-Endpunkt für Neustart
             const response = await fetch("/system/reboot", { method: "POST" });
             if (!response.ok) {
                 alert("Fehler beim Neustart des Systems.");
@@ -289,7 +319,7 @@ export function showRebootModal(onSuccess) {
 }
 
 /**
- * Zeigt ein Bestätigungsmodal zum Herunterfahren des Systems.
+ * Zeigt ein Bestätigungsmodal zum Herunterfahren des Systems an.
  * Auch hier muss eine definierte Passphrase eingegeben werden.
  *
  * @param {Function} onSuccess - Optionaler Callback, z. B. zum Neuladen der Logs.
@@ -299,11 +329,10 @@ export function showShutdownModal(onSuccess) {
         title: "System herunterfahren?",
         message: "Sie sind dabei, das System herunterzufahren. Es wird anschließend nicht mehr erreichbar sein.",
         inputPlaceholder: "Bestätigungscode",
-        passphrase: "shutdown-now", // Sicherheitsabfrage
+        passphrase: "shutdown-now",
         safeButtonText: "Abbrechen",
         dangerButtonText: "Jetzt herunterfahren",
         onConfirm: async () => {
-            // POST-Anfrage an API-Endpunkt für Shutdown
             const response = await fetch("/system/shutdown", { method: "POST" });
             if (!response.ok) {
                 alert("Fehler beim Herunterfahren des Systems.");

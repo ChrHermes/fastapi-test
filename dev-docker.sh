@@ -17,6 +17,7 @@ MAX_MB=36
 BUILD_ENABLED=false
 CLEAN_ENABLED=true
 CLEAN_ONLY=false
+DB_PATH="./data/gcn.db"
 
 #########################################
 #               Funktionen              #
@@ -37,7 +38,7 @@ Verfügbare Optionen:
   --help             Zeigt diese Hilfe an
 
 Tastaturbefehle während Laufzeit:
-  r   Nur App-Container neu bauen und starten
+  r   Nur App-Container + Dummy-Datenbank neu bauen
   t   Kompletter Neustart (inkl. Datenbank)
   q   Sauber beenden und Umgebung herunterfahren
 "
@@ -85,14 +86,19 @@ done
 #########################################
 
 create_dummy_db() {
+    if [[ -f "$DB_PATH" ]]; then
+        info "Vorhandene Dummy-Datenbank wird entfernt: $DB_PATH"
+        rm -f "$DB_PATH"
+    fi
+
     SIZE_MB=$((RANDOM % (MAX_MB - MIN_MB + 1) + MIN_MB))
     EXTRA_KB=$((RANDOM % 1024))
     SIZE_KB=$((SIZE_MB * 1024 + EXTRA_KB))
 
     info "Erstelle Dummy-Datenbankdatei mit zufälliger Größe von ${SIZE_MB} MB + ${EXTRA_KB} kB (${SIZE_KB} kB)..."
-    dd if=/dev/zero of=./data/gcn.db bs=1K count=$SIZE_KB status=none
+    dd if=/dev/zero of="$DB_PATH" bs=1K count=$SIZE_KB status=none
 
-    ACTUAL_SIZE=$(du -h ./data/gcn.db | cut -f1)
+    ACTUAL_SIZE=$(du -h "$DB_PATH" | cut -f1)
     info "Tatsächliche Größe der Datei: ${ACTUAL_SIZE}"
 }
 
@@ -107,6 +113,9 @@ start_docker() {
     else
         docker-compose up -d
     fi
+    END_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+    info "Startzeit: ${START_TIME}"
+    info "Endzeit:   ${END_TIME} (Dauer: ${SECONDS}s)"
 }
 
 show_logs() {
@@ -121,7 +130,7 @@ stop_docker() {
     docker-compose down --remove-orphans
     if [ "$CLEAN_ENABLED" = true ]; then
         info "Entferne Datenbankdatei..."
-        rm -f ./data/gcn.db*
+        rm -f "$DB_PATH"*
     else
         info "Cleanup deaktiviert (--no-clean gesetzt)"
     fi
@@ -137,8 +146,10 @@ restart() {
 }
 
 rebuild_app_container() {
-    APP_CONTAINER_NAME="app"  # ggf. anpassen an deinen Compose-Dienstnamen
-    info "Baue und starte nur den Container '${APP_CONTAINER_NAME}' neu...\n"
+    APP_CONTAINER_NAME="app"
+    info "Dummy-Datenbank wird neu erstellt..."
+    create_dummy_db
+    info "Baue und starte nur den Container '${APP_CONTAINER_NAME}' neu..."
     docker-compose build "$APP_CONTAINER_NAME"
     docker-compose up -d --no-deps --force-recreate "$APP_CONTAINER_NAME"
 }
@@ -169,6 +180,9 @@ fi
 #########################################
 #               Hauptablauf             #
 #########################################
+
+START_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+SECONDS=0
 
 create_dummy_db
 start_docker

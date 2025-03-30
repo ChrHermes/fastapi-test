@@ -1,14 +1,14 @@
-// index.js
-
 import * as modal from './modal.js';
-import { fetchWithSpinner } from './spinner.js';
 
 /* =====================================
    GLOBALE FUNKTIONEN FÜR LOGGING & UI
 ===================================== */
 
 /**
- * Lädt die Logs per API-Call und ruft displayLogs auf.
+ * Holt die Logs von der API und ruft anschließend displayLogs auf.
+ * 
+ * Diese Funktion sendet eine GET-Anfrage an den Endpunkt "/logs". Nach erfolgreichem Empfang 
+ * der JSON-Daten werden die Logs an displayLogs weitergegeben, um sie im UI anzuzeigen.
  */
 async function fetchLogs() {
     try {
@@ -21,7 +21,13 @@ async function fetchLogs() {
 }
 
 /**
- * Zeigt die Logs im Log-Container an.
+ * Zeigt die übergebenen Logs im Log-Container an.
+ * 
+ * Die Funktion leert zunächst den Inhalt des Log-Containers, filtert dann die Logs anhand 
+ * des aktuell ausgewählten Log-Levels und fügt die passenden Einträge als neue DIV-Elemente ein.
+ * Abschließend wird der Scroll-Position des Containers so gesetzt, dass der neueste Log sichtbar ist.
+ *
+ * @param {Array} logs - Array von Log-Objekten, wobei jedes Objekt Eigenschaften wie timestamp, level und message besitzt.
  */
 function displayLogs(logs) {
     const logContainer = document.getElementById("log");
@@ -34,19 +40,17 @@ function displayLogs(logs) {
             logContainer.appendChild(logEntry);
         }
     });
+    // Scrollt zum Ende des Containers, um die neuesten Logs anzuzeigen.
     logContainer.scrollTop = logContainer.scrollHeight;
 }
 
 /**
- * Wrapper-Funktion zum Laden der Logs.
- */
-function loadLogs() {
-    fetchLogs();
-}
-
-/**
- * Sendet einen einfachen POST-Request an die angegebene URL.
- * Bei Erfolg werden die Logs neu geladen.
+ * Sendet einen POST-Request an die angegebene URL und lädt bei Erfolg die Logs neu.
+ * 
+ * Bei erfolgreicher Durchführung des Requests wird fetchLogs aufgerufen, um die aktuellen Logs 
+ * im UI anzuzeigen. Tritt ein Fehler auf, wird dieser in der Konsole protokolliert.
+ *
+ * @param {string} url - Die URL, an die der POST-Request gesendet wird.
  */
 async function sendPostRequest(url) {
     try {
@@ -54,76 +58,60 @@ async function sendPostRequest(url) {
         if (!response.ok) {
             console.error("Fehler beim Senden der Anfrage:", response.statusText);
         } else {
-            loadLogs();
+            // Logs nach erfolgreicher Anfrage neu laden.
+            fetchLogs();
         }
     } catch (error) {
         console.error("Fehler beim Senden der Anfrage:", error);
     }
 }
 
-/**
- * Passt die Breite des Containers dynamisch an.
- */
-// function updateContainerWidth() {
-//     const container = document.querySelector(".container");
-//     if (container) {
-//         container.style.setProperty("--container-width", container.clientWidth + "px");
-//     }
-// }
-
-// Initiale Anpassung der Container-Größe und Log-Container
-// window.addEventListener("load", () => {
-//     const logContainer = document.querySelector(".log-container");
-//     if (logContainer) {
-//         logContainer.style.width = logContainer.clientWidth + "px";
-//         logContainer.style.height = logContainer.clientHeight + "px";
-//     }
-//     updateContainerWidth();
-// });
-
-// window.addEventListener("resize", updateContainerWidth);
-
 /* =====================================
          EVENT LISTENER INITIALISIERUNG
 ===================================== */
-document.addEventListener("DOMContentLoaded", () => {
-    // Logs initial laden
-    loadLogs();
 
-    // Log-Level wechseln: Neue Logs laden
+/**
+ * Initialisiert die Event Listener, sobald der DOM-Inhalt geladen wurde.
+ * 
+ * Hier werden alle benötigten Event Listener registriert:
+ * - Initiales Laden der Logs.
+ * - Aktualisierung der Logs beim Wechsel des Log-Levels.
+ * - Aktionen für Buttons wie Datenbank-Reset, Software-Update, Benutzerkommentar, Systemneustart, 
+ *   Herunterfahren und Logout.
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    // Initiales Laden der Logs.
+    fetchLogs();
+
+    // Aktualisieren der Logs, wenn das Log-Level geändert wird.
     document.getElementById("log-level").addEventListener("change", fetchLogs);
 
-    // Button: Datenbank-Reset
+    // Event Listener für den Datenbank-Reset-Button.
     document.getElementById("btnDatabaseReset").addEventListener("click", () => {
-        // showDatabaseResetModal ruft intern den API-Call zum Abrufen der DB-Infos auf
-        modal.showDatabaseResetModal(loadLogs);
+        modal.showDatabaseResetModal(fetchLogs);
     });
 
-    // Button: Software-Updates prüfen und ggf. Logs neu laden
+    // Event Listener für den Software-Update-Button.
     document.getElementById("btnUpdateSoftware").addEventListener("click", () => {
-        modal.showUpdateModal(loadLogs);
+        modal.showUpdateModal(fetchLogs);
     });
 
-    /**
-     * Initialisiert den Event-Listener für den Button zum Hinzufügen eines Benutzerkommentars.
-     * Beim Klick wird showUserCommentModal aufgerufen, wobei loadLogs als Callback übergeben wird,
-     * damit die Logs nach dem Hinzufügen aktualisiert werden.
-     */
+    // Event Listener zum Hinzufügen eines Benutzerkommentars.
     document.getElementById("btnAddNote").addEventListener("click", () => {
-        modal.showUserCommentModal(loadLogs);
+        modal.showUserCommentModal(fetchLogs);
     });
 
-    // Button: Systemneustart mit Sicherheitsabfrage
+    // Event Listener für den Reboot-Button.
     document.getElementById("btnReboot").addEventListener("click", () => {
-        modal.showRebootModal(loadLogs); // Bestätigungsmodal mit Passphrase
+        modal.showRebootModal(fetchLogs);
     });
 
-    // Button: System herunterfahren mit Sicherheitsabfrage
+    // Event Listener für den Shutdown-Button.
     document.getElementById("btnShutdown").addEventListener("click", () => {
-        modal.showShutdownModal(loadLogs); // Bestätigungsmodal mit Passphrase
+        modal.showShutdownModal(fetchLogs);
     });
 
-    // Logout-Button: Logout durchführen und zur Login-Seite navigieren
+    // Event Listener für den Logout-Button: Führt Logout durch und navigiert zur Login-Seite.
     document.getElementById("logoutButton").addEventListener("click", async () => {
         await fetch("/logout", { method: "GET" });
         window.location.href = "/login";
