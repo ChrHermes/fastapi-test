@@ -40,13 +40,25 @@
   --border-radius: 5px;
   --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
-  /* Toast */
+  /* Toast-Variablen */
+  --toast-success-border: #4caf50;
+  --toast-success-bg: #f0fff0;
+  --toast-success-text: #4caf50;
+
+  --toast-info-border: #2196f3;
+  --toast-info-bg: #f0f8ff;
+  --toast-info-text: #2196f3;
+
+  --toast-warning-border: #ff9800;
+  --toast-warning-bg: #fffaf0;
+  --toast-warning-text: #ff9800;
+
+  --toast-error-border: #f44336;
+  --toast-error-bg: #fff0f0;
+  --toast-error-text: #f44336;
+
   --toast-icon-size: 22px;
-  --toast-font-size: 14px;
-  --toast-success-bg: #4caf50;
-  --toast-info-bg: #2196f3;
-  --toast-warning-bg: #ff9800;
-  --toast-error-bg: #f44336;
+  --toast-font-size: 15px;
 }
   
 body {

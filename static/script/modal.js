@@ -59,10 +59,7 @@ export function showModal(options) {
     // Handler für Bestätigung und Abbruch
     const confirmHandler = () => {
         if (passphrase && inputField.value.trim() !== passphrase) {
-            showToast("success", "Falscher Bestätigungscode!");
-            showToast("info", "Falscher Bestätigungscode!");
             showToast("warning", "Falscher Bestätigungscode!");
-            showToast("error", "Falscher Bestätigungscode!");
             return;
         }
         onConfirm();
@@ -198,23 +195,23 @@ export async function showUpdateModal(onUpdateSuccess) {
         safeButtonText: "Abbrechen",
         dangerButtonText: "Aktualisierung durchführen",    
         onConfirm: async () => {
-            alert("Aktualisierung gestartet - dieser Prozess kann einige Minuten dauern...");
+            showToast("info", "Aktualisierung gestartet - dieser Prozess kann einige Minuten dauern...");
             
             // Zuerst Images aktualisieren
             const updateResponse = await fetch('/docker/update', { method: 'POST' });
             if (!updateResponse.ok) {
-                alert("Fehler beim Aktualisieren der Images.");
+                showToast("error", "Fehler beim Aktualisieren der Images.");
                 return;
             }
             
             // Anschließend docker-compose Umgebung neu starten
             const restartResponse = await fetch('/docker/restart', { method: 'POST' });
             if (!restartResponse.ok) {
-                alert("Fehler beim Neustarten der Umgebung.");
+                showToast("error", "Fehler beim Neustarten der Umgebung.");
                 return;
             }
             
-            alert("Aktualisierung und Neustart wurden erfolgreich gestartet.");
+            showToast("success", "Aktualisierung und Neustart wurden erfolgreich gestartet.");
             if (onUpdateSuccess) onUpdateSuccess();
         }
     });
@@ -266,7 +263,7 @@ export async function showDatabaseResetModal(onResetSuccess) {
     try {
         const response = await fetch("/database/info");
         if (!response.ok) {
-            alert("Fehler beim Laden der DB-Informationen.");
+            showToast("error", "Fehler beim Laden der DB-Informationen.");
             throw new Error("Fehler beim Laden der DB-Informationen.");
         }
         const data = await response.json();
@@ -281,13 +278,13 @@ export async function showDatabaseResetModal(onResetSuccess) {
                 try {
                     const resetResponse = await fetchWithSpinner("/database/reset", { method: "POST" }, 30);
                     if (!resetResponse.ok) {
-                        alert("Fehler beim Zurücksetzen der Datenbank.");
+                        showToast("error", "Fehler beim Zurücksetzen der Datenbank.");
                     } else {
-                        alert("Datenbank wurde zurückgesetzt.");
+                        showToast("success", "Datenbank wurde zurückgesetzt.");
                         if (onResetSuccess) onResetSuccess();
                     }
                 } catch (error) {
-                    alert("Fehler: " + error.message);
+                    showToast("error", "Fehler: " + error.message);
                 }
             }
         });
@@ -313,9 +310,9 @@ export function showRebootModal(onSuccess) {
         onConfirm: async () => {
             const response = await fetch("/system/reboot", { method: "POST" });
             if (!response.ok) {
-                alert("Fehler beim Neustart des Systems.");
+                showToast("error", "Fehler beim Neustart des Systems.");
             } else {
-                alert("System wird neu gestartet...");
+                showToast("success", "System wird neu gestartet...");
                 if (onSuccess) onSuccess();
             }
         }
@@ -339,9 +336,9 @@ export function showShutdownModal(onSuccess) {
         onConfirm: async () => {
             const response = await fetch("/system/shutdown", { method: "POST" });
             if (!response.ok) {
-                alert("Fehler beim Herunterfahren des Systems.");
+                showToast("error", "Fehler beim Herunterfahren des Systems.");
             } else {
-                alert("System wird heruntergefahren...");
+                showToast("success", "System wird heruntergefahren...");
                 if (onSuccess) onSuccess();
             }
         }
