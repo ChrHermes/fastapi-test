@@ -1,4 +1,5 @@
 import { fetchWithSpinner } from './spinner.js';
+import { showToast } from './notifications.js';
 
 /* =====================================
    BASIS-MODAL-FUNKTION
@@ -58,7 +59,10 @@ export function showModal(options) {
     // Handler für Bestätigung und Abbruch
     const confirmHandler = () => {
         if (passphrase && inputField.value.trim() !== passphrase) {
-            alert("Falscher Bestätigungscode!");
+            showToast("success", "Falscher Bestätigungscode!");
+            showToast("info", "Falscher Bestätigungscode!");
+            showToast("warning", "Falscher Bestätigungscode!");
+            showToast("error", "Falscher Bestätigungscode!");
             return;
         }
         onConfirm();
@@ -85,8 +89,8 @@ export function showModal(options) {
     };
 
     // Event-Listener registrieren – einmalige Ausführung garantiert durch { once: true }.
-    dangerButton.addEventListener("click", confirmHandler, { once: true });
-    safeButton.addEventListener("click", cancelHandler, { once: true });
+    dangerButton.addEventListener("click", confirmHandler);
+    safeButton.addEventListener("click", cancelHandler);
     document.addEventListener("keydown", escHandler);
 }
 

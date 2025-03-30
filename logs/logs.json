@@ -758,5 +758,2050 @@
     "timestamp": "27.03.2025 13:26:35",
     "level": "INFO",
     "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 13:56:45",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' gefunden"
+  },
+  {
+    "timestamp": "30.03.2025 13:56:55",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestoppt"
+  },
+  {
+    "timestamp": "30.03.2025 13:56:55",
+    "level": "INFO",
+    "message": "Backup der Datenbank erstellt: /data/backup/gcn.db_20250330_1356"
+  },
+  {
+    "timestamp": "30.03.2025 13:56:55",
+    "level": "INFO",
+    "message": "Datei '/data/gcn.db' wurde gelöscht"
+  },
+  {
+    "timestamp": "30.03.2025 13:56:55",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-wal' existiert nicht"
+  },
+  {
+    "timestamp": "30.03.2025 13:56:55",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-journal' existiert nicht"
+  },
+  {
+    "timestamp": "30.03.2025 13:56:55",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-shm' existiert nicht"
+  },
+  {
+    "timestamp": "30.03.2025 13:56:55",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestartet"
+  },
+  {
+    "timestamp": "30.03.2025 13:56:55",
+    "level": "INFO",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-gcnia-1', 'fastapi-test-frontend-1', 'fastapi-test-gcfcs-1', 'fastapi-test-backend-1']"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:35",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 13:58:55",
+    "level": "USER",
+    "message": "Tester Uhrzeit"
+  },
+  {
+    "timestamp": "30.03.2025 14:02:51",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' gefunden"
+  },
+  {
+    "timestamp": "30.03.2025 14:03:01",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestoppt"
+  },
+  {
+    "timestamp": "30.03.2025 14:03:01",
+    "level": "INFO",
+    "message": "Backup der Datenbank erstellt: /data/backup/gcn.db_20250330_1403"
+  },
+  {
+    "timestamp": "30.03.2025 14:03:01",
+    "level": "INFO",
+    "message": "Datei '/data/gcn.db' wurde gelöscht"
+  },
+  {
+    "timestamp": "30.03.2025 14:03:01",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-wal' existiert nicht"
+  },
+  {
+    "timestamp": "30.03.2025 14:03:01",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-journal' existiert nicht"
+  },
+  {
+    "timestamp": "30.03.2025 14:03:01",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-shm' existiert nicht"
+  },
+  {
+    "timestamp": "30.03.2025 14:03:01",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestartet"
+  },
+  {
+    "timestamp": "30.03.2025 14:03:01",
+    "level": "INFO",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:03",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' gefunden"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:14",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestoppt"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:14",
+    "level": "INFO",
+    "message": "Backup-Ordner '/data/backup' wurde erstellt"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:14",
+    "level": "INFO",
+    "message": "Backup der Datenbank erstellt: /data/backup/gcn.db_20250330_1616"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:14",
+    "level": "INFO",
+    "message": "Datei '/data/gcn.db' wurde gelöscht"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:14",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-wal' existiert nicht"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:14",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-journal' existiert nicht"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:14",
+    "level": "DEBUG",
+    "message": "Datei '/data/gcn.db-shm' existiert nicht"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:14",
+    "level": "INFO",
+    "message": "Container 'fastapi-test-backend-1' erfolgreich gestartet"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:14",
+    "level": "INFO",
+    "message": "Datenbank wurde erfolgreich zurückgesetzt"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-backend-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-frontend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:18",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:25",
+    "level": "INFO",
+    "message": "Starte Update der Docker-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:16:25",
+    "level": "INFO",
+    "message": "Führe Befehl aus: docker-compose pull gcgw gcfcs gcniabackend frontend gatewaycontrol im Verzeichnis /Users/christopher/Documents/Git/FastAPI-Test"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-frontend-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1', 'fastapi-test-gatewaycontrol-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:25:43",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:06",
+    "level": "INFO",
+    "message": "Gefundene Container: []"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:30:07",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:08",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:33:20",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:34:52",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:35:04",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:46",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:46",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:46",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:46",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:46",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:46",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:46",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:46",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:46",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:47",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:47",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:47",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:47",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:47",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:47",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:47",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:47",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:47",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:55",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:56",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:44:56",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:36",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:45:57",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:23",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:46:36",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:24",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:37",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:47:56",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:10",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:20",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:30",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Gefundene Container: ['fastapi-test-app-1', 'fastapi-test-gcnia-1', 'fastapi-test-gcgw-1', 'fastapi-test-gatewaycontrol-1', 'fastapi-test-frontend-1', 'fastapi-test-backend-1', 'fastapi-test-gcfcs-1']"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Starte Überprüfung der Registry-Images"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcgw"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcgw:latest ab von ghcr.io/v2/gcgw/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcgw: Invalid URL 'ghcr.io/v2/gcgw/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcgw/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcfcs"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcfcs:latest ab von ghcr.io/v2/gcfcs/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcfcs: Invalid URL 'ghcr.io/v2/gcfcs/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcfcs/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: gcniabackend"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für gcniabackend:latest ab von ghcr.io/v2/gcniabackend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gcniabackend: Invalid URL 'ghcr.io/v2/gcniabackend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gcniabackend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: frontend"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für frontend:latest ab von ghcr.io/v2/frontend/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von frontend: Invalid URL 'ghcr.io/v2/frontend/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/frontend/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Überprüfe Image: gatewaycontrol"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Rufe Manifest für gatewaycontrol:latest ab von ghcr.io/v2/gatewaycontrol/manifests/latest"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "ERROR",
+    "message": "Unbekannter Fehler bei der Überprüfung von gatewaycontrol: Invalid URL 'ghcr.io/v2/gatewaycontrol/manifests/latest': No scheme supplied. Perhaps you meant https://ghcr.io/v2/gatewaycontrol/manifests/latest?"
+  },
+  {
+    "timestamp": "30.03.2025 16:48:35",
+    "level": "INFO",
+    "message": "Überprüfung der Registry-Images abgeschlossen"
   }
 ]

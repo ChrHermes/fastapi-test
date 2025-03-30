@@ -39,6 +39,14 @@
   --spacing-large: 20px;
   --border-radius: 5px;
   --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  /* Toast */
+  --toast-icon-size: 22px;
+  --toast-font-size: 14px;
+  --toast-success-bg: #4caf50;
+  --toast-info-bg: #2196f3;
+  --toast-warning-bg: #ff9800;
+  --toast-error-bg: #f44336;
 }
   
 body {
