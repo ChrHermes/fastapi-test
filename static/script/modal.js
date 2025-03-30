@@ -78,11 +78,20 @@ export function showModal(options) {
         }
     };
 
-    // Aufräum-Funktion: Entfernt den ESC-Listener und blendet Modal und Overlay aus.
+    // Handler zum Abfangen von STRG+ENTER bzw. CMD+ENTER zum Bestätigen
+    const confirmKeyHandler = (event) => {
+        if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        confirmHandler();
+        }
+    };
+
+    // Aufräum-Funktion: Entfernt alle Event-Listener und blendet Modal und Overlay aus.
     const cleanup = () => {
         dangerButton.removeEventListener("click", confirmHandler);
         safeButton.removeEventListener("click", cancelHandler);
         document.removeEventListener("keydown", escHandler);
+        document.removeEventListener("keydown", confirmKeyHandler);
         modal.classList.remove("active");
         overlay.classList.remove("active");
     };
@@ -91,6 +100,7 @@ export function showModal(options) {
     dangerButton.addEventListener("click", confirmHandler);
     safeButton.addEventListener("click", cancelHandler);
     document.addEventListener("keydown", escHandler);
+    document.addEventListener("keydown", confirmKeyHandler);
 }
 
 /**
@@ -235,6 +245,7 @@ export function showUserCommentModal(onLogAdded) {
         dangerButtonText: "Eintrag hinzufügen",
         onConfirm: async () => {
             const note = document.getElementById("confirmationInput").value;
+
             try {
                 const response = await fetch("/log/custom", {
                     method: "POST",
@@ -313,7 +324,9 @@ export function showRebootModal(onSuccess) {
         safeButtonText: "Abbrechen",
         dangerButtonText: "Jetzt neu starten",
         onConfirm: async () => {
-            const response = await fetch("/system/reboot", { method: "POST" });
+            showToast("info", "Neustart in 10 Sekunden.");
+            const response = await fetchWithSpinner("/system/reboot", { method: "POST" }, 12);
+            
             if (!response.ok) {
                 showToast("error", "Fehler beim Neustart des Systems.");
             } else {
@@ -339,7 +352,9 @@ export function showShutdownModal(onSuccess) {
         safeButtonText: "Abbrechen",
         dangerButtonText: "Jetzt herunterfahren",
         onConfirm: async () => {
-            const response = await fetch("/system/shutdown", { method: "POST" });
+            showToast("warn", "Herunterfahren in 10 Sekunden.");
+            const response = await fetchWithSpinner("/system/shutdown", { method: "POST" }, 12);
+
             if (!response.ok) {
                 showToast("error", "Fehler beim Herunterfahren des Systems.");
             } else {
