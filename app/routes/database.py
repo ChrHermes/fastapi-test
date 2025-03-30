@@ -46,5 +46,7 @@ async def get_database_info(user: str = Depends(get_current_user)):
             database_path=settings.DB_PATH
         )
         return result
+    except DatabaseNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     except DatabaseInfoError as e:
         raise HTTPException(status_code=500, detail=str(e))

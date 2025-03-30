@@ -263,10 +263,13 @@ export async function showDatabaseResetModal(onResetSuccess) {
     try {
         const response = await fetch("/database/info");
         if (!response.ok) {
-            showToast("error", "Fehler beim Laden der DB-Informationen.");
-            throw new Error("Fehler beim Laden der DB-Informationen.");
+            const errorData = await response.json();
+            console.log(errorData)
+            showToast("error", "Fehler beim Laden der DB-Informationen:\n" + (errorData.detail || "Unbekannter Fehler."));
+            throw new Error(errorData.detail || "Fehler beim Laden der DB-Informationen.");
         }
         const data = await response.json();
+
         showModal({
             title: "Datenbank wirklich löschen?",
             message: `Sie sind dabei, die Datenbank zu löschen. Dies kann nicht rückgängig gemacht werden.<br><br>Größe der Datenbank: <span id="dbSize">${data.size}</span>`,

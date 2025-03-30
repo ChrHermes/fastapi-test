@@ -93,10 +93,11 @@ async def database_info(database_path: str):
             size_in_bytes = os.path.getsize(database_path)
             return {"size": format_size(size_in_bytes)}
         else:
-            raise DatabaseInfoError(f"{database_path} existiert nicht.")
+            write_log("ERROR", f"Keine DB mit Pfad {database_path} gefunden.")
+            raise DatabaseNotFoundError(f"Keine DB mit Pfad {database_path} gefunden.")
     except Exception as e:
         # Falls es sich nicht um einen bereits definierten Fehler handelt, diesen als generischen DatabaseResetError weiterreichen.
-        if not isinstance(e, DatabaseInfoError):
+        if not isinstance(e, DatabaseNotFoundError):
             write_log("ERROR", f"Fehler beim Auslesen der DB: {str(e)}")
             raise DatabaseInfoError(str(e))
         raise

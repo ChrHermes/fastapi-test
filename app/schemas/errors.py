@@ -14,6 +14,11 @@ class DatabaseInfoError(Exception):
     pass
 
 
+class DatabaseNotFoundError(Exception):
+    """Basisfehler bei der Info-Route zur Datenbank."""
+    pass
+
+
 # ------------------------------
 #    DOCKER
 # ------------------------------

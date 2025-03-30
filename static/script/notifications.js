@@ -125,7 +125,7 @@ export function showToast(type, message, duration = 5000) {
     
     // Nachricht hinzufügen
     const messageSpan = document.createElement("span");
-    messageSpan.textContent = message;
+    messageSpan.innerHTML = message.replace(/\n/g, '<br>');
     toast.appendChild(messageSpan);
     
     container.appendChild(toast);
