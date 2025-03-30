@@ -31,6 +31,7 @@
   --container-width: 600px;
   --login-container-width: calc(var(--container-width) / 2);
   --modal-width: calc(var(--container-width) * 1.1);
+  --index-logo-width: calc(var(--container-width) * 0.40);
 
   /* Weitere Design Tokens */
   --font-base: 'Ubuntu', sans-serif;
@@ -74,13 +75,13 @@ body {
 }
 
 /* Hintergrund-Wasserzeichen */
-body::before {
+body.login-page::before {
   content: "";
   position: absolute;
   width: var(--container-width);
   height: auto;
   aspect-ratio: 3 / 1;
-  background-image: url('/static/img/logo.png');
+  background-image: url('/static/img/watermark.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -91,4 +92,12 @@ body::before {
   filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
   pointer-events: none;
   z-index: 0;
+}
+
+.index-logo {
+  max-width: var(--index-logo-width);
+  display: block;
+  margin: var(--spacing-small) auto var(--spacing-large) auto;
+  /* filter: drop-shadow(1px 1px 2px var(--grey-lightest)); */
+  /* opacity: 0.5; */
 }
