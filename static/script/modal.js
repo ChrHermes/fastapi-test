@@ -80,6 +80,8 @@ export function showModal(options) {
 
     // Aufräum-Funktion: Entfernt den ESC-Listener und blendet Modal und Overlay aus.
     const cleanup = () => {
+        dangerButton.removeEventListener("click", confirmHandler);
+        safeButton.removeEventListener("click", cancelHandler);
         document.removeEventListener("keydown", escHandler);
         modal.classList.remove("active");
         overlay.classList.remove("active");
@@ -195,7 +197,7 @@ export async function showUpdateModal(onUpdateSuccess) {
         safeButtonText: "Abbrechen",
         dangerButtonText: "Aktualisierung durchführen",    
         onConfirm: async () => {
-            showToast("info", "Aktualisierung gestartet - dieser Prozess kann einige Minuten dauern...");
+            showToast("info", "Aktualisierung gestartet.\nDieser Prozess kann einige Minuten dauern...");
             
             // Zuerst Images aktualisieren
             const updateResponse = await fetch('/docker/update', { method: 'POST' });
