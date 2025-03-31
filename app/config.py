@@ -24,6 +24,8 @@ class Settings(BaseSettings):
     COMPOSE_PATH: str = "/opt/gridcal"
     COMPOSE_NAME: str = "gridcal"
 
+    MOCK_MODE: bool = False
+
     IMAGES: List[str] = [
         'gcgw',
         'gcfcs',

@@ -352,7 +352,7 @@ export function showShutdownModal(onSuccess) {
         safeButtonText: "Abbrechen",
         dangerButtonText: "Jetzt herunterfahren",
         onConfirm: async () => {
-            showToast("warn", "Herunterfahren in 10 Sekunden.");
+            showToast("warning", "Herunterfahren in 10 Sekunden.");
             const response = await fetchWithSpinner("/system/shutdown", { method: "POST" }, 12);
 
             if (!response.ok) {

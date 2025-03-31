@@ -19,6 +19,7 @@ services:
       - ADMIN_USER=user
       - ADMIN_PASS=pass
       - TZ=Europe/Berlin
+      - MOCK_MODE=True
     env_file:
       - .env
     depends_on:
