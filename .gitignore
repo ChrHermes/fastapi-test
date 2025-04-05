@@ -1,12 +1,34 @@
-__pycache__/
-.idea/
-dev**/
+# --- Node & Nuxt ---
+node_modules/
+.nuxt/
+.output/
+dist/
+coverage/
+.eslintcache
 
-.DS_Store
+# --- Logs ---
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# --- Build-/Paketreste ---
 *.tar.gz
 *.tar
-*.env
+
+# --- Lokale Konfiguration ---
+.env
+.env.*
 *.db
 *.db_*
 
+# --- System- & Editor-Dateien ---
+.DS_Store
+.idea/
+.vscode/
+__pycache__/
+
+# --- Eigene Dev-Ordner ---
+dev**/
+
+# --- Temporäre Notizen ---
 NOTES
