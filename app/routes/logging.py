@@ -15,6 +15,11 @@ class CustomLogEntry(BaseModel):
 
 LOG_FILE = os.path.join("logs", "logs.json")
 
+
+# =====================================
+#          LOGGING
+# ===================================== 
+
 @router.post("/log")
 async def log_message(request: Request):
     data = await request.json()

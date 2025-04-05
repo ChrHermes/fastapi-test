@@ -9,6 +9,11 @@ from app.utils.auth import get_current_user
 
 router = APIRouter()
 
+
+# =====================================
+#          AUTH
+# ===================================== 
+
 @router.get("/login")
 async def login_page():
     """

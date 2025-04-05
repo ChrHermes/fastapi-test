@@ -6,6 +6,11 @@ from app.utils.auth import get_current_user
 
 router = APIRouter()
 
+
+# =====================================
+#          VIEW
+# ===================================== 
+
 @router.get("/")
 def serve_page(user: str = Depends(get_current_user)):
     return FileResponse("static/index.html")
