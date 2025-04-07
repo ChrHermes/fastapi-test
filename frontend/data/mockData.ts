@@ -45,7 +45,7 @@ export const mockContainers = [
   {
     id: "ab1234",
     name: "backend",
-    image: "backend:latest",
+    image: "https://psinsight.intern.gitlab.de:5050/gridcal-node-1/gcn_backend:latest",
     version: "1.1.0",
     uptime: "2 Tage, 1 Stunde",
     status: "Läuft",

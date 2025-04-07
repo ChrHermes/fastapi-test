@@ -14,6 +14,7 @@
               <th class="px-4 py-2">Version</th>
               <th class="px-4 py-2">Uptime</th>
               <th class="px-4 py-2">Status</th>
+              <th class="px-4 py-2 text-center">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -26,16 +27,31 @@
                   {{ container.status }}
                 </span>
               </td>
+              <td class="px-4 py-2 text-center">
+                <button
+                  class="text-muted-foreground hover:text-foreground"
+                  @click="showContainerInfo(container)"
+                >
+                  <span class="material-icons text-sm">info</span>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </CardContent>
   </Card>
+
+  <InfoDockerModal :open="modalOpen" :container="selectedContainer" @update:open="modalOpen = $event" />
+
 </template>
 
 <script setup>
 import { Card, CardContent } from '@/components/ui/card'
+import InfoDockerModal from '@/components/InfoDockerModal.vue'
+
+const modalOpen = ref(false)
+const selectedContainer = ref(null)
 
 defineProps({
   containers: {
@@ -43,6 +59,11 @@ defineProps({
     required: true,
   },
 })
+
+function showContainerInfo(container) {
+  selectedContainer.value = container
+  modalOpen.value = true
+}
 
 function statusBadgeClass(status) {
   const base = 'px-2 py-1 rounded text-xs text-white'
