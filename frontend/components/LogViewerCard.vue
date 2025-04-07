@@ -9,13 +9,16 @@
                 <div v-for="(log, index) in filteredLogs" :key="index"
                     class="whitespace-pre-wrap text-muted-foreground">
                     <span class="text-xs text-foreground mr-2">[{{ log.timestamp }}]</span>
-                    <span v-if="showLevelBadges" :class="levelClass(log.level)" class="px-2 py-0.5 rounded text-xs">
+
+                    <span v-if="showLevelBadges" :class="levelClass(log.level)"
+                        class="inline-block text-center px-2 py-0.5 rounded text-xs w-16">
                         {{ log.level }}
                     </span>
-                    <span v-else class="text-xs text-muted-foreground font-medium mr-2">
+                    <span v-else class="text-xs text-muted-foreground font-medium mr-2 inline-block w-16 text-center">
                         {{ log.level }}
                     </span>
-                    {{ log.message }}
+
+                    <span class="pl-2">{{ log.message }}</span>
                 </div>
             </div>
 
@@ -72,7 +75,7 @@ const props = defineProps({
 
 const logsLocal = ref([...props.logs])
 const selectedLevel = ref('')
-const lineLimit = ref(50)
+const lineLimit = ref(20)
 const showLevelBadges = ref(false)
 
 const levels = ['INFO', 'ERROR', 'DEBUG', 'USER']
@@ -80,11 +83,11 @@ const limits = [20, 50, 100]
 const logContainer = ref(null)
 
 watch(logsLocal, () => {
-  nextTick(() => {
-    if (logContainer.value) {
-      logContainer.value.scrollTop = logContainer.value.scrollHeight
-    }
-  })
+    nextTick(() => {
+        if (logContainer.value) {
+            logContainer.value.scrollTop = logContainer.value.scrollHeight
+        }
+    })
 })
 
 const filteredLogs = computed(() => {
