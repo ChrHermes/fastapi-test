@@ -1,51 +1,54 @@
 <template>
-    <div class="container">
-      <img src="/public/img/index-logo.png" alt="Logo" class="index-logo" />
-  
-      <!-- Software-Gruppe -->
-      <div class="group">
-        <span class="group-title">Software</span>
-        <div class="button-container">
-          <button id="btnDatabaseReset">
-            <span class="material-icons icon-button">history</span>Datenbank zurücksetzen
-          </button>
-          <button id="btnUpdateSoftware">
-            <span class="material-icons icon-button">upgrade</span>Aktualisierung durchführen
-          </button>
-        </div>
-      </div>
-  
-      <!-- Protokoll-Gruppe -->
-      <div class="group">
-        <span class="group-title">Protokoll</span>
-        <div class="button-container">
-          <button id="btnAddNote">
-            <span class="material-icons icon-button">edit_note</span>Eintrag hinzufügen
-          </button>
-        </div>
-      </div>
-  
-      <!-- System-Gruppe -->
-      <div class="group">
-        <span class="group-title">System</span>
-        <div class="button-container">
-          <button id="btnReboot">
-            <span class="material-icons icon-button">restart_alt</span>Hardware neustarten
-          </button>
-          <button id="btnShutdown">
-            <span class="material-icons icon-button">power_settings_new</span>Sicher herunterfahren
-          </button>
-        </div>
-      </div>
-  
-      <!-- Logout -->
-      <button id="logoutButton" class="button-logout">
-        <span class="material-icons icon-button">logout</span>Abmelden
-      </button>
+    <div class="p-6 space-y-6">
+        <!-- System Info Section -->
+        <SystemInfoCard
+            :system="system"
+            @shutdown="shutdownSystem"
+            @reboot="rebootSystem"
+        />
+
+        <!-- Netzwerkübersicht -->
+        <NetworkInfoCard :network="network" />
+
+        <!-- Docker Container Übersicht als Tabelle -->
+        <DockerContainerTable :containers="containers" />
+
+        <!-- Datenbankverwaltung -->
+        <DatabaseInfoCard :database="database" @reset="resetDatabase" />
     </div>
-  </template>
-  
-  <script setup>
-  // Die Logik (z. B. modal.show... / fetch...) folgt im nächsten Schritt
-  </script>
-  
+</template>
+
+<script setup>
+import { useMockData } from '@/composables/useMockData'
+import { inject, watchEffect } from 'vue'
+
+const refreshTrigger = inject('refreshTrigger')
+const autoRefreshEnabled = inject('autoRefreshEnabled')
+const { system, network, database, containers } = useMockData()
+
+definePageMeta({
+  middleware: 'auth'
+})
+
+watchEffect(() => {
+  if (autoRefreshEnabled?.value) {
+    refreshTrigger?.value
+    console.log('Mockdaten-Refresh ausgelöst')
+  }
+})
+
+function shutdownSystem() {
+  console.log('System wird heruntergefahren')
+  // TODO: API call to /api/system/shutdown
+}
+
+function rebootSystem() {
+  console.log('System wird neugestartet')
+  // TODO: API call to /api/system/reboot
+}
+
+function resetDatabase() {
+  console.log('Datenbank wird zurückgesetzt')
+  // TODO: API call to /api/database/reset
+}
+</script>

@@ -9,7 +9,7 @@
                     <thead class="text-muted-foreground">
                         <tr>
                             <th class="px-4 py-2">Name</th>
-                            <th class="px-4 py-2">Image</th>
+                            <!-- <th class="px-4 py-2">Image</th> -->
                             <th class="px-4 py-2">Version</th>
                             <th class="px-4 py-2">Uptime</th>
                             <th class="px-4 py-2">Status</th>
@@ -24,7 +24,7 @@
                             <td class="px-4 py-2 font-medium">
                                 {{ container.name }}
                             </td>
-                            <td class="px-4 py-2">{{ container.image }}</td>
+                            <!-- <td class="px-4 py-2">{{ container.image }}</td> -->
                             <td class="px-4 py-2">{{ container.version }}</td>
                             <td class="px-4 py-2">{{ container.uptime }}</td>
                             <td class="px-4 py-2">

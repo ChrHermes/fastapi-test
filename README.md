@@ -33,3 +33,35 @@ Container Liste gekürzt
 ```zsh
 docker ps --format "table {{.ID}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}"
 ```
+
+## Nuxt Projekt einrichten: `frontend/`
+
+### 1. Abhängigkeiten installieren
+
+```bash
+npm install
+```
+
+### 2. Entwicklungsserver starten
+
+```bash
+npm run dev
+```
+
+Optional im Netzwerk erreichbar:
+
+```bash
+npm run dev -- --host
+```
+
+### 3. Node.js-Version prüfen (empfohlen: LTS)
+
+```bash
+node -v
+```
+
+### 4. (Optional) ShadCN-Komponenten initialisieren
+
+```bash
+npx shadcn-nuxt init
+```

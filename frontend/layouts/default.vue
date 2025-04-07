@@ -1,15 +1,13 @@
 <template>
     <div class="min-h-screen flex flex-col">
-        <header
-            class="w-full px-6 py-4 border-b flex items-center justify-between bg-background"
-        >
+        <header class="w-full px-6 py-4 border-b flex items-center justify-between bg-background">
             <h1 class="text-xl font-semibold">DemoBox Admin</h1>
             <div class="flex items-center gap-4">
-                <RefreshToggleButton :show-label="false" />
+                <RefreshToggleButton :show-label="false" v-if="route.path === '/dash'" />
 
                 <ColorModeToggle />
 
-                <Button variant="outline" class="text-sm">
+                <Button variant="outline" class="text-sm" v-if="user" @click="logout">
                     <span class="material-icons text-base mr-1">logout</span>
                     Logout
                 </Button>
@@ -23,11 +21,16 @@
 </template>
 
 <script setup>
+import { useRoute } from 'vue-router'
 import { Button } from '@/components/ui/button'
+import { ref, provide, onMounted } from 'vue'
+import { useAuth } from '@/composables/useAuth'
+
 import ColorModeToggle from '@/components/ColorModeToggle.vue'
 import RefreshToggleButton from '@/components/RefreshToggleButton.vue'
-import { ref, provide, onMounted } from 'vue'
 
+const { user, logout } = useAuth()
+const route = useRoute()
 const refreshTrigger = ref(0)
 const autoRefreshEnabled = ref(false)
 const secondsLeft = ref(60)

@@ -1,107 +1,42 @@
 <template>
-    <div class="login-page">
-      <!-- Theme-Toggle Button -->
-      <button id="theme-toggle" class="theme-toggle" @click="toggleTheme">
-        <span class="material-icons" id="theme-icon">{{ themeIcon }}</span>
-      </button>
-  
-      <!-- Login-Form -->
-      <div class="login-container">
-        <h2>Login</h2>
-        <form @submit.prevent="handleLogin">
-          <div class="input-group">
-            <input
-              v-model="username"
-              type="text"
-              placeholder="Benutzername"
-              required
-              id="username"
-            />
-          </div>
-  
-          <div class="input-group password-group">
-            <input
-              :type="showPassword ? 'text' : 'password'"
-              v-model="password"
-              placeholder="Passwort"
-              required
-              id="password"
-            />
-            <span class="toggle-password material-icons" @click="togglePassword">
-              {{ showPassword ? 'visibility_off' : 'visibility' }}
-            </span>
-          </div>
-  
-          <button id="loginButton" type="submit">
-            <span class="material-icons icon-button">login</span>Anmelden
-          </button>
-        </form>
-  
-        <p v-if="errorMessage" style="color: red; margin-top: 10px;">
-          {{ errorMessage }}
-        </p>
+  <div class="z-10 w-full max-w-md p-8 rounded-2xl shadow-lg border bg-card space-y-6">
+    <h1 class="text-2xl font-semibold text-center">Anmeldung</h1>
+    <form class="space-y-4" @submit.prevent="onLogin">
+      <div>
+        <label for="username" class="block text-sm font-medium text-muted-foreground">Benutzername</label>
+        <Input id="username" v-model="username" placeholder="admin" class="mt-1 w-full" />
       </div>
-    </div>
-  </template>
-  
-  <script setup>
-  const username = ref('')
-  const password = ref('')
-  const showPassword = ref(false)
-  const errorMessage = ref('')
-  const themeIcon = ref('dark_mode')
-  
-  function togglePassword() {
-    showPassword.value = !showPassword.value
+      <div>
+        <label for="password" class="block text-sm font-medium text-muted-foreground">Passwort</label>
+        <Input id="password" type="password" v-model="password" placeholder="••••••••" class="mt-1 w-full" />
+      </div>
+      <Button type="submit" class="w-full mt-4">Login</Button>
+    </form>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useAuth } from '@/composables/useAuth'
+import { useRouter } from 'vue-router'
+
+const username = ref('')
+const password = ref('')
+const router = useRouter()
+const { login } = useAuth()
+
+definePageMeta({
+  layout: 'login',
+})
+
+function onLogin() {
+  const success = login(username.value, password.value)
+  if (success) {
+    router.push('/')
+  } else {
+    alert('Ungültige Zugangsdaten')
   }
-  
-  function toggleTheme() {
-    const body = document.body
-    const isDark = body.classList.toggle('dark-mode')
-    localStorage.setItem('theme', isDark ? 'dark' : 'light')
-    themeIcon.value = isDark ? 'light_mode' : 'dark_mode'
-  }
-  
-  onMounted(() => {
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark-mode')
-      themeIcon.value = 'light_mode'
-    } else {
-      themeIcon.value = 'dark_mode'
-    }
-  })
-  
-  async function handleLogin() {
-    if (!username.value || !password.value) {
-      errorMessage.value = 'Benutzername und Passwort erforderlich!'
-      return
-    }
-  
-    try {
-      const response = await $fetch('/login', {
-        method: 'POST',
-        body: {
-          username: username.value,
-          password: password.value,
-        }
-      })
-  
-      if (response && typeof response === 'object' && response.redirect) {
-        return navigateTo(response.redirect)
-      }
-  
-      await navigateTo('/')
-    } catch (error) {
-      console.error('Fehler beim Login:', error)
-      errorMessage.value =
-        error?.data?.detail || 'Serverfehler. Bitte später versuchen.'
-    }
-  }
-  </script>
-  
-  <style scoped>
-  .login-page {
-    height: 100vh;
-  }
-  </style>
-  
+}
+</script>
