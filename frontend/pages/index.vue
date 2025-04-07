@@ -15,16 +15,19 @@
 
         <!-- Datenbankverwaltung -->
         <DatabaseInfoCard :database="database" @reset="resetDatabase" />
+
+        <!-- Protokollanzeige -->
+        <LogViewerCard :logs="logs" />
     </div>
 </template>
 
 <script setup>
-import { useMockData } from '@/composables/useMockData'
 import { inject, watchEffect } from 'vue'
+import { useMockData } from '@/composables/useMockData'
 
 const refreshTrigger = inject('refreshTrigger')
 const autoRefreshEnabled = inject('autoRefreshEnabled')
-const { system, network, database, containers } = useMockData()
+const { system, network, database, containers, logs } = useMockData()
 
 definePageMeta({
   middleware: 'auth'

@@ -1,7 +1,7 @@
 <template>
     <Card>
         <CardHeader>
-            <CardTitle>Systeminformationen</CardTitle>
+            <CardTitle>System</CardTitle>
         </CardHeader>
         <CardContent>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

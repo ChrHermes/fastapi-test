@@ -1,7 +1,7 @@
 <template>
     <Card>
         <CardHeader>
-            <CardTitle>Laufende Docker Container</CardTitle>
+            <CardTitle>Docker</CardTitle>
         </CardHeader>
         <CardContent>
             <div class="overflow-auto">

@@ -3,7 +3,7 @@
         <header class="w-full px-6 py-4 border-b flex items-center justify-between bg-background">
             <h1 class="text-xl font-semibold">DemoBox Admin</h1>
             <div class="flex items-center gap-4">
-                <RefreshToggleButton :show-label="false" v-if="route.path === '/dash'" />
+                <RefreshToggleButton :show-label="false" v-if="route.path === '/'" />
 
                 <ColorModeToggle />
 
