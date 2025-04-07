@@ -4,7 +4,8 @@
 
         <CardContent class="space-y-4">
             <!-- Logs -->
-            <div class="h-64 overflow-auto bg-muted rounded px-4 py-3 text-sm space-y-1 leading-relaxed">
+            <div ref="logContainer"
+                class="h-64 overflow-auto bg-muted rounded px-4 py-3 text-sm space-y-1 leading-relaxed">
                 <div v-for="(log, index) in filteredLogs" :key="index"
                     class="whitespace-pre-wrap text-muted-foreground">
                     <span class="text-xs text-foreground mr-2">[{{ log.timestamp }}]</span>
@@ -19,7 +20,7 @@
             </div>
 
             <!-- Einstellungen -->
-            <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground">
+            <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground pt-4 border-t">
                 <!-- Loglevel -->
                 <div class="flex items-center gap-2">
                     <label for="logLevel">Log-Level:</label>
@@ -39,7 +40,7 @@
                     </select>
                 </div>
 
-                <!-- Farben-Toggle als Button -->
+                <!-- Farben-Toggle -->
                 <div class="flex items-center gap-2">
                     <label>Farben:</label>
                     <Button size="sm" variant="outline" @click="toggleBadges"
@@ -48,13 +49,18 @@
                     </Button>
                 </div>
             </div>
+
+            <!-- Logeintrag hinzufügen -->
+            <div class="pt-2">
+                <AddLogEntryDialog @submit="addLogEntry" />
+            </div>
         </CardContent>
     </Card>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
 const props = defineProps({
@@ -64,15 +70,25 @@ const props = defineProps({
     },
 })
 
+const logsLocal = ref([...props.logs])
 const selectedLevel = ref('')
 const lineLimit = ref(50)
 const showLevelBadges = ref(false)
 
 const levels = ['INFO', 'ERROR', 'DEBUG', 'USER']
 const limits = [20, 50, 100]
+const logContainer = ref(null)
+
+watch(logsLocal, () => {
+  nextTick(() => {
+    if (logContainer.value) {
+      logContainer.value.scrollTop = logContainer.value.scrollHeight
+    }
+  })
+})
 
 const filteredLogs = computed(() => {
-    return props.logs
+    return logsLocal.value
         .filter(log => !selectedLevel.value || log.level === selectedLevel.value)
         .slice(-lineLimit.value)
 })
@@ -80,15 +96,37 @@ const filteredLogs = computed(() => {
 function levelClass(level) {
     const base = 'text-white text-xs rounded px-2 py-0.5'
     switch (level) {
-        case 'ERROR': return `${base} bg-red-500`
-        case 'INFO': return `${base} bg-blue-500`
-        case 'DEBUG': return `${base} bg-gray-500`
-        case 'USER': return `${base} bg-green-600`
-        default: return `${base} bg-neutral-500`
+        case 'ERROR':
+            return `${base} bg-red-500`
+        case 'INFO':
+            return `${base} bg-blue-500`
+        case 'DEBUG':
+            return `${base} bg-gray-500`
+        case 'USER':
+            return `${base} bg-green-600`
+        default:
+            return `${base} bg-neutral-500`
     }
 }
 
 function toggleBadges() {
     showLevelBadges.value = !showLevelBadges.value
+}
+
+async function addLogEntry(entry) {
+    entry.timestamp = formatTimestamp(new Date())
+    logsLocal.value.push(entry)
+    await sendLogToBackend(entry)
+}
+
+function formatTimestamp(date) {
+    const pad = (n) => n.toString().padStart(2, '0')
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
+}
+
+// Lokaler Mock
+async function sendLogToBackend(entry) {
+    console.log('[MOCK] Sende Logeintrag:', entry)
+    await new Promise(resolve => setTimeout(resolve, 300))
 }
 </script>

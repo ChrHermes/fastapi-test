@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     css: [
         '@/assets/css/tailwind.css',
         '@/assets/css/theme.css',
-        // '@/assets/css/base.css',
         // '@/assets/css/layout.css',
         // '@/assets/css/components.css',
         // '@/assets/css/theme.css',

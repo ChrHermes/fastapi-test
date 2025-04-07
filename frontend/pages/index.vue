@@ -15,7 +15,7 @@
 
         <!-- Datenbankverwaltung -->
         <DatabaseInfoCard :database="database" @reset="resetDatabase" />
-
+        
         <!-- Protokollanzeige -->
         <LogViewerCard :logs="logs" />
     </div>
