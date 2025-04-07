@@ -20,6 +20,7 @@
                     title="Datenbank zurücksetzen?"
                     description="Diese Aktion löscht alle gespeicherten Daten dauerhaft."
                     confirmation-code="reset-db"
+                    confirm-variant="destructive" variant="destructive" 
                     @confirm="$emit('reset')"
                 >
                     <span class="material-icons text-base mr-1"

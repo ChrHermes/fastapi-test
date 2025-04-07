@@ -10,11 +10,11 @@
         <!-- Netzwerkübersicht -->
         <NetworkInfoCard :network="network" />
 
-        <!-- Docker Container Übersicht als Tabelle -->
-        <DockerContainerTable :containers="containers" />
-
         <!-- Datenbankverwaltung -->
         <DatabaseInfoCard :database="database" @reset="resetDatabase" />
+        
+        <!-- Docker Container Übersicht als Tabelle -->
+        <DockerContainerTable :containers="containers" />
         
         <!-- Protokollanzeige -->
         <LogViewerCard :logs="logs" />
