@@ -26,22 +26,10 @@
                             Systemauslastung
                         </p>
 
-                        <!-- TODO: (i)-Komponente -->
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger as-child>
-                                    <span class="material-icons text-xs text-muted-foreground cursor-help">info</span
-                                    >
-                                </TooltipTrigger>
-                                <TooltipContent class="max-w-xs text-xs leading-relaxed">
-                                    Zeigt die durchschnittliche Systemlast pro
-                                    CPU-Kern über 1, 5 und 15 Minuten.<br />
-                                    Werte über <strong>1.00</strong> bedeuten,
-                                    dass Prozesse warten müssen.
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
-
+                        <InfoPopover
+                            message="Zeigt die durchschnittliche Systemlast pro CPU-Kern über 1, 5 und 15 Minuten. <br>
+                            Werte über <strong>1.00</strong> bedeuten, dass Prozesse warten müssen."
+                        />
                     </div>
 
                     <div class="flex items-center gap-4">
@@ -100,7 +88,7 @@
                     >
                     Neustarten
                 </ConfirmDialog>
-                
+
                 <SecureConfirmDialog
                     title="System herunterfahren?"
                     description="Du bist dabei, das gesamte System herunterzufahren."
@@ -121,12 +109,6 @@
 
 <script setup>
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from '@/components/ui/tooltip'
 import { loadBadgeClass, sdBarColor } from '@/utils/statusColors'
 import SecureConfirmDialog from '@/components/SecureConfirmDialog.vue'
 import ConfirmDialog from '@/components/ConfirmDialog.vue'

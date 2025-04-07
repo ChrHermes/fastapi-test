@@ -22,6 +22,9 @@
 
                     <!-- Message -->
                     <span class="pl-2">{{ log.message }}</span>
+
+                    <!-- Scroll-Ziel -->
+                    <div ref="scrollAnchor"></div>
                 </div>
             </div>
 
@@ -84,12 +87,14 @@ const showLevelBadges = ref(false)
 const levels = ['INFO', 'ERROR', 'DEBUG', 'USER']
 const limits = [20, 50, 100]
 const logContainer = ref(null)
+const scrollAnchor = ref(null)
 
 watch(logsLocal, () => {
     nextTick(() => {
-        if (logContainer.value) {
-            logContainer.value.scrollTop = logContainer.value.scrollHeight
-        }
+        // if (logContainer.value) {
+        //     logContainer.value.scrollTop = logContainer.value.scrollHeight
+        // }
+        scrollAnchor.value?.scrollIntoView({ behavior: 'auto' })
     })
 })
 

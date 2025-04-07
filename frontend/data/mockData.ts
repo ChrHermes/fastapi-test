@@ -21,7 +21,10 @@ export const mockSystem = {
 
 export const mockNetwork = {
   modem: {
-    signal: -75,
+    signal: -59,
+    // signal: -75,
+    // signal: -99,
+    // network: 'EDGE',
     // network: 'GPRS',
     network: 'LTE',
     carrier: 'Telekom',
@@ -45,7 +48,7 @@ export const mockContainers = [
   {
     id: "ab1234",
     name: "backend",
-    image: "https://psinsight.intern.gitlab.de:5050/gridcal-node-1/gcn_backend:latest",
+    image: "https://company.intern.gitlab.com:8480/example-group-1/application-backend:latest",
     version: "1.1.0",
     uptime: "2 Tage, 1 Stunde",
     status: "Läuft",

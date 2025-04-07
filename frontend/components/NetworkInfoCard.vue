@@ -24,11 +24,22 @@
           <p class="text-sm">IP: <strong>{{ network.modem.ip }}</strong></p>
 
           <!-- Signalstärke -->
-          <div class="flex items-end gap-1 h-6 mt-2 mb-1">
-            <div v-for="i in 5" :key="i" class="w-1.5 rounded" :class="signalBarColor(i)"
-              :style="{ height: `${i * 0.4}rem` }" />
+          <div class="flex items-end gap-1 h-6 mt-4 mb-1">
+            <div
+              v-for="i in 5"
+              :key="i"
+              class="w-1.5 rounded"
+              :class="signalBarColor(i)"
+              :style="{ height: `${i * 0.4}rem` }"
+          />
           </div>
-          <p class="text-xs text-muted-foreground mb-2">Signal: {{ network.modem.signal }} dBm</p>
+          <p class="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+            Signal: {{ network.modem.signal }} dBm
+            <InfoPopover
+              class="ml-1"
+              message="Signalstärke in dBm. Werte über -60 dBm gelten als sehr gut, unter -90 dBm als schwach. Die Balken zeigen die Qualität an."
+            />
+          </p>
         </div>
 
         <!-- NetBird / VPN -->
