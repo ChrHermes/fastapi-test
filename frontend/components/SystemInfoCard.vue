@@ -89,6 +89,18 @@
             </div>
 
             <div class="mt-6 flex flex-wrap gap-4">
+                <ConfirmDialog
+                    title="System neustarten?"
+                    description="Das System wird neu gestartet. Offene Verbindungen gehen verloren."
+                    confirm-variant="destructive"
+                    @confirm="$emit('reboot')"
+                >
+                    <span class="material-icons text-base mr-1"
+                        >restart_alt</span
+                    >
+                    Neustarten
+                </ConfirmDialog>
+                
                 <SecureConfirmDialog
                     title="System herunterfahren?"
                     description="Du bist dabei, das gesamte System herunterzufahren."
@@ -102,18 +114,6 @@
                     >
                     Herunterfahren
                 </SecureConfirmDialog>
-
-                <ConfirmDialog
-                    title="System neustarten?"
-                    description="Das System wird neu gestartet. Offene Verbindungen gehen verloren."
-                    confirm-variant="destructive"
-                    @confirm="$emit('reboot')"
-                >
-                    <span class="material-icons text-base mr-1"
-                        >restart_alt</span
-                    >
-                    Neustarten
-                </ConfirmDialog>
             </div>
         </CardContent>
     </Card>

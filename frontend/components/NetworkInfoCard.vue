@@ -102,7 +102,7 @@ function modemTypeBadgeClass(networkStr) {
 
 // Badge VPN-Status
 function vpnBadgeClass(status) {
-  return status === 'Verbunden' ? 'bg-green-600' : 'bg-red-600'
+  return status === 'Verbunden' ? 'bg-green-500' : 'bg-red-500'
 }
 
 // Latenz (sicheres Format)
