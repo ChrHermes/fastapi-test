@@ -1,8 +1,10 @@
 <template>
     <Card>
-        <CardHeader>
-            <CardTitle>Docker</CardTitle>
-        </CardHeader>
+        <CardSectionHeader icon="apps" collapsible subtitle="6 Container laufen aktuell"
+            v-model:collapsed="containerCollapsed">
+            Docker
+        </CardSectionHeader>
+
         <CardContent>
             <div class="overflow-auto">
                 <table class="w-full text-sm text-left">
@@ -16,11 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            v-for="container in containers"
-                            :key="container.name"
-                            class="border-t"
-                        >
+                        <tr v-for="container in containers" :key="container.name" class="border-t">
                             <td class="px-4 py-2 font-medium">
                                 {{ container.name }}
                             </td>
@@ -28,9 +26,7 @@
                             <td class="px-4 py-2">{{ container.version }}</td>
                             <td class="px-4 py-2">{{ container.uptime }}</td>
                             <td class="px-4 py-2">
-                                <span
-                                    :class="statusBadgeClass(container.status)"
-                                >
+                                <span :class="statusBadgeClass(container.status)">
                                     {{ container.status }}
                                 </span>
                             </td>

@@ -34,12 +34,12 @@ export const mockSystem = {
   }
   
   export const mockContainers = [
-    { name: 'backend', image: 'backend:latest', version: '1.0.0', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
-    { name: 'frontend', image: 'frontend:latest', version: '1.0.0', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
-    { name: 'fieldcom', image: 'fieldcom:latest', version: '1.0.0', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
-    { name: 'gateway', image: 'gateway:latest', version: '1.0.0', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
+    { name: 'backend', image: 'backend:latest', version: '1.1.0', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
+    { name: 'frontend', image: 'frontend:latest', version: '1.0.18', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
+    { name: 'fieldcom', image: 'fieldcom:latest', version: '1.0.12', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
+    { name: 'gateway', image: 'gateway:latest', version: '1.1.0', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
     { name: 'cellular', image: 'cellular:latest', version: '1.0.0', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
-    { name: 'base', image: 'base:latest', version: '1.0.0', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
+    { name: 'base', image: 'base:latest', version: '1.0.8', uptime: '2 Tage, 1 Stunde', status: 'Läuft' },
   ]
   
   export const mockLogs = [

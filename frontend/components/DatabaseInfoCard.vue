@@ -1,8 +1,7 @@
 <template>
     <Card>
-        <CardHeader>
-            <CardTitle>Datenbank</CardTitle>
-        </CardHeader>
+        <CardSectionHeader icon="storage">Datenbank</CardSectionHeader>
+
         <CardContent>
             <div class="flex items-center justify-between">
                 <div>

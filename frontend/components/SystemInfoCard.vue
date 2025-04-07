@@ -1,8 +1,7 @@
 <template>
     <Card>
-        <CardHeader>
-            <CardTitle>System</CardTitle>
-        </CardHeader>
+        <CardSectionHeader icon="memory">System</CardSectionHeader>
+
         <CardContent>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-1">
