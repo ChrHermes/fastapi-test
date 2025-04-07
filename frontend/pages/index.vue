@@ -22,12 +22,13 @@
 </template>
 
 <script setup>
-import { inject, watchEffect } from 'vue'
 import { useMockData } from '@/composables/useMockData'
+import { ref, inject, watchEffect, onMounted } from 'vue'
 
 const refreshTrigger = inject('refreshTrigger')
 const autoRefreshEnabled = inject('autoRefreshEnabled')
 const { system, network, database, containers, logs } = useMockData()
+const loading = inject('loading')
 
 definePageMeta({
   middleware: 'auth'

@@ -8,8 +8,10 @@
                 class="h-64 overflow-auto bg-muted rounded px-4 py-3 text-sm space-y-1 leading-relaxed">
                 <div v-for="(log, index) in filteredLogs" :key="index"
                     class="whitespace-pre-wrap text-muted-foreground">
-                    <span class="text-xs text-foreground mr-2">[{{ log.timestamp }}]</span>
+                    <!-- Timestamp -->
+                    <span class="inline-block w-[140px] text-xs text-foreground">{{ log.timestamp }}</span>
 
+                    <!-- Loglevel -->
                     <span v-if="showLevelBadges" :class="levelClass(log.level)"
                         class="inline-block text-center px-2 py-0.5 rounded text-xs w-16">
                         {{ log.level }}
@@ -18,6 +20,7 @@
                         {{ log.level }}
                     </span>
 
+                    <!-- Message -->
                     <span class="pl-2">{{ log.message }}</span>
                 </div>
             </div>

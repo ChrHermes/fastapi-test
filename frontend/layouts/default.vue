@@ -1,5 +1,10 @@
 <template>
     <div class="min-h-screen flex flex-col">
+        <!-- Ladeoverlay -->
+        <div v-if="loading" class="absolute inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary" />
+        </div>
+
         <header class="w-full px-6 py-4 border-b flex items-center justify-between bg-background">
             <h1 class="text-xl font-semibold">DemoBox Admin</h1>
             <div class="flex items-center gap-4">
@@ -34,6 +39,7 @@ const route = useRoute()
 const refreshTrigger = ref(0)
 const autoRefreshEnabled = ref(false)
 const secondsLeft = ref(60)
+const loading = ref(false)
 
 function toggleAutoRefresh() {
     if (!autoRefreshEnabled.value) {
@@ -50,6 +56,7 @@ provide('refreshTrigger', refreshTrigger)
 provide('autoRefreshEnabled', autoRefreshEnabled)
 provide('toggleAutoRefresh', toggleAutoRefresh)
 provide('secondsLeft', secondsLeft)
+provide('loading', loading)
 
 onMounted(() => {
     setInterval(() => {
