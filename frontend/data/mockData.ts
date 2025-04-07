@@ -21,13 +21,15 @@ export const mockSystem = {
 
 export const mockNetwork = {
   modem: {
-    signal: -72,
-    network: "LTE (Telekom)",
-    ip: "10.143.8.21",
+    signal: -75,
+    // network: 'GPRS',
+    network: 'LTE',
+    carrier: 'Telekom',
+    ip: '10.143.8.21',
   },
   netbird: {
     status: "Verbunden",
-    peer_ip: "100.72.42.12",
+    peer_ip: "100.72.42.12/21",
     latency: "48.9754ms",
     version: "0.35.2",
   },

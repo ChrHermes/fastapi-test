@@ -13,20 +13,23 @@
             <p class="text-sm font-semibold text-foreground">Mobilfunkmodem</p>
           </div>
 
-          <!-- Netz und IP oben -->
-          <p class="text-sm">Netz: <strong>{{ network.modem.network }}</strong></p>
+          <!-- Netz & IP -->
+          <p class="text-sm">
+            Netz: <strong>{{ network.modem.carrier }}</strong>
+            <span :class="modemTypeBadgeClass(network.modem.network)"
+              class="ml-2 px-2 py-0.5 rounded text-xs text-white">
+              {{ modemTypeLabel(network.modem.network) }}
+            </span>
+          </p>
           <p class="text-sm">IP: <strong>{{ network.modem.ip }}</strong></p>
 
-          <!-- Signalbalken darunter -->
+          <!-- Signalstärke -->
           <div class="flex items-end gap-1 h-6 mt-2 mb-1">
-            <div v-for="i in 5" :key="i" class="w-1.5 rounded" :class="{
-              'bg-green-500': signalLevel >= i,
-              'bg-muted': signalLevel < i
-            }" :style="{ height: `${i * 0.4}rem` }" />
+            <div v-for="i in 5" :key="i" class="w-1.5 rounded" :class="signalBarColor(i)"
+              :style="{ height: `${i * 0.4}rem` }" />
           </div>
           <p class="text-xs text-muted-foreground mb-2">Signal: {{ network.modem.signal }} dBm</p>
         </div>
-
 
         <!-- NetBird / VPN -->
         <div>
@@ -35,10 +38,15 @@
             <p class="text-sm font-semibold text-foreground">VPN-Verbindung</p>
           </div>
 
-          <p class="text-sm">Status: <strong>{{ network.netbird.status }}</strong></p>
+          <p class="text-sm">
+            Status:
+            <span :class="vpnBadgeClass(network.netbird.status)" class="ml-1 px-2 py-0.5 rounded text-xs text-white">
+              {{ network.netbird.status }}
+            </span>
+          </p>
           <p class="text-sm">Peer IP: <strong>{{ network.netbird.peer_ip }}</strong></p>
           <p class="text-sm">Version: <strong>{{ network.netbird.version }}</strong></p>
-          <p class="text-sm text-muted-foreground">Latenz: {{ network.netbird.latency }}</p>
+          <p class="text-sm text-muted-foreground">Latenz: {{ formatLatency(network.netbird.latency) }}</p>
         </div>
       </div>
     </CardContent>
@@ -57,6 +65,7 @@ const props = defineProps({
   },
 })
 
+// Balkenanzahl (1–5)
 const signalLevel = computed(() => {
   const dbm = props.network.modem.signal
   if (dbm >= -60) return 5
@@ -65,4 +74,39 @@ const signalLevel = computed(() => {
   if (dbm >= -90) return 2
   return 1
 })
+
+// Balkenfarbe je Stufe
+function signalBarColor(i) {
+  const active = signalLevel.value >= i
+  if (!active) return 'bg-muted'
+
+  return signalLevel.value <= 2
+    ? 'bg-red-500'
+    : signalLevel.value === 3
+      ? 'bg-yellow-500'
+      : 'bg-green-500'
+}
+
+// Badge Netztyp
+function modemTypeLabel(networkStr) {
+  if (networkStr.includes('LTE')) return 'LTE'
+  if (networkStr.includes('GPRS')) return 'GPRS'
+  return 'EDGE'
+}
+
+function modemTypeBadgeClass(networkStr) {
+  if (networkStr.includes('LTE')) return 'bg-green-500'
+  if (networkStr.includes('GPRS')) return 'bg-yellow-500'
+  return 'bg-red-500' // z. B. EDGE oder unbekannt
+}
+
+// Badge VPN-Status
+function vpnBadgeClass(status) {
+  return status === 'Verbunden' ? 'bg-green-600' : 'bg-red-600'
+}
+
+// Latenz (sicheres Format)
+function formatLatency(latency) {
+  return typeof latency === 'number' ? `${latency.toFixed(0)}ms` : latency
+}
 </script>
