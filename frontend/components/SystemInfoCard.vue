@@ -19,17 +19,30 @@
 
                 <!-- Systemauslastung -->
                 <div class="space-y-1">
-                    <p class="text-sm text-muted-foreground">Load Average</p>
+                    <div class="flex items-center gap-2">
+                        <p class="text-sm text-muted-foreground">Systemauslastung</p>
+
+                        <!-- <Tooltip>
+                            <TooltipTrigger as-child>
+                                <span class="material-icons text-base text-muted-foreground cursor-help">info</span>
+                            </TooltipTrigger>
+                            <TooltipContent class="max-w-xs text-xs leading-relaxed">
+                                Zeigt die durchschnittliche Systemlast pro CPU-Kern über 1, 5 und 15 Minuten.<br />
+                                Werte über <strong>1.00</strong> bedeuten, dass Prozesse warten müssen.
+                            </TooltipContent>
+                        </Tooltip> -->
+                    </div>
+
                     <div class="flex items-center gap-4">
-                        <span :class="loadBadgeClass(system.load['1m'])"
-                            >1m: {{ system.load['1m'] }}</span
-                        >
-                        <span :class="loadBadgeClass(system.load['5m'])"
-                            >5m: {{ system.load['5m'] }}</span
-                        >
-                        <span :class="loadBadgeClass(system.load['15m'])"
-                            >15m: {{ system.load['15m'] }}</span
-                        >
+                        <span :class="loadBadgeClass(system.load['1m'])">
+                            1m: <span class="font-semibold">{{ system.load['1m'] }}</span>
+                        </span>
+                        <span :class="loadBadgeClass(system.load['5m'])">
+                            5m: <span class="font-semibold">{{ system.load['5m'] }}</span>
+                        </span>
+                        <span :class="loadBadgeClass(system.load['15m'])">
+                            15m: <span class="font-semibold">{{ system.load['15m'] }}</span>
+                        </span>
                     </div>
                 </div>
 
@@ -39,11 +52,11 @@
             <div class="mt-6">
                 <p class="text-sm text-muted-foreground mb-1">Speichernutzung (SD-Karte)</p>
 
-                <div class="w-full h-3 rounded bg-muted overflow-hidden">
-                    <div class="h-full"
-                        :style="`width: ${system.sd.percent}%; background-color: ${sdBarColor(system.sd.percent)}`">
-                    </div>
+                <div class="w-full bg-muted h-3 rounded overflow-hidden">
+                    <div class="h-3 rounded" :class="sdBarColor(system.sd.percent)"
+                        :style="`width: ${system.sd.percent}%`"></div>
                 </div>
+
 
                 <p class="text-xs text-muted-foreground mt-1">
                     {{ system.sd.used }} von {{ system.sd.total }} verwendet ({{ system.sd.percent }}%)
@@ -71,6 +84,8 @@
 
 <script setup>
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { loadBadgeClass, sdBarColor } from '@/utils/statusColors'
 import SecureConfirmDialog from '@/components/SecureConfirmDialog.vue'
 import ConfirmDialog from '@/components/ConfirmDialog.vue'
 
@@ -82,17 +97,4 @@ defineProps({
 })
 
 defineEmits(['shutdown'])
-
-function loadBadgeClass(value) {
-    if (value > 2.5) return 'bg-red-500 text-white px-2 py-1 rounded text-xs'
-    if (value > 1.5) return 'bg-yellow-500 text-white px-2 py-1 rounded text-xs'
-    return 'bg-green-500 text-white px-2 py-1 rounded text-xs'
-}
-
-function sdBarColor(percent) {
-    if (percent < 50) return '#22c55e'
-    if (percent < 80) return '#eab308'
-    return '#ef4444'
-}
-
 </script>

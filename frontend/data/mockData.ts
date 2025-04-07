@@ -7,16 +7,16 @@ export const mockSystem = {
       '5m': 1.55,
       '15m': 0.96,
     },
-    sd: {
-      used: '6.7 GB',
-      total: '8 GB',
-      percent: 83.75,
-    },
     // sd: {
-    //   used: '3.7 GB',
+    //   used: '6.7 GB',
     //   total: '8 GB',
-    //   percent: 46.25,
+    //   percent: 83.75,
     // },
+    sd: {
+      used: '3.7 GB',
+      total: '8 GB',
+      percent: 46.25,
+    },
   }
   
   export const mockNetwork = {
