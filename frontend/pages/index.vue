@@ -27,8 +27,22 @@ import { ref, inject, watchEffect, onMounted } from 'vue'
 
 const refreshTrigger = inject('refreshTrigger')
 const autoRefreshEnabled = inject('autoRefreshEnabled')
-const { system, network, database, containers, logs } = useMockData()
 const loading = inject('loading')
+
+const { system, network, database, containers, logs } = useMockData()
+// onMounted(async () => {
+//   loading.value = true
+//   try {
+//     const data = await useData()
+//     system.value = data.system
+//     network.value = data.network
+//     database.value = data.database
+//     containers.value = data.containers
+//     logs.value = data.logs
+//   } finally {
+//     loading.value = false
+//   }
+// })
 
 definePageMeta({
   middleware: 'auth'

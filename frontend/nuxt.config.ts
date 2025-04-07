@@ -4,7 +4,13 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     devtools: { enabled: true },
-    modules: ['@nuxt/ui', '@nuxt/icon', '@nuxt/fonts', 'shadcn-nuxt', '@nuxtjs/color-mode'],
+    modules: [
+        '@nuxt/ui',
+        '@nuxt/icon',
+        '@nuxt/fonts',
+        'shadcn-nuxt',
+        '@nuxtjs/color-mode',
+    ],
     css: [
         '@/assets/css/tailwind.css',
         '@/assets/css/theme.css',
@@ -32,5 +38,11 @@ export default defineNuxtConfig({
     shadcn: {
         prefix: '',
         componentDir: './components/ui',
+    },
+    runtimeConfig: {
+        public: {
+            apiBase: 'http://localhost:8000',
+            // apiBase: process.env.API_BASE || 'http://localhost:8000',
+        },
     },
 })
