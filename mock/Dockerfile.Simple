@@ -1,7 +1,0 @@
-# Dockerfile
-FROM alpine:latest
-
-LABEL Author="CH"
-LABEL Version="1.0.3-ghwe3m"
-
-CMD ["echo", "Hello, world!"]
