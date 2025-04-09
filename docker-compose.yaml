@@ -6,7 +6,8 @@ services:
     pid: "host"
     restart: unless-stopped
     ports:
-      - "8080:8000"
+      - "8000:8000"
+      - "3000:3000"
     volumes:
       - ./data:/data # Mount-Pfad zur Datenbank
       - ./logs:/app/logs # Log-Dateien werden im Container abgelegt
