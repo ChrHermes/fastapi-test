@@ -23,7 +23,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ ./app
 
 # Nuxt statisches Build-Ergebnis kopieren
-COPY --from=frontend-builder /frontend/.output/public ./static
+COPY --from=frontend-builder /frontend/.output/public ./public/
 
 # Uvicorn starten + Static-Dateien einbinden
 EXPOSE 8000

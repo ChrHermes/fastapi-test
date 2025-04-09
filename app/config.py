@@ -24,8 +24,15 @@ class Settings(BaseSettings):
     COMPOSE_PATH: str = "/opt/gridcal"
     COMPOSE_NAME: str = "gridcal"
 
+    # Server
+    ALLOW_ORIGINS: List[str] = ["http://localhost:3000"]
+    SERVE_FRONTEND: bool = True
+
+    # Modes
+    DEBUG: bool = False
     MOCK_MODE: bool = False
 
+    # Docker
     IMAGES: List[str] = [
         'gcgw',
         'gcfcs',

@@ -56,8 +56,8 @@ export default defineNuxtConfig({
   // 🔐 Konfigurierbare Umgebungsvariablen (z. B. für das Backend)
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:8001/api', // API-Endpunkt für dein FastAPI-Backend
-      // Alternativ dynamisch mit .env: apiBase: process.env.API_BASE || 'http://localhost:8001/api'
+      apiBase: 'http://localhost:8000/api', // API-Endpunkt für dein FastAPI-Backend
+      // Alternativ dynamisch mit .env: apiBase: process.env.API_BASE || 'http://localhost:8000/api'
     },
   },
 
