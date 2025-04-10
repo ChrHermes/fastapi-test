@@ -122,7 +122,7 @@ start_docker() {
 }
 
 show_image_stats() {
-    APP_CONTAINER_NAME="app"  # ggf. anpassen
+    APP_CONTAINER_NAME="gc-admin"  # ggf. anpassen
     IMAGE_ID=$(docker inspect --format='{{.Image}}' "${APP_CONTAINER_NAME}" 2>/dev/null || echo "")
     
     if [[ -z "$IMAGE_ID" ]]; then
@@ -170,7 +170,7 @@ restart() {
 }
 
 rebuild_app_container() {
-    APP_CONTAINER_NAME="app"
+    APP_CONTAINER_NAME="gc-admin"
     info "Dummy-Datenbank wird neu erstellt..."
     create_dummy_db
     info "Baue und starte nur den Container '${APP_CONTAINER_NAME}' neu..."

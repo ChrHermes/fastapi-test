@@ -28,15 +28,6 @@ async def log_message(request: Request):
     write_log(level, message)
     return {"status": "ok"}
 
-@router.post("/log/reboot")
-def log_button3(user: str = Depends(get_current_user)):
-    write_log("INFO", "System wird neugestartet")
-    return {"message": "System wird neugestartet"}
-
-@router.post("/log/shutdown")
-def log_button3(user: str = Depends(get_current_user)):
-    write_log("INFO", "System wird heruntergefahren")
-    return {"message": "System wird heruntergefahren"}
 
 @router.post("/log/custom")
 def log_custom(entry: CustomLogEntry, user: str = Depends(get_current_user)):

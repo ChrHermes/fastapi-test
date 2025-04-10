@@ -35,13 +35,16 @@ except Exception as e:
 @router.get("/docker/containers/")
 async def list_containers():
     """
-    Liefert alle Docker-Container, die dem definierten Compose-Projekt zugeordnet sind.
-        Die Funktion sucht nach Containern, die das Label "com.docker.compose.project" enthalten,
-        wobei der im Settings definierte Name (z. B. "gridcal") als Filter genutzt wird.
-    Returns:
-        dict: Ein Dictionary mit einer Liste der gefundenen Container unter dem Schlüssel "containers".
-    Raises:
-        HTTPException: Falls ein Fehler beim Abrufen der Container auftritt.
+    🔍 **Listet alle Docker-Container des Compose-Projekts auf**
+
+    Diese Route ruft alle laufenden Docker-Container ab, die zum definierten `docker-compose`-Projekt gehören.
+    Verwendet wird das Label `com.docker.compose.project` mit dem Namen aus `settings.COMPOSE_NAME`.
+
+    **Returns:**
+    - `dict`: Enthält die Containerliste unter `"containers"`.
+
+    **Raises:**
+    - `500 Internal Server Error`: Bei Fehlern beim Abruf der Container.
     """
     try:
         containers = list_docker_containers(settings.COMPOSE_NAME)
@@ -56,15 +59,19 @@ async def list_containers():
 @router.get("/docker/registry/images")
 async def get_registry_info(user: str = Depends(get_current_user)):
     """
-    Ruft Informationen zu Docker-Images aus der privaten Registry ab.
-        Diese Route stellt eine Verbindung zur Registry her, um die verfügbaren Docker-Images
-        (und deren Versionen) abzurufen, die für das Projekt relevant sind.
-    Args:
-        user (str): Der aktuell authentifizierte Benutzer, bereitgestellt über die Dependency Injection.
-    Returns:
-        dict: Ein Dictionary mit den Registry-Images unter dem Schlüssel "registry_images".
-    Raises:
-        HTTPException: Falls ein Fehler bei der Abfrage der Registry auftritt.
+    🛒 **Ruft verfügbare Docker-Images aus der Registry ab**
+
+    Diese Route fragt eine private Registry nach den verfügbaren Images und deren Versionen ab,
+    die im Projekt verwendet werden könnten.
+
+    **Args:**
+    - `user` (str): Authentifizierter Benutzer über `Depends(get_current_user)`.
+
+    **Returns:**
+    - `dict`: Enthält die Registry-Informationen unter `"registry_images"`.
+
+    **Raises:**
+    - `500 Internal Server Error`: Bei Verbindungsfehlern zur Registry.
     """
     try:
         registry_images = get_registry_images(settings.IMAGES)
@@ -79,16 +86,19 @@ async def get_registry_info(user: str = Depends(get_current_user)):
 @router.get("/docker/updates")
 async def check_for_updates(user: str = Depends(get_current_user)):
     """
-    Vergleicht die aktuell laufenden Container-Images mit den in der Registry verfügbaren Images.
-        Diese Route ermittelt zunächst die laufenden Container des definierten Compose-Projekts,
-        ruft anschließend die in der Registry verfügbaren Images ab und vergleicht beide Versionen.
-        So wird eine Übersicht geliefert, welche Container-Images ein Update benötigen.
-    Args:
-        user (str): Der aktuell authentifizierte Benutzer.
-    Returns:
-        dict: Ein Dictionary mit den verfügbaren Updates unter dem Schlüssel "updates".
-    Raises:
-        HTTPException: Falls ein Fehler beim Vergleich der Versionen auftritt.
+    🔄 **Prüft auf verfügbare Updates für Container-Images**
+
+    Diese Route vergleicht laufende Container-Images mit den in der Registry verfügbaren Versionen
+    und liefert eine Übersicht über mögliche Updates.
+
+    **Args:**
+    - `user` (str): Authentifizierter Benutzer über `Depends(get_current_user)`.
+
+    **Returns:**
+    - `dict`: Enthält Update-Informationen unter `"updates"`.
+
+    **Raises:**
+    - `500 Internal Server Error`: Bei Fehlern beim Vergleich.
     """
     try:
         containers = list_docker_containers(settings.COMPOSE_NAME)
@@ -105,15 +115,19 @@ async def check_for_updates(user: str = Depends(get_current_user)):
 @router.post("/docker/update")
 async def update_images(user: str = Depends(get_current_user)):
     """
-    Aktualisiert die Docker-Images mittels docker-compose pull.
-        Diese Route löst den Update-Prozess aus, der die Docker-Images aktualisiert.
-        Sie verwendet die Funktion update_docker_images, um den Aktualisierungsvorgang durchzuführen.
-    Args:
-        user (str): Der aktuell authentifizierte Benutzer.
-    Returns:
-        dict: Ein Dictionary mit dem Ergebnis des Update-Prozesses.
-    Raises:
-        HTTPException: Falls während des Update-Prozesses ein Fehler auftritt.
+    ⬇️ **Aktualisiert die Docker-Images über `docker-compose pull`**
+
+    Diese Route startet den Update-Prozess für alle Services, basierend auf dem aktuellen Compose-Setup.
+    Es wird die Funktion `update_docker_images()` verwendet.
+
+    **Args:**
+    - `user` (str): Authentifizierter Benutzer über `Depends(get_current_user)`.
+
+    **Returns:**
+    - `dict`: Ergebnis des Update-Vorgangs.
+
+    **Raises:**
+    - `500 Internal Server Error`: Falls beim Update ein Fehler auftritt.
     """
     try:
         return update_docker_images()
@@ -124,15 +138,19 @@ async def update_images(user: str = Depends(get_current_user)):
 @router.post("/docker/restart")
 async def restart_compose(user: str = Depends(get_current_user)):
     """
-    Startet die docker-compose Umgebung neu.
-        Diese Route ruft die Funktion restart_compose_environment auf, um den Neustart
-        der docker-compose Umgebung durchzuführen.
-    Args:
-        user (str): Der aktuell authentifizierte Benutzer.
-    Returns:
-        dict: Ein Dictionary mit dem Ergebnis des Neustarts.
-    Raises:
-        HTTPException: Falls ein Fehler beim Neustarten der Umgebung auftritt.
+    🔁 **Startet die docker-compose Umgebung neu**
+
+    Diese Route ruft `restart_compose_environment()` auf, um alle Services des aktuellen Projekts
+    kontrolliert neu zu starten.
+
+    **Args:**
+    - `user` (str): Authentifizierter Benutzer über `Depends(get_current_user)`.
+
+    **Returns:**
+    - `dict`: Ergebnis des Neustart-Vorgangs.
+
+    **Raises:**
+    - `500 Internal Server Error`: Falls der Neustart fehlschlägt.
     """
     try:
         result = restart_compose_environment()
