@@ -25,6 +25,8 @@ EXPORT_IMAGE_NAME="gc-admin.tar"
 EXPORT_ARCHIVE_NAME="gc-admin.tar.gz"
 PLATFORM="linux/amd64"
 
+CLEAN_MODE=false
+
 # ----------- Parameter parsen -----------
 EXPORT_ENABLED=false
 BUILD_FE=false
@@ -48,6 +50,11 @@ while [[ $# -gt 0 ]]; do
             ;;
         --build-fe)
             BUILD_FE=true
+            shift
+            ;;
+        --clean)
+            --clean)
+            CLEAN_MODE=true
             shift
             ;;
         --help)
@@ -113,4 +120,14 @@ if [ "$EXPORT_ENABLED" = true ]; then
     tar czvf "$EXPORT_ARCHIVE_NAME" -C "$EXPORT_DIR" .
 
     success "✅ Exportiert nach: $EXPORT_IMAGE_NAME & $EXPORT_ARCHIVE_NAME"
+fi
+
+# ----------- Clean-Modus -----------
+if [ "$CLEAN_MODE" = true ]; then
+    info "---------- 🧹 Bereinige Build-Artefakte ----------"
+    rm -rf dist/frontend
+    rm -rf prod
+    rm -rf frontend/.output
+    success "✅ Alles bereinigt."
+    exit 0
 fi
