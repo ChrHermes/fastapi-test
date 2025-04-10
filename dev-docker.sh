@@ -113,13 +113,37 @@ start_docker() {
     else
         docker-compose up -d
     fi
+
+    show_image_stats
+
     END_TIME=$(date +"%Y-%m-%d %H:%M:%S")
     info "Startzeit: ${START_TIME}"
     info "Endzeit:   ${END_TIME} (Dauer: ${SECONDS}s)"
 }
 
+show_image_stats() {
+    APP_CONTAINER_NAME="app"  # ggf. anpassen
+    IMAGE_ID=$(docker inspect --format='{{.Image}}' "${APP_CONTAINER_NAME}" 2>/dev/null || echo "")
+    
+    if [[ -z "$IMAGE_ID" ]]; then
+        info "Konnte Image-ID für Container '${APP_CONTAINER_NAME}' nicht ermitteln."
+        return
+    fi
+
+    IMAGE_SIZE=$(docker image inspect "$IMAGE_ID" --format='{{.Size}}' 2>/dev/null || echo "")
+    LAYER_COUNT=$(docker image inspect "$IMAGE_ID" --format='{{len .RootFS.Layers}}' 2>/dev/null || echo "n/a")
+
+    if [[ -n "$IMAGE_SIZE" ]]; then
+        SIZE_MB=$(echo "scale=2; $IMAGE_SIZE / 1024 / 1024" | bc)
+        info "Image-Größe für '${APP_CONTAINER_NAME}': ${SIZE_MB} MB"
+        info "Anzahl Layer: ${LAYER_COUNT}"
+    else
+        info "Konnte Image-Infos für '${APP_CONTAINER_NAME}' nicht ermitteln."
+    fi
+}
+
 show_logs() {
-    info "Server läuft auf ${URL_COLOR}http://127.0.0.1:8080${RESET}"
+    info "Server läuft auf ${URL_COLOR}http://127.0.0.1:8000${RESET}"
     info "Docker-Logs werden angezeigt.\n       ('r' = App-Container neustarten, 't' = kompletter Neustart, 'q' = Beenden.)"
     docker-compose logs -f &
     LOG_PID=$!

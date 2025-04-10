@@ -1,17 +1,16 @@
 services:
-  app:
-    image: gcn-mgmt:latest
+  gc-admin:
+    image: gc-admin:latest
     build: .
     privileged: true
     pid: "host"
     restart: unless-stopped
     ports:
       - "8000:8000"
-      - "3000:3000"
     volumes:
-      - ./data:/data # Mount-Pfad zur Datenbank
-      - ./logs:/app/logs # Log-Dateien werden im Container abgelegt
-      - /var/run/docker.sock:/var/run/docker.sock # Zugriff auf den Docker-Daemon
+      - ./data:/data
+      - ./logs:/logs
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./mock/opt/gridcal:/opt/gridcal
       - /etc/localtime:/etc/localtime:ro
     environment:

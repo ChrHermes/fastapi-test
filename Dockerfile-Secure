@@ -1,0 +1,40 @@
+# ---------- Stage 1: Frontend bauen ----------
+FROM node:23.11-alpine AS frontend-builder
+
+WORKDIR /frontend
+COPY frontend/ ./
+RUN npm install
+RUN npm run build
+
+# ---------- Stage 2: Backend bauen ----------
+FROM python:3.12-slim AS backend-builder
+
+WORKDIR /build
+
+# Build-Tools & PyInstaller installieren
+RUN apt update && apt install -y build-essential libffi-dev python3-pip
+RUN pip install --no-cache-dir pyinstaller
+
+# Abhängigkeiten installieren (wenn benötigt)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt || true  # bei Bedarf ignorieren
+
+# Backend-Code kopieren & kompilieren
+COPY app/ ./app
+RUN pyinstaller --onefile app/main.py --distpath dist
+
+# ---------- Stage 3: Minimales Runtime-Image ----------
+FROM debian:bookworm-slim AS runtime
+
+WORKDIR /app
+
+# Kompilierte PyInstaller-Binary übernehmen
+COPY --from=backend-builder /build/dist/main /app/server
+RUN chmod +x /app/server
+
+# Frontend statisch einbinden
+COPY --from=frontend-builder /frontend/.output/public /app/public
+
+# Portfreigabe & Startbefehl
+EXPOSE 8000
+CMD ["./server"]
