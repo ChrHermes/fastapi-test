@@ -18,6 +18,7 @@ BUILD_ENABLED=false
 CLEAN_ENABLED=true
 CLEAN_ONLY=false
 DB_PATH="./data/gcn.db"
+LOG_ALL=false
 
 #########################################
 #               Funktionen              #
@@ -35,6 +36,7 @@ Verfügbare Optionen:
   --no-clean         Lässt Datenbankdatei beim Beenden bestehen
   --min <MB>         Minimale Größe der Dummy-Datenbank
   --max <MB>         Maximale Größe der Dummy-Datenbank
+  --log-all          Zeigt Logs aller Container (statt nur 'gc-admin')
   --help             Zeigt diese Hilfe an
 
 Tastaturbefehle während Laufzeit:
@@ -70,6 +72,10 @@ while [[ $# -gt 0 ]]; do
         --max)
             MAX_MB="$2"
             shift 2
+            ;;
+        --log-all)
+            LOG_ALL=true
+            shift
             ;;
         --help)
             show_help
@@ -145,7 +151,12 @@ show_image_stats() {
 show_logs() {
     info "Server läuft auf ${URL_COLOR}http://127.0.0.1:8000${RESET}"
     info "Docker-Logs werden angezeigt.\n       ('r' = App-Container neustarten, 't' = kompletter Neustart, 'q' = Beenden.)"
-    docker-compose logs -f &
+    
+    if [ "$LOG_ALL" = true ]; then
+        docker-compose logs -f &
+    else
+        docker-compose logs -f gc-admin &
+    fi
     LOG_PID=$!
 }
 

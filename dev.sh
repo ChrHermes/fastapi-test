@@ -11,12 +11,13 @@ RESET='\033[0m'
 #         Skript-Optionen & Flags       #
 #########################################
 
-set -e  # Sofort abbrechen bei Fehlern
+set -e
 
-VENV_DIR=".venv"             # Standardpfad zur virtuellen Umgebung
-CLEAN_ENABLED=true           # __pycache__ beim Beenden löschen
-CLEAN_ONLY=false             # Nur Cleanup ohne Start
-INSTALL_REQUIREMENTS=false   # Requirements installieren
+VENV_DIR=".venv"
+CLEAN_ENABLED=true
+CLEAN_ONLY=false
+INSTALL_REQUIREMENTS=false
+FRONTEND_DIR="frontend"
 
 #########################################
 #               Funktionen              #
@@ -30,9 +31,9 @@ show_help() {
     echo -e "
 Verfügbare Optionen:
   --venv <pfad>     Pfad zur virtuellen Umgebung (Standard: .venv)
-  --install         Installiert die Abhängigkeiten aus requirements.txt in der virtuellen Umgebung
+  --install         Installiert die Python-Abhängigkeiten
   --no-clean        Lässt __pycache__ beim Beenden bestehen
-  --clean-only      Führt nur das Entfernen von __pycache__-Ordnern unter app/ aus
+  --clean-only      Führt nur das Entfernen von __pycache__ aus
   --help            Zeigt diese Hilfe an
 "
     exit 0
@@ -40,15 +41,13 @@ Verfügbare Optionen:
 
 cleanup_pycache() {
     if [ "$CLEAN_ENABLED" = true ]; then
-        info "Entferne __pycache__-Ordner unter app/..."
+        info "🧹 Entferne __pycache__-Ordner unter app/..."
         find app/ -type d -name "__pycache__" -exec rm -r {} +
-    else
-        info "Cleanup deaktiviert (--no-clean gesetzt)"
     fi
 }
 
 on_interrupt() {
-    info "Uvicorn wurde abgebrochen (Strg+C)"
+    info "⛔️ Entwicklung wurde beendet (Strg+C)"
     cleanup_pycache
     exit 0
 }
@@ -94,32 +93,40 @@ if [ "$CLEAN_ONLY" = true ]; then
     exit 0
 fi
 
-#########################################
-#        Signal-Handler setzen          #
-#########################################
-
 trap on_interrupt SIGINT
 
 #########################################
-#   Virtuelle Umgebung prüfen/aktivieren#
+#  Virtuelle Umgebung aktivieren        #
 #########################################
 
 if [[ ! -d "$VENV_DIR" ]]; then
-    info "Virtuelle Umgebung nicht gefunden: $VENV_DIR"
-    info "Bitte zuerst: python -m venv $VENV_DIR && source $VENV_DIR/bin/activate && pip install -r requirements.txt"
+    info "⚠️  Virtuelle Umgebung nicht gefunden: $VENV_DIR"
+    echo "👉 Bitte zuerst: python -m venv $VENV_DIR && source $VENV_DIR/bin/activate && pip install -r requirements.txt"
     exit 1
 fi
 
 source "$VENV_DIR/bin/activate"
 
 if [ "$INSTALL_REQUIREMENTS" = true ]; then
-    info "Installiere Python-Abhängigkeiten aus requirements.txt..."
+    info "📦 Installiere Python-Abhängigkeiten..."
     pip install -r requirements.txt
 fi
 
 #########################################
-#        Uvicorn starten                #
+#     Backend & Frontend starten        #
 #########################################
 
-info "Starte Uvicorn mit automatischem Reload..."
-uvicorn app.main:app --reload
+info "🚀 Starte Entwicklungssystem..."
+
+# Start backend im Hintergrund
+uvicorn app.main:app --reload &
+BACKEND_PID=$!
+
+# Frontend starten (eigenes Terminalfenster öffnet meist automatisch Nuxt UI)
+cd "$FRONTEND_DIR"
+npm run dev &
+FRONTEND_PID=$!
+cd -
+
+# Warten auf Prozesse
+wait $BACKEND_PID $FRONTEND_PID

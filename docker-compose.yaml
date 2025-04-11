@@ -11,7 +11,7 @@ services:
       - ./data:/data
       - ./logs:/logs
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./mock/opt/gridcal:/opt/gridcal
+      # - ./mock/opt/gridcal:/opt/gridcal
       - /etc/localtime:/etc/localtime:ro
     environment:
       - BACKEND_CONTAINER_NAME=fastapi-test-backend-1
@@ -27,37 +27,43 @@ services:
       - backend
 
   frontend:
-    image: alpine:latest
-    command: ["sh", "-c", "while true; do sleep 3600; done"]
+    build:
+      context: ./mock
+      dockerfile: Dockerfile-MockLog
     labels:
       Version: "1.0.1"
-  
+
   gatewaycontrol:
-    image: alpine:latest
-    command: ["sh", "-c", "while true; do sleep 3600; done"]
+    build:
+      context: ./mock
+      dockerfile: Dockerfile-MockLog
     labels:
       Version: "1.0.2"
-  
+
   backend:
-    image: alpine:latest
-    command: ["sh", "-c", "while true; do sleep 3600; done"]
+    build:
+      context: ./mock
+      dockerfile: Dockerfile-MockLog
     labels:
       Version: "1.0.3"
-  
+
   gcfcs:
-    image: alpine:latest
-    command: ["sh", "-c", "while true; do sleep 3600; done"]
+    build:
+      context: ./mock
+      dockerfile: Dockerfile-MockLog
     labels:
       Version: "1.0.4"
-  
+
   gcgw:
-    image: alpine:latest
-    command: ["sh", "-c", "while true; do sleep 3600; done"]
+    build:
+      context: ./mock
+      dockerfile: Dockerfile-MockLog
     labels:
       Version: "1.0.5"
-  
+
   gcnia:
-    image: alpine:latest
-    command: ["sh", "-c", "while true; do sleep 3600; done"]
+    build:
+      context: ./mock
+      dockerfile: Dockerfile-MockLog
     labels:
       Version: "1.0.6"
