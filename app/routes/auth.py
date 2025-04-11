@@ -1,49 +1,75 @@
 # app/routes/auth.py
 
-from fastapi import APIRouter, Request, Response, HTTPException
-from fastapi.responses import FileResponse, RedirectResponse, JSONResponse
-
+from fastapi import APIRouter, Request, Response, Depends
+from fastapi.responses import JSONResponse, RedirectResponse
 from app.services.auth_service import authenticate_user
-from app.config import settings
 from app.utils.auth import get_current_user
 
 router = APIRouter()
 
 
 # =====================================
-#          AUTH
-# ===================================== 
+#              AUTH
+# =====================================
 
-@router.get("/login")
-async def login_page():
+@router.get("/me")
+def get_logged_in_user(user: str = Depends(get_current_user)):
     """
-    Liefert die Login-Seite aus dem static-Verzeichnis.
+    🔐 Gibt den aktuell angemeldeten Benutzer zurück.
+
+    **Returns:**  
+    - `200 OK` mit `{"username": "<name>"}`  
+    - `401 Unauthorized`, wenn kein gültiges Cookie vorhanden ist.
     """
-    return FileResponse("static/login.html")
+    return {"username": user}
+
 
 @router.post("/login")
 async def login(request: Request, response: Response):
     """
-    Authentifiziert den Benutzer anhand der übermittelten JSON-Daten.
-    Bei erfolgreicher Authentifizierung wird der Benutzer auf die Startseite
-    weitergeleitet und ein HTTP-Only-Cookie gesetzt.
+    🔐 Authentifiziert den Benutzer und setzt ein HTTP-only Session-Cookie.
+
+    **Request Body:**  
+    ```json
+    {
+      "username": "admin",
+      "password": "pass"
+    }
+    ```
+
+    **Returns:**  
+    - `200 OK` bei Erfolg  
+    - `401 Unauthorized` bei falschen Zugangsdaten
     """
     data = await request.json()
     username = data.get("username")
     password = data.get("password")
-    
+
     if authenticate_user(username, password):
-        redirect_response = RedirectResponse(url="/static/index.html", status_code=303)
-        redirect_response.set_cookie(key="session", value=username, httponly=True)
-        return redirect_response
-    else:
-        return JSONResponse(content={"detail": "Falscher Benutzername oder Passwort"}, status_code=401)
+        response = JSONResponse(content={"message": "Login erfolgreich"})
+        response.set_cookie(
+            key="session",
+            value=username,
+            httponly=True,
+            samesite="lax", # oder 'strict' falls gewünscht
+            secure=False # auf True setzen bei HTTPS
+        )
+        return response
+
+    return JSONResponse(
+        status_code=401,
+        content={"detail": "Falscher Benutzername oder Passwort"}
+    )
+
 
 @router.get("/logout")
-async def logout():
+def logout():
     """
-    Löscht das Session-Cookie und leitet den Benutzer zurück zur Login-Seite.
+    🔐 Löscht das Session-Cookie.
+
+    **Returns:**  
+    - `200 OK` + leere Antwort
     """
-    redirect_response = RedirectResponse(url="/login", status_code=303)
-    redirect_response.delete_cookie("session")
-    return redirect_response
+    response = JSONResponse(content={"message": "Abgemeldet"})
+    response.delete_cookie("session")
+    return response

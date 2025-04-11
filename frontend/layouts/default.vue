@@ -34,6 +34,10 @@ import { useAuth } from '@/composables/useAuth'
 import ColorModeToggle from '@/components/ColorModeToggle.vue'
 import RefreshToggleButton from '@/components/RefreshToggleButton.vue'
 
+definePageMeta({
+  middleware: 'auth', // globaler Auth-Schutz
+})
+
 const { user, logout } = useAuth()
 const route = useRoute()
 const refreshTrigger = ref(0)

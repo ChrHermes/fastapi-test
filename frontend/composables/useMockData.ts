@@ -1,3 +1,5 @@
+// composables/useMockData.ts
+
 import { mockSystem, mockNetwork, mockDatabase, mockContainers, mockLogs } from '@/data/mockData'
 
 export const useMockData = () => {
