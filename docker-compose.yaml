@@ -2,6 +2,7 @@ services:
   gc-admin:
     image: gc-admin:latest
     build: .
+    container_name: gc-admin
     privileged: true
     pid: "host"
     restart: unless-stopped
@@ -67,3 +68,25 @@ services:
       dockerfile: Dockerfile-MockLog
     labels:
       Version: "1.0.6"
+
+  zabbix-agent:
+    image: zabbix/zabbix-agent2:alpine-7.2-latest
+    container_name: zabbix-agent
+    privileged: true
+    restart: unless-stopped
+    ports:
+      - "10050:10050"
+    # Nutze nur passiven Agent-Modus
+    environment:
+      - ZBX_SERVER_HOST=::/0
+      - ZBX_PASSIVES_ONLY=true
+    # Konfiguration + optional Hostzugriff
+    volumes:
+      # - /:/host:ro # Optional für system.checks (Filesystem, CPU etc.)
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./share:/share
+      # Zabbix Conf
+      - ./zabbix/etc/zabbix/:/etc/zabbix/:ro
+      # - ./zabbix/var/lib/zabbix/modules:/var/lib/zabbix/modules:ro
+      # - ./zabbix/var/lib/zabbix/user_scripts:/var/lib/zabbix/user_scripts:ro
