@@ -18,7 +18,8 @@ router = APIRouter()
 # Informationen einholen
 # -------------------------------------------
 @router.get("/system/info")
-def get_system_info(user: str = Depends(get_current_user)):
+# def get_system_info(user: str = Depends(get_current_user)):
+def get_system_info():
     """
     🖥️ **Allgemeine Systeminformationen**
 
@@ -26,7 +27,7 @@ def get_system_info(user: str = Depends(get_current_user)):
 
     **Returns:** dict mit `hostname`, `time`
     """
-    return system_service.get_system_info()
+    return system_service.get_host_info()
 
 
 @router.get("/system/uptime")

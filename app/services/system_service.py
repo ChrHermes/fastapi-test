@@ -27,6 +27,7 @@ except Exception as e:
 def get_host_info():
     client = docker.from_env()
     info = client.info()
+    print(info)  # Debug-Ausgabe
     return {
         info
         # "hostname": info.get("Name"),

@@ -14,13 +14,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       # - ./mock/opt/gridcal:/opt/gridcal
       - /etc/localtime:/etc/localtime:ro
+      - /:/host:ro # Optional für system.checks (Filesystem, CPU etc.)
     environment:
       - BACKEND_CONTAINER_NAME=fastapi-test-backend-1
       - DB_PATH=/data/gcn.db
       - ADMIN_USER=user
       - ADMIN_PASS=pass
       - TZ=Europe/Berlin
-      - MOCK_MODE=True
+      - MOCK_MODE=False
       - DEBUG=True
     env_file:
       - .env
@@ -82,11 +83,10 @@ services:
       - ZBX_PASSIVES_ONLY=true
     # Konfiguration + optional Hostzugriff
     volumes:
-      # - /:/host:ro # Optional für system.checks (Filesystem, CPU etc.)
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./share:/share
+      # - /:/host:ro # Optional für system.checks (Filesystem, CPU etc.)
       # Zabbix Conf
-      - ./zabbix/etc/zabbix/:/etc/zabbix/:ro
+      # - ./zabbix/etc/zabbix/:/etc/zabbix/:ro
       # - ./zabbix/var/lib/zabbix/modules:/var/lib/zabbix/modules:ro
       # - ./zabbix/var/lib/zabbix/user_scripts:/var/lib/zabbix/user_scripts:ro
