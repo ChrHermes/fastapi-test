@@ -1,9 +1,11 @@
 <template>
     <Card>
-        <CardSectionHeader icon="memory">System</CardSectionHeader>
+        <CardSectionHeader icon="memory">
+            System
+        </CardSectionHeader>
 
         <CardContent>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">
                 <div class="space-y-1">
                     <p class="text-sm text-muted-foreground">Gerätename</p>
                     <p class="text-base font-medium">{{ system.hostname }}</p>
