@@ -7,7 +7,7 @@
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary" />
         </div>
 
-        <header class="w-full px-6 py-4 border-b flex items-center justify-between bg-background">
+        <header class="fixed top-0 left-0 w-full z-50 px-6 py-4 border-b flex items-center justify-between bg-background">
             <h1 class="text-xl font-semibold">DemoBox Admin</h1>
             <div class="flex items-center gap-4">
                 <RefreshToggleButton :show-label="false" v-if="route.path === '/'" />
@@ -21,7 +21,7 @@
             </div>
         </header>
 
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-6 pt-20">
             <slot />
         </main>
     </div>
