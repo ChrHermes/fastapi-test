@@ -34,8 +34,7 @@
 </template>
 
 <script setup>
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 
 defineProps({
     database: {

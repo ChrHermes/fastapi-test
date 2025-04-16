@@ -1,7 +1,7 @@
 export const mockSystem = {
     hostname: 'Vertriebsbox22',
     time: '2025-04-06 14:22:10',
-    uptime: '3 Tage, 4 Stunden',
+    uptime: { days: '3', hours: '21', minutes: '59' },
     load: {
         '1m': 2.97,
         '5m': 1.55,

@@ -48,7 +48,6 @@
 
 <script setup>
 import { Card, CardContent } from '@/components/ui/card'
-import DockerInfoModal from '@/components/DockerInfoModal.vue'
 
 const modalOpen = ref(false)
 const selectedContainer = ref(null)

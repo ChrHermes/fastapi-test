@@ -12,47 +12,12 @@
                     <p class="text-sm text-muted-foreground">Systemzeit</p>
                     <p class="text-base font-medium">{{ system.time }}</p>
                 </div>
-                <div class="space-y-1">
-                    <p class="text-sm text-muted-foreground">
-                        Laufzeit seit Start
-                    </p>
-                    <p class="text-base font-medium">{{ system.uptime }}</p>
-                </div>
+
+                <!-- Systemlaufzeit -->
+                <UptimeDisplay :uptime="system.uptime" />
 
                 <!-- Systemauslastung -->
-                <div class="space-y-1">
-                    <div class="flex items-center gap-2">
-                        <p class="text-sm text-muted-foreground">
-                            Systemauslastung
-                        </p>
-
-                        <InfoPopover
-                            message="Zeigt die durchschnittliche Systemlast pro CPU-Kern über 1, 5 und 15 Minuten. <br>
-                            Werte über <strong>1.00</strong> bedeuten, dass Prozesse warten müssen."
-                        />
-                    </div>
-
-                    <div class="flex items-center gap-4">
-                        <span :class="loadBadgeClass(system.load['1m'])">
-                            1m:
-                            <span class="font-semibold">{{
-                                system.load['1m']
-                            }}</span>
-                        </span>
-                        <span :class="loadBadgeClass(system.load['5m'])">
-                            5m:
-                            <span class="font-semibold">{{
-                                system.load['5m']
-                            }}</span>
-                        </span>
-                        <span :class="loadBadgeClass(system.load['15m'])">
-                            15m:
-                            <span class="font-semibold">{{
-                                system.load['15m']
-                            }}</span>
-                        </span>
-                    </div>
-                </div>
+                <LoadAverageBar :load="system.load" />
             </div>
 
             <!-- Datenträger -->
@@ -99,9 +64,6 @@
 
 <script setup>
 import { Card, CardContent } from '@/components/ui/card'
-import { loadBadgeClass } from '@/utils/statusColors'
-import SecureConfirmDialog from '@/components/SecureConfirmDialog.vue'
-import ConfirmDialog from '@/components/ConfirmDialog.vue'
 
 defineProps({
     system: {
