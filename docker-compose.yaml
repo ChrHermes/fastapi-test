@@ -14,14 +14,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       # - ./mock/opt/gridcal:/opt/gridcal
       - /etc/localtime:/etc/localtime:ro
-      - /:/host:ro # Optional für system.checks (Filesystem, CPU etc.)
+      - /:/host:ro
     environment:
       - BACKEND_CONTAINER_NAME=fastapi-test-backend-1
       - DB_PATH=/data/gcn.db
       - ADMIN_USER=user
       - ADMIN_PASS=pass
       - TZ=Europe/Berlin
-      - MOCK_MODE=False
+      - MOCK_MODE=True
       - DEBUG=True
     env_file:
       - .env

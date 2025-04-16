@@ -5,7 +5,14 @@ import os
 
 from app.services.log_service import write_log
 from app.services.docker_service import container_start, container_stop
-from app.schemas.errors import *
+from app.utils.common import format_bytes
+from app.schemas.errors import (
+    DockerClientNotAvailableError,
+    ContainerNotFoundError,
+    DatabaseNotFoundError,
+    DatabaseResetError,
+    DatabaseInfoError,
+)
 
 # ------------------------------
 #    Docker Client Initialisierung
@@ -18,13 +25,13 @@ except Exception as e:
 
 # =====================================
 #          DATABASE
-# ===================================== 
+# =====================================
 
-async def database_reset(backend_container: str,
-                         database_path: str):
+
+async def database_reset(backend_container: str, database_path: str):
     import datetime
     import shutil
-    
+
     try:
         if docker_client is None:
             write_log("ERROR", "Docker Client nicht verfügbar")
@@ -36,7 +43,9 @@ async def database_reset(backend_container: str,
             write_log("INFO", f"Container '{backend_container}' gefunden")
         except docker.errors.NotFound:
             write_log("ERROR", f"Container '{backend_container}' existiert nicht")
-            raise ContainerNotFoundError(f"Container '{backend_container}' existiert nicht")
+            raise ContainerNotFoundError(
+                f"Container '{backend_container}' existiert nicht"
+            )
 
         # ----- 2. Container stoppen und sicherstellen, dass er wirklich gestoppt ist
         container_stop(container, backend_container)
@@ -52,14 +61,17 @@ async def database_reset(backend_container: str,
             shutil.copy2(database_path, backup_filename)
             write_log("INFO", f"Backup der Datenbank erstellt: {backup_filename}")
         else:
-            write_log("WARN", f"Datenbank '{database_path}' existiert nicht. Kein Backup erstellt")
+            write_log(
+                "WARN",
+                f"Datenbank '{database_path}' existiert nicht. Kein Backup erstellt",
+            )
 
         # ----- 4. Löschen der Datenbankdateien (Datenbank, -wal und -journal)
         db_files = [
-            database_path, 
-            f"{database_path}-wal", 
-            f"{database_path}-journal", 
-            f"{database_path}-shm"
+            database_path,
+            f"{database_path}-wal",
+            f"{database_path}-journal",
+            f"{database_path}-shm",
         ]
         for file in db_files:
             if os.path.exists(file):
@@ -73,7 +85,7 @@ async def database_reset(backend_container: str,
 
         write_log("INFO", "Datenbank wurde erfolgreich zurückgesetzt")
         return {"message": "Datenbank wurde erfolgreich zurückgesetzt"}
-        
+
     except Exception as e:
         # Falls es sich nicht um einen bereits definierten Fehler handelt, diesen als generischen DatabaseResetError weiterreichen.
         if not isinstance(e, DatabaseResetError):
@@ -91,7 +103,7 @@ async def database_info(database_path: str):
     try:
         if os.path.exists(database_path):
             size_in_bytes = os.path.getsize(database_path)
-            return {"size": format_size(size_in_bytes)}
+            return {"size": format_bytes(size_in_bytes)}
         else:
             write_log("ERROR", f"Keine DB mit Pfad {database_path} gefunden.")
             raise DatabaseNotFoundError(f"Keine DB mit Pfad {database_path} gefunden.")
@@ -101,17 +113,3 @@ async def database_info(database_path: str):
             write_log("ERROR", f"Fehler beim Auslesen der DB: {str(e)}")
             raise DatabaseInfoError(str(e))
         raise
-
-
-def format_size(size_bytes):
-    """
-    Formatiert eine Größe in Bytes in eine menschenlesbare Form (B, kB, MB, GB, TB).
-    """
-    if size_bytes == 0:
-        return "0 B"
-    units = ["B", "kB", "MB", "GB", "TB"]
-    index = 0
-    while size_bytes >= 1024 and index < len(units) - 1:
-        size_bytes /= 1024.0
-        index += 1
-    return f"{size_bytes:.2f} {units[index]}"

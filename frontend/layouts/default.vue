@@ -1,5 +1,7 @@
 <template>
-    <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col">        
+        <Toaster />
+
         <!-- Ladeoverlay -->
         <div v-if="loading" class="absolute inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary" />
@@ -30,6 +32,7 @@ import { useRoute } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import { ref, provide, onMounted } from 'vue'
 import { useAuth } from '@/composables/useAuth'
+import { Toaster } from '@/components/ui/sonner'
 
 import ColorModeToggle from '@/components/ColorModeToggle.vue'
 import RefreshToggleButton from '@/components/RefreshToggleButton.vue'

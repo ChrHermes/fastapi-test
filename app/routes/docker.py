@@ -5,16 +5,17 @@ import docker
 from fastapi import APIRouter, Depends, HTTPException
 
 from app.config import settings
-from app.services.log_service import write_log
 from app.services.docker_service import (
-    check_registry_images,
     restart_compose_environment,
     update_docker_images,
     list_docker_containers,
     get_registry_images,
-    compare_image_versions
+    compare_image_versions,
 )
-from app.schemas.errors import *
+from app.schemas.errors import (
+    DockerComposeRestartError,
+    DockerImagesUpdateError,
+)
 from app.utils.auth import get_current_user
 
 router = APIRouter()
@@ -27,7 +28,8 @@ except Exception as e:
 
 # =====================================
 #          DOCKER
-# ===================================== 
+# =====================================
+
 
 # -------------------------------------------
 # Aktuelle Container/Images
@@ -50,7 +52,9 @@ async def list_containers():
         containers = list_docker_containers(settings.COMPOSE_NAME)
         return {"containers": containers}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Fehler beim Abrufen der Container: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Fehler beim Abrufen der Container: {str(e)}"
+        )
 
 
 # -------------------------------------------
@@ -77,7 +81,9 @@ async def get_registry_info(user: str = Depends(get_current_user)):
         registry_images = get_registry_images(settings.IMAGES)
         return {"registry_images": registry_images}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Fehler bei der Abfrage der Registry: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Fehler bei der Abfrage der Registry: {str(e)}"
+        )
 
 
 # -------------------------------------------
@@ -106,7 +112,9 @@ async def check_for_updates(user: str = Depends(get_current_user)):
         updates = compare_image_versions(containers, registry_images)
         return {"updates": updates}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Fehler beim Vergleichen der Versionen: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Fehler beim Vergleichen der Versionen: {str(e)}"
+        )
 
 
 # -------------------------------------------

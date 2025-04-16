@@ -24,6 +24,7 @@
 <script setup>
 import { useMockData } from '@/composables/useMockData'
 import { ref, inject, watchEffect, onMounted } from 'vue'
+import { toast } from 'vue-sonner'
 
 const refreshTrigger = inject('refreshTrigger')
 const autoRefreshEnabled = inject('autoRefreshEnabled')
@@ -58,6 +59,13 @@ watchEffect(() => {
 function shutdownSystem() {
   console.log('System wird heruntergefahren')
   // TODO: API call to /api/system/shutdown
+  toast('Event has been created', {
+        description: 'System wird in 10 Sekunden heruntergefahren.',
+        action: {
+          label: 'Undo',
+          onClick: () => console.log('Undo'),
+        },
+      })
 }
 
 function rebootSystem() {

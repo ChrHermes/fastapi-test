@@ -42,13 +42,13 @@
     </CardContent>
   </Card>
 
-  <InfoDockerModal :open="modalOpen" :container="selectedContainer" @update:open="modalOpen = $event" />
+  <DockerInfoModal :open="modalOpen" :container="selectedContainer" @update:open="modalOpen = $event" />
 
 </template>
 
 <script setup>
 import { Card, CardContent } from '@/components/ui/card'
-import InfoDockerModal from '@/components/InfoDockerModal.vue'
+import DockerInfoModal from '@/components/DockerInfoModal.vue'
 
 const modalOpen = ref(false)
 const selectedContainer = ref(null)

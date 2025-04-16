@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, BackgroundTasks
 
 from app.config import settings
 from app.services.log_service import write_log
-from app.services import system_service
+from app.services import system_service, mock_data
 from app.utils.auth import get_current_user
 
 router = APIRouter()
@@ -12,7 +12,8 @@ router = APIRouter()
 
 # =====================================
 #          SYSTEM
-# ===================================== 
+# =====================================
+
 
 # -------------------------------------------
 # Informationen einholen
@@ -27,11 +28,11 @@ def get_system_info():
 
     **Returns:** dict mit `hostname`, `time`
     """
-    return system_service.get_host_info()
+    return system_service.get_disk_usage(settings.DISK_PATHS)
 
 
 @router.get("/system/uptime")
-def get_system_uptime(user: str = Depends(get_current_user)):
+def get_system_uptime():
     """
     ⏱️ **Laufzeit des Systems**
 
@@ -39,6 +40,9 @@ def get_system_uptime(user: str = Depends(get_current_user)):
 
     **Returns:** dict mit `uptime` (z.B. "3 Tage, 4 Stunden")
     """
+    if settings.MOCK_MODE:
+        return mock_data.mock_uptime()
+
     return system_service.get_uptime()
 
 
@@ -54,8 +58,8 @@ def get_load_average(user: str = Depends(get_current_user)):
     return system_service.get_load_average()
 
 
-@router.get("/system/sd")
-def get_sd_usage(user: str = Depends(get_current_user)):
+@router.get("/system/disk")
+def get_sd_usage():
     """
     💾 **Nutzung der SD-Karte**
 
@@ -63,7 +67,10 @@ def get_sd_usage(user: str = Depends(get_current_user)):
 
     **Returns:** dict mit `used`, `total`, `percent`
     """
-    return system_service.get_sd_usage()
+    if settings.MOCK_MODE:
+        return mock_data.mock_disk_usage()
+
+    return system_service.get_disk_usage()
 
 
 @router.get("/system/health")
@@ -95,7 +102,7 @@ def get_system_summary(user: str = Depends(get_current_user)):
         "uptime": system_service.get_uptime(),
         "load": system_service.get_load_average(),
         "sd": system_service.get_sd_usage(),
-        "health": system_service.get_health_status()
+        "health": system_service.get_health_status(),
     }
 
 
@@ -103,7 +110,9 @@ def get_system_summary(user: str = Depends(get_current_user)):
 # Aktive Eingriffe ins System
 # -------------------------------------------
 @router.post("/system/shutdown")
-def shutdown_system(background_tasks: BackgroundTasks, user: str = Depends(get_current_user)):
+def shutdown_system(
+    background_tasks: BackgroundTasks, user: str = Depends(get_current_user)
+):
     """
     🚫 **Fährt das System herunter**
 
@@ -120,13 +129,19 @@ def shutdown_system(background_tasks: BackgroundTasks, user: str = Depends(get_c
     **Returns:**
     - `dict`: Nachricht über die geplante Herunterfahraktion.
     """
-    write_log("WARN", f"Herunterfahren wird in {settings.DELAY_SHUTDOWN} Sekunden eingeleitet")
+    write_log(
+        "WARN", f"Herunterfahren wird in {settings.DELAY_SHUTDOWN} Sekunden eingeleitet"
+    )
     background_tasks.add_task(system_service.delayed_shutdown, settings.DELAY_SHUTDOWN)
-    return {"message": f"Herunterfahren wird in {settings.DELAY_SHUTDOWN} Sekunden eingeleitet"}
+    return {
+        "message": f"Herunterfahren wird in {settings.DELAY_SHUTDOWN} Sekunden eingeleitet"
+    }
 
 
 @router.post("/system/reboot")
-def reboot_system(background_tasks: BackgroundTasks, user: str = Depends(get_current_user)):
+def reboot_system(
+    background_tasks: BackgroundTasks, user: str = Depends(get_current_user)
+):
     """
     🔁 **Startet einen Systemneustart**
 

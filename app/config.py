@@ -1,13 +1,14 @@
 # app/config.py
 
 from pydantic_settings import BaseSettings
-from typing import List
+from typing import List, Dict
+
 
 class Settings(BaseSettings):
     # Allgemeine Konfiguration
     ADMIN_USER: str = "SuperAdmin"
     ADMIN_PASS: str = "Asdfg_Poiuz65"
-    
+
     # Weitere Konfigurationen können hier ergänzt werden:
     BACKEND_CONTAINER_NAME: str = "backend"
     DB_PATH: str = "/data/gcn.db"
@@ -32,19 +33,24 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     MOCK_MODE: bool = False
 
+    # Massenspeicher
+    DISK_PATHS: List[dict] = [
+        {"label": "Interner Speicher", "path": "/"},
+        {"label": "SD-Karte", "path": "/media/sd"},
+    ]
+
     # Docker
     IMAGES: List[str] = [
-        'gcgw',
-        'gcfcs',
-        'gcnia'
-        'backend',
-        'frontend',
-        'gatewaycontrol',
+        "gcgw",
+        "gcfcs",
+        "gcniabackend",
+        "frontend",
+        "gatewaycontrol",
     ]
 
     class Config:
         env_file = ".env"
-        env_file_encoding = 'utf-8'
+        env_file_encoding = "utf-8"
         env_prefix = ""
         extra = "allow"
 

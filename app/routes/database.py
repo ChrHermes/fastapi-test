@@ -6,7 +6,13 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from app.config import settings
 from app.services.database_service import database_reset, database_info
-from app.schemas.errors import *
+from app.schemas.errors import (
+    DockerClientNotAvailableError,
+    ContainerNotFoundError,
+    DatabaseNotFoundError,
+    DatabaseResetError,
+    DatabaseInfoError,
+)
 from app.utils.auth import get_current_user
 
 router = APIRouter()
@@ -19,7 +25,8 @@ except Exception as e:
 
 # =====================================
 #          DATABASE
-# ===================================== 
+# =====================================
+
 
 @router.post("/database/reset")
 async def post_database_reset(user: str = Depends(get_current_user)):
@@ -45,7 +52,7 @@ async def post_database_reset(user: str = Depends(get_current_user)):
     try:
         result = await database_reset(
             backend_container=settings.BACKEND_CONTAINER_NAME,
-            database_path=settings.DB_PATH
+            database_path=settings.DB_PATH,
         )
         return result
     except DockerClientNotAvailableError as e:
@@ -79,9 +86,7 @@ async def get_database_info(user: str = Depends(get_current_user)):
     - `500 Internal Server Error`: Bei sonstigen Fehlern beim Auslesen der Datenbank.
     """
     try:
-        result = await database_info(
-            database_path=settings.DB_PATH
-        )
+        result = await database_info(database_path=settings.DB_PATH)
         return result
     except DatabaseNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
