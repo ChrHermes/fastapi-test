@@ -55,27 +55,17 @@
                 </div>
             </div>
 
-            <!-- Speichernutzung (SD-Karte) -->
-            <div class="mt-6">
-                <p class="text-sm text-muted-foreground mb-1">
-                    Speichernutzung (SD-Karte)
-                </p>
+            <!-- Datenträger -->
+            <DiskUsageBar
+                v-for="disk in system.disk"
+                :key="disk.label"
+                :label="disk.label"
+                :used="disk.used"
+                :total="disk.total"
+                :percent="disk.percent"
+            />
 
-                <div class="w-full bg-muted h-3 rounded overflow-hidden">
-                    <div
-                        class="h-3 rounded"
-                        :class="sdBarColor(system.sd.percent)"
-                        :style="`width: ${system.sd.percent}%`"
-                    ></div>
-                </div>
-
-                <p class="text-xs text-muted-foreground mt-1">
-                    {{ system.sd.used }} von {{ system.sd.total }} verwendet ({{
-                        system.sd.percent
-                    }}%)
-                </p>
-            </div>
-
+            <!-- Neustarten/Herunterfahren -->
             <div class="mt-6 flex flex-wrap gap-4">
                 <ConfirmDialog
                     title="System neustarten?"
@@ -108,8 +98,8 @@
 </template>
 
 <script setup>
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { loadBadgeClass, sdBarColor } from '@/utils/statusColors'
+import { Card, CardContent } from '@/components/ui/card'
+import { loadBadgeClass } from '@/utils/statusColors'
 import SecureConfirmDialog from '@/components/SecureConfirmDialog.vue'
 import ConfirmDialog from '@/components/ConfirmDialog.vue'
 

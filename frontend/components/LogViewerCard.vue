@@ -61,7 +61,7 @@
 
             <!-- Logeintrag hinzufügen -->
             <div class="pt-2">
-                <AddLogEntryDialog @submit="addLogEntry" />
+                <LogAddEntryDialog @submit="addLogEntry" />
             </div>
         </CardContent>
     </Card>
