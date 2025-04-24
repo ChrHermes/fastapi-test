@@ -33,6 +33,10 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     MOCK_MODE: bool = False
 
+    # Host Info
+    HOST_PROC_PATH: str = "/host/proc"
+    HOST_SYS_CLASS_NET_PATH: str = "/host/sys/class/net"
+
     # Massenspeicher
     DISK_PATHS: List[dict] = [
         {"label": "Interner Speicher", "path": "/"},

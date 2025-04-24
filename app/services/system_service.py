@@ -2,7 +2,6 @@ import subprocess
 import docker
 import os
 import re
-from datetime import datetime
 
 from app.config import settings
 from app.services.log_service import write_log
@@ -19,12 +18,8 @@ except Exception as e:
 
 
 # =====================================
-#          SYSTEM
+#          DOCKER
 # =====================================
-
-# -------------------------------------------
-# Informationen einholen
-# -------------------------------------------
 
 
 def get_host_info():
@@ -41,67 +36,201 @@ def get_host_info():
     }
 
 
-def get_system_info():
-    """
-    Liefert Hostname und aktuelle Zeit als Dictionary.
-    """
-    hostname = os.uname().nodename if not settings.MOCK_MODE else "mocked-host"
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return {"hostname": hostname, "time": now}
+# =====================================
+#         SYSTEM /proc-basierend
+# =====================================
 
 
-def get_uptime():
+def get_uptime() -> dict:
     """
-    Gibt die Systemlaufzeit als Klartext zurück, z.B. „3 Tage, 5 Stunden“.
+    Liefert die Systemlaufzeit basierend auf /proc/uptime des Docker-Hosts.
 
-    **Nutzt:** `uptime` Befehl im Host-System via Subprocess
+    Returns:
+        dict: `{ "success": bool, "days": int, "hours": int, "minutes": int }` oder Fehlerdetails.
     """
     try:
-        output = subprocess.run(
-            ["chroot", "/host", "/usr/bin/uptime"],
-            # shell=True,
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        # Beispielausgabe: " 12:01:49 up 3 days, 5:32,  3 users,  load average: 0.35, 0.31, 0.30"
-        match = re.search(r"up\s+(\d+)\s+days?,\s+(\d+):(\d+)", output)
-        if match:
-            days = int(match.group(1))
-            hours = int(match.group(2))
-            minutes = int(match.group(3))
-        else:
-            # Fallback, falls keine Tage erwähnt sind (z.B. "up 3:45")
-            match = re.search(r"up\s+(\d+):(\d+)", output)
-            if match:
-                days = 0
-                hours = int(match.group(1))
-                minutes = int(match.group(2))
-            else:
-                days, hours, minutes = 0, 0, 0  # Fehlerfall
-
-        return {"days": days, "hours": hours, "minutes": minutes}
+        with open(os.path.join(settings.HOST_PROC_PATH, "uptime"), "r") as f:
+            uptime_seconds = float(f.readline().split()[0])
+        days = int(uptime_seconds // 86400)
+        hours = int((uptime_seconds % 86400) // 3600)
+        minutes = int((uptime_seconds % 3600) // 60)
+        return {"success": True, "days": days, "hours": hours, "minutes": minutes}
     except Exception as e:
-        return {"uptime": "unbekannt", "error": str(e)}
+        return {"success": False, "days": 0, "hours": 0, "minutes": 0, "error": str(e)}
 
 
-def get_load_average():
+def get_load_average() -> dict:
     """
-    Gibt die Load Average für 1m, 5m, 15m zurück.
+    Liefert die Load Average des Systems über 1, 5 und 15 Minuten.
+
+    Returns:
+        dict: `{ "success": bool, "1m": float, "5m": float, "15m": float }` oder Fehlerdetails.
     """
     try:
-        with open("/proc/loadavg", "r") as f:
+        with open(os.path.join(settings.HOST_PROC_PATH, "loadavg"), "r") as f:
             load1, load5, load15 = map(float, f.readline().split()[:3])
-    except Exception:
-        load1, load5, load15 = (
-            (2.97, 1.55, 0.96) if settings.MOCK_MODE else (0.0, 0.0, 0.0)
-        )
+        return {
+            "success": True,
+            "1m": round(load1, 2),
+            "5m": round(load5, 2),
+            "15m": round(load15, 2),
+        }
+    except Exception as e:
+        return {"success": False, "1m": 0.0, "5m": 0.0, "15m": 0.0, "error": str(e)}
 
-    return {
-        "1m": round(load1, 2),
-        "5m": round(load5, 2),
-        "15m": round(load15, 2),
-    }
+
+def get_hostname() -> dict:
+    """
+    Gibt den Hostnamen des Docker-Hosts zurück.
+
+    Returns:
+        dict: `{ "success": bool, "hostname": str }` oder Fehlerdetails.
+    """
+    try:
+        with open(
+            os.path.join(settings.HOST_PROC_PATH, "sys/kernel/hostname"), "r"
+        ) as f:
+            hostname = f.read().strip()
+        return {"success": True, "hostname": hostname}
+    except Exception as e:
+        return {"success": False, "hostname": "", "error": str(e)}
+
+
+def get_memory_info() -> dict:
+    """
+    Liefert Informationen über den RAM-Verbrauch des Docker-Hosts.
+
+    Liest aus /proc/meminfo und berechnet Gesamt- und genutzten Speicher in MB.
+
+    Returns:
+        dict:
+            {
+                "success": bool,
+                "total_mb": float,
+                "used_mb": float,
+                "free_mb": float,
+                "percent": float,
+                "error": str (optional)
+            }
+    """
+    try:
+        meminfo = {}
+        with open(os.path.join(settings.HOST_PROC_PATH, "meminfo"), "r") as f:
+            for line in f:
+                key, value = line.split(":")
+                meminfo[key.strip()] = int(value.strip().split()[0])  # kB
+
+        mem_total = meminfo.get("MemTotal", 0)
+        mem_free = (
+            meminfo.get("MemFree", 0)
+            + meminfo.get("Buffers", 0)
+            + meminfo.get("Cached", 0)
+        )
+        mem_used = mem_total - mem_free
+
+        mem_total_mb = round(mem_total / 1024, 2)
+        mem_used_mb = round(mem_used / 1024, 2)
+        mem_free_mb = round(mem_free / 1024, 2)
+        percent = round((mem_used / mem_total) * 100, 2) if mem_total else 0.0
+
+        return {
+            "success": True,
+            "total_mb": mem_total_mb,
+            "used_mb": mem_used_mb,
+            "free_mb": mem_free_mb,
+            "percent": percent,
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "total_mb": 0.0,
+            "used_mb": 0.0,
+            "free_mb": 0.0,
+            "percent": 0.0,
+            "error": str(e),
+        }
+
+
+def get_network_status(interface: str = "eth0") -> dict:
+    """
+    Liefert den Netzwerkstatus des Hosts für ein bestimmtes Interface.
+
+    Liest Informationen aus:
+      - /host/sys/class/net/<interface>/
+      - /host/proc/net/fib_trie
+
+    Args:
+        interface (str): Netzwerkinterface (z. B. "eth0")
+
+    Returns:
+        dict mit Interface-Daten wie MAC, Status, empfangene/gesendete Bytes und IP-Adresse.
+    """
+    try:
+        base_path = os.path.join(settings.HOST_SYS_CLASS_NET_PATH, interface)
+
+        def read_file(filename: str) -> str:
+            with open(os.path.join(base_path, filename), "r") as f:
+                return f.read().strip()
+
+        operstate = read_file("operstate")
+        mac = read_file("address")
+        rx_bytes = int(read_file("statistics/rx_bytes"))
+        tx_bytes = int(read_file("statistics/tx_bytes"))
+
+        # IP-Adresse aus fib_trie ermitteln
+        ip_address = ""
+        with open(os.path.join(settings.HOST_PROC_PATH, "net/fib_trie"), "r") as f:
+            block = ""
+            for line in f:
+                if line.startswith(" " * 6):  # neue Zeile mit IP-Block
+                    block = line.strip()
+                if interface in line and re.match(r"^\d+\.\d+\.\d+\.\d+$", block):
+                    ip_address = block
+                    break
+
+        return {
+            "success": True,
+            "interface": interface,
+            "operstate": operstate,
+            "mac": mac,
+            "ip": ip_address,
+            "rx_bytes": rx_bytes,
+            "tx_bytes": tx_bytes,
+        }
+
+    except Exception as e:
+        return {
+            "success": False,
+            "interface": interface,
+            "operstate": "unknown",
+            "mac": "",
+            "ip": "",
+            "rx_bytes": 0,
+            "tx_bytes": 0,
+            "error": str(e),
+        }
+
+
+# def get_health_status():
+#     """
+#     Gibt eine Ampel-Bewertung zurück, basierend auf Load oder Speicher.
+#     """
+#     load = get_load_average()["1m"]
+#     sd = get_sd_usage()["percent"]
+
+#     if load > 2.5 or sd > 90:
+#         status = "error"
+#     elif load > 1.5 or sd > 75:
+#         status = "warn"
+#     else:
+#         status = "ok"
+
+#     return {"status": status}
+
+
+# =====================================
+#         SYSTEM binary-basierend
+# =====================================
 
 
 def get_disk_usage():
@@ -121,41 +250,27 @@ def get_disk_usage():
             used = total - free
             percent = round((used / total) * 100, 2) if total > 0 else 0
 
-            results.append({
-                "label": label,
-                "mount": path,
-                "used_bytes": used,
-                "total_bytes": total,
-                "percent": percent,
-                "used": format_bytes(used),
-                "total": format_bytes(total),
-            })
+            results.append(
+                {
+                    "label": label,
+                    "mount": path,
+                    "used_bytes": used,
+                    "total_bytes": total,
+                    "percent": percent,
+                    "used": format_bytes(used),
+                    "total": format_bytes(total),
+                }
+            )
         except Exception as e:
-            results.append({
-                "label": label,
-                "mount": path,
-                "error": str(e),
-            })
+            results.append(
+                {
+                    "label": label,
+                    "mount": path,
+                    "error": str(e),
+                }
+            )
 
     return results
-
-
-
-# def get_health_status():
-#     """
-#     Gibt eine Ampel-Bewertung zurück, basierend auf Load oder Speicher.
-#     """
-#     load = get_load_average()["1m"]
-#     sd = get_sd_usage()["percent"]
-
-#     if load > 2.5 or sd > 90:
-#         status = "error"
-#     elif load > 1.5 or sd > 75:
-#         status = "warn"
-#     else:
-#         status = "ok"
-
-#     return {"status": status}
 
 
 def get_netbird_status():
