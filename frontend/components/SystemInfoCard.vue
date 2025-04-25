@@ -22,6 +22,10 @@
                 <LoadAverageBar :load="system.load" />
             </div>
 
+            <!-- Memory -->
+            <MemoryUsage :memory="system.memory"/>
+            <!-- <CpuLoad :cpu="system.cpu"/> -->
+
             <!-- Datenträger -->
             <DiskUsageBar
                 v-for="disk in system.disk"

@@ -24,6 +24,15 @@ export const mockSystem = {
             // percent: 83.75,
         },
     ],
+    memory: {
+        total: 4294967296, // 4 GB in Bytes
+        available: 1073741824, // 1 GB frei
+    },
+    cpu: {
+        '1m': 2.97,
+        '5m': 1.55,
+        '15m': 0.96,
+    },
 }
 
 export const mockNetwork = {
