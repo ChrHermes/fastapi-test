@@ -47,14 +47,14 @@ const chartData = computed(() => ({
   datasets: [
     {
       data: [percent.value, 100 - percent.value],
-      backgroundColor: [getUsageColor(percent.value), '#e5e7eb'], // grau für frei
-      borderWidth: 0,
+      backgroundColor: [getUsageColor(percent.value), '#e5e7eb'],
+      borderWidth: 2,
     },
   ],
 }))
 
 const chartOptions = {
-  cutout: '70%',
+  cutout: '80%',
   plugins: {
     legend: { display: false },
   },

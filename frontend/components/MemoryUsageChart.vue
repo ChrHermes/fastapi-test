@@ -45,14 +45,14 @@ const chartData = computed(() => ({
   datasets: [
     {
       data: [used.value, props.memory.available],
-      backgroundColor: ['#f43f5e', '#4ade80'], // rot, grün
-      borderWidth: 0,
+      backgroundColor: ['#57A0E5', '#e5e7eb'],
+      borderWidth: 2,
     },
   ],
 }))
 
 const chartOptions = {
-  cutout: '70%',
+  cutout: '65%',
   plugins: {
     legend: { display: false },
   },
