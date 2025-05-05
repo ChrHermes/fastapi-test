@@ -25,8 +25,10 @@ export const mockSystem = {
         },
     ],
     memory: {
-        total: 4294967296, // 4 GB in Bytes
-        available: 1073741824, // 1 GB frei
+        // total: 4294967296, // 4 GB
+        // available: 1073741824, // 1 GB
+        total: 536870912, // 512 MB
+        available: 12121113,
     },
     cpu: {
         '1m': 2.97,

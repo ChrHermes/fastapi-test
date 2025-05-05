@@ -24,7 +24,11 @@
 
             <!-- Memory -->
             <MemoryUsage :memory="system.memory"/>
+
+            <MemoryUsageChart :memory="system.memory" />
+
             <!-- <CpuLoad :cpu="system.cpu"/> -->
+            <DiskUsageDonut :disk="d" v-for="d in system.disk" :key="d.label" />
 
             <!-- Datenträger -->
             <DiskUsageBar
