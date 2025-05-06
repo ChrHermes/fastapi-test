@@ -46,7 +46,7 @@ const chartData = computed(() => ({
     {
       data: [used.value, props.memory.available],
       backgroundColor: ['#57A0E5', '#e5e7eb'],
-      borderWidth: 2,
+      borderWidth: 0,
     },
   ],
 }))

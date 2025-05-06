@@ -5,9 +5,9 @@
       </p>
   
       <!-- Fortschrittsbalken -->
-      <div class="w-full bg-muted h-3 rounded overflow-hidden">
+      <div class="w-full bg-gray-300 h-3 rounded overflow-hidden">
         <div
-          class="h-3 rounded bg-primary"
+          class="h-3 rounded bg-blue-500"
           :style="`width: ${usagePercent}%`"
         ></div>
       </div>

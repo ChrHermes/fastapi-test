@@ -20,16 +20,15 @@
 
                 <!-- Systemauslastung -->
                 <LoadAverageBar :load="system.load" />
+                
+                <!-- Memory -->
+                <MemoryUsageBar :memory="system.memory"/>
             </div>
-
-            <!-- Memory -->
-            <MemoryUsage :memory="system.memory"/>
-
+            
             <MemoryUsageChart :memory="system.memory" />
-
+            <!-- <DiskUsageDonut :disk="d" v-for="d in system.disk" :key="d.label" /> -->
             <!-- <CpuLoad :cpu="system.cpu"/> -->
-            <DiskUsageDonut :disk="d" v-for="d in system.disk" :key="d.label" />
-
+            
             <!-- Datenträger -->
             <DiskUsageBar
                 v-for="disk in system.disk"
@@ -39,7 +38,7 @@
                 :total="disk.total"
                 :percent="disk.percent"
             />
-
+            
             <!-- Neustarten/Herunterfahren -->
             <div class="mt-6 flex flex-wrap gap-4">
                 <ConfirmDialog
