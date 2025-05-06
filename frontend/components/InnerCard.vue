@@ -1,15 +1,15 @@
 <!-- components/InnerCard.vue -->
 <template>
-    <Card class="border border-muted shadow-none gap-4 pt-2 pb-2 " v-bind="$attrs">
+    <Card class="border border-muted shadow-none gap-2 pt-2 pb-2 " v-bind="$attrs">
         <CardHeader class="">
             <div class="flex items-center gap-2">
           <span
             v-if="icon"
-            class="material-icons text-base text-muted-foreground"
+            class="material-icons text-sm text-muted-foreground"
           >
             {{ icon }}
           </span>
-          <CardTitle class="text-base font-semibold leading-tight">
+          <CardTitle class="text-sm font-semibold leading-tight">
             {{ title }}
           </CardTitle>
         </div>
