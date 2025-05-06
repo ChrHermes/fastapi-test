@@ -1,19 +1,32 @@
 <template>
-    <div>
-      <div class="flex items-center gap-2 mb-2">
+  <Card class="row-span-1 col-span-1 border-muted shadow-none">
+    <CardHeader>
+      <div class="flex items-center gap-2">
         <span class="material-icons text-base text-muted-foreground">signal_cellular_alt</span>
-        <p class="text-sm font-semibold text-foreground">Mobilfunkmodem</p>
+        <CardTitle class="text-base font-semibold leading-tight">
+          Mobilfunkmodem
+        </CardTitle>
       </div>
-  
-      <p class="text-sm">
-        Netz: <strong>{{ modem.carrier }}</strong>
-        <span :class="modemTypeBadgeClass(modem.network)" class="ml-2 px-2 py-0.5 rounded text-xs text-white">
+    </CardHeader>
+
+    <CardContent class="space-y-2 text-sm">
+      <p>
+        Netz:
+        <strong>{{ modem.carrier }}</strong>
+        <span
+          :class="modemTypeBadgeClass(modem.network)"
+          class="ml-2 px-2 py-0.5 rounded text-xs text-white"
+        >
           {{ modemTypeLabel(modem.network) }}
         </span>
       </p>
-      <p class="text-sm">IP: <strong>{{ modem.ip }}</strong></p>
-  
-      <div class="flex items-end gap-1 h-6 mt-4 mb-1">
+
+      <p>
+        IP:
+        <strong>{{ modem.ip }}</strong>
+      </p>
+
+      <div class="flex items-end gap-1 h-6 mt-2">
         <div
           v-for="i in 5"
           :key="i"
@@ -22,16 +35,17 @@
           :style="{ height: `${i * 0.4}rem` }"
         />
       </div>
-  
-      <p class="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+
+      <p class="text-xs text-muted-foreground flex items-center gap-1">
         Signal: {{ modem.signal }} dBm
         <InfoPopover
           class="ml-1"
           message="Signalstärke in dBm. Werte über -60 dBm gelten als sehr gut, unter -90 dBm als schwach. Die Balken zeigen die Qualität an."
         />
       </p>
-    </div>
-  </template>
+    </CardContent>
+  </Card>
+</template>
   
   <script setup>
   import InfoPopover from '@/components/InfoPopover.vue'
