@@ -1,34 +1,30 @@
 <template>
     <Card>
-        <CardSectionHeader icon="memory">
-            System
-        </CardSectionHeader>
+        <CardSectionHeader icon="memory"> System </CardSectionHeader>
 
         <CardContent>
-            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">
-                <div class="space-y-1">
-                    <p class="text-sm text-muted-foreground">Gerätename</p>
-                    <p class="text-base font-medium">{{ system.hostname }}</p>
-                </div>
-                <div class="space-y-1">
-                    <p class="text-sm text-muted-foreground">Systemzeit</p>
-                    <p class="text-base font-medium">{{ system.time }}</p>
-                </div>
+            <div class="grid gap-6 grid-cols-1 sm:grid-cols-3">
 
-                <!-- Systemlaufzeit -->
-                <UptimeDisplay :uptime="system.uptime" />
+
+                <GeneralSystemInfo
+                    :hostname="system.hostname"
+                    :time="system.time"
+                    :uptime="system.uptime"
+                    :short="false"
+                />
+
 
                 <!-- Systemauslastung -->
                 <LoadAverageBar :load="system.load" />
-                
+
                 <!-- Memory -->
-                <MemoryUsageBar :memory="system.memory"/>
+                <MemoryUsageBar :memory="system.memory" />
             </div>
-            
+
             <MemoryUsageChart :memory="system.memory" />
             <!-- <DiskUsageDonut :disk="d" v-for="d in system.disk" :key="d.label" /> -->
             <!-- <CpuLoad :cpu="system.cpu"/> -->
-            
+
             <!-- Datenträger -->
             <DiskUsageBar
                 v-for="disk in system.disk"
@@ -38,7 +34,7 @@
                 :total="disk.total"
                 :percent="disk.percent"
             />
-            
+
             <!-- Neustarten/Herunterfahren -->
             <div class="mt-6 flex flex-wrap gap-4">
                 <ConfirmDialog

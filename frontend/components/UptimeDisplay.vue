@@ -1,19 +1,15 @@
-<!-- components/system/UptimeDisplay.vue -->
 <template>
-    <div class="space-y-1">
-        <p class="text-sm text-muted-foreground">Laufzeit seit Start</p>
-        <p class="text-base font-medium">
-            <span v-if="short">
-                {{ uptime.days }}d {{ uptime.hours }}h {{ uptime.minutes }}m
-            </span>
-            <span v-else>
-                {{ uptime.days }} Tage, {{ uptime.hours }}:{{
-                    padded(uptime.minutes)
-                }}
-                Stunden
-            </span>
-        </p>
-    </div>
+    <InnerCard title="Laufzeit seit Start">
+        <span v-if="short">
+            {{ uptime.days }}d {{ uptime.hours }}h {{ uptime.minutes }}m
+        </span>
+        <span v-else>
+            {{ uptime.days }} Tage, {{ uptime.hours }}:{{
+                padded(uptime.minutes)
+            }}
+            Stunden
+        </span>
+    </InnerCard>
 </template>
 
 <script setup>
