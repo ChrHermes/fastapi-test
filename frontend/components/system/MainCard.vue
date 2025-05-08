@@ -37,7 +37,7 @@
                     @confirm="$emit('reboot')"
                 />
 
-                <SecureCommonConfirmDialog
+                <CommonSecureConfirmDialog
                     title="System herunterfahren?"
                     description="Du bist dabei, das gesamte System herunterzufahren."
                     confirmation-code="shutdown-now"

@@ -16,7 +16,7 @@
             </div>
 
             <div class="justify-self-start self-end xl:self-center">
-                <SecureCommonConfirmDialog
+                <CommonSecureConfirmDialog
                     title="Datenbank zurücksetzen?"
                     description="Diese Aktion löscht alle gespeicherten Daten dauerhaft."
                     confirmation-code="reset-db"

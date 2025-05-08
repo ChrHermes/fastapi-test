@@ -25,7 +25,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import CommonConfirmDialog from './CommonConfirmDialog.vue'
 import { Input } from '@/components/ui/input'
 
 const props = defineProps({
