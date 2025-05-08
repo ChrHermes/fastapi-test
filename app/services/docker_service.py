@@ -5,6 +5,8 @@ import time
 import subprocess
 import requests
 
+from datetime import datetime, timezone
+from dateutil import parser
 from typing import List
 
 from app.config import settings
@@ -35,23 +37,64 @@ except Exception as e:
 
 def list_docker_containers(project_label: str = "gridcal") -> list:
     """
-    Liefert alle Docker-Container, die dem definierten Compose-Projekt zugeordnet sind.
-        Die Funktion sucht nach Containern, die das Label "com.docker.compose.project" enthalten,
-        wobei der im Settings definierte Name (z. B. "gridcal") als Filter genutzt wird.
+    Liefert eine Liste von Docker-Containern, die einem bestimmten Compose-Projekt zugeordnet sind.
+
+    Die Funktion filtert alle lokal bekannten Docker-Container anhand des Labels
+    `com.docker.compose.project` und ermittelt für jeden relevanten Container zusätzliche Informationen
+    wie Laufzeit, Status, Image und Version. Die Laufzeit (`uptime_seconds`) wird als Differenz zur Startzeit
+    in Sekunden berechnet und zusätzlich als lesbare Zeichenkette zurückgegeben.
+
+    **Rückgabefeld je Container:**
+    - `id` (str): Container-ID (verkürzt auf 8 Zeichen)
+    - `name` (str): Container-Name
+    - `image` (str): Vollständiger Image-Tag (z. B. `gateway:latest`)
+    - `version` (str): Version aus dem Tag extrahiert (z. B. `1.0.0`)
+    - `uptime` (str): Lesbare Uptime (z. B. `"2 Tage, 1 Stunde"`)
+    - `uptime_seconds` (int): Uptime in Sekunden seit Start
+    - `status` (str): Vereinfachter Zustand (`"Läuft"`, `"Beendet"`, `"Fehler"` oder Rohstatus)
+
+    Args:
+        project_label (str, optional): Name des Docker-Compose-Projekts (Default: `"gridcal"`)
+
     Returns:
-        list: Eine Liste der Container-Namen, die gefunden wurden.
+        list[dict]: Liste der ermittelten Container mit Detailinformationen.
+
     Raises:
-        Exception: Falls ein Fehler beim Abruf der Container auftritt.
+        docker.errors.DockerException: Bei Verbindungsproblemen oder Fehlern im Docker-Client.
     """
     client = docker.from_env()
-    all_containers = client.containers.list(all=True)
-    filtered_containers = [
-        container.name
-        for container in all_containers
-        if project_label in container.labels.get("com.docker.compose.project", "")
-    ]
-    write_log("INFO", f"Gefundene Container: {filtered_containers}")
-    return filtered_containers
+    containers = client.containers.list(all=True)
+    filtered = []
+
+    for c in containers:
+        if project_label not in c.labels.get("com.docker.compose.project", ""):
+            continue
+
+        attrs = c.attrs
+        state = attrs.get("State", {})
+        started_at = state.get("StartedAt", "")
+        status = state.get("Status", "unbekannt")
+
+        uptime_seconds = get_container_uptime_seconds(started_at)
+        formatted_uptime = format_uptime(uptime_seconds)
+
+        # Version aus Image-Tag extrahieren
+        version = "?"
+        if ":" in c.image.tags[0]:
+            version = c.image.tags[0].split(":")[-1]
+
+        filtered.append({
+            "id": c.id[:8],
+            "name": c.name,
+            "image": c.image.tags[0] if c.image.tags else "unbekannt",
+            "version": version,
+            "uptime": formatted_uptime,
+            "uptime_seconds": uptime_seconds,
+            "status": convert_docker_status(status),
+        })
+    
+    write_log("INFO", f"Gefundene Container: {filtered}")
+    return filtered
 
 
 # =====================================
@@ -368,3 +411,38 @@ def get_config_blob(image: str, digest: str):
         )
     write_log("INFO", f"Config-Blob für {image} erfolgreich geladen")
     return response.json()
+
+
+def get_container_uptime_seconds(started_at: str) -> int:
+    """Berechnet die Uptime in Sekunden basierend auf StartedAt-Zeitstempel."""
+    try:
+        start_time = parser.isoparse(started_at)
+        now = datetime.now(timezone.utc)
+        return int((now - start_time).total_seconds())
+    except Exception as e:
+        return -1  # Fehlerwert
+
+
+def format_uptime(seconds: int) -> str:
+    """Gibt eine menschenlesbare Uptime zurück (z. B. '2 Tage, 1 Stunde')."""
+    minutes, _ = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    parts = []
+    if days:
+        parts.append(f"{days} Tag{'e' if days > 1 else ''}")
+    if hours:
+        parts.append(f"{hours} Stunde{'n' if hours > 1 else ''}")
+    if minutes:
+        parts.append(f"{minutes} Minute{'n' if minutes > 1 else ''}")
+    return ", ".join(parts) if parts else "unter 1 Minute"
+
+
+def convert_docker_status(status: str) -> str:
+    if status == "running":
+        return "Läuft"
+    elif status == "exited":
+        return "Beendet"
+    elif status == "dead":
+        return "Fehler"
+    return status.capitalize()

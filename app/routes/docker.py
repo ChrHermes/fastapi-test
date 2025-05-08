@@ -37,23 +37,45 @@ except Exception as e:
 @router.get("/docker/containers/")
 async def list_containers():
     """
-    🔍 **Listet alle Docker-Container des Compose-Projekts auf**
+    🐳 **Docker-Containerübersicht für Compose-Projekt**
 
-    Diese Route ruft alle laufenden Docker-Container ab, die zum definierten `docker-compose`-Projekt gehören.
-    Verwendet wird das Label `com.docker.compose.project` mit dem Namen aus `settings.COMPOSE_NAME`.
+    Diese Route gibt eine strukturierte Liste aller Docker-Container zurück, 
+    die dem Compose-Projekt gemäß `settings.COMPOSE_NAME` zugeordnet sind.
 
-    **Returns:**
-    - `dict`: Enthält die Containerliste unter `"containers"`.
+    Jeder Container enthält Informationen wie Name, Status, Laufzeit, Image und Version.
+    Die Uptime wird dabei sowohl lesbar (`"2 Tage, 3 Stunden"`) als auch in Sekunden (`uptime_seconds`) geliefert.
 
-    **Raises:**
-    - `500 Internal Server Error`: Bei Fehlern beim Abruf der Container.
+    **Rückgabeformat:**
+    ```json
+    {
+        "containers": [
+            {
+                "id": "ab123456",
+                "name": "backend",
+                "image": "application-backend:latest",
+                "version": "1.1.0",
+                "uptime": "2 Tage, 1 Stunde",
+                "uptime_seconds": 183600,
+                "status": "Läuft"
+            },
+            ...
+        ]
+    }
+    ```
+
+    **Fehler:**
+    - `500 Internal Server Error`: Wenn Container nicht abgerufen werden können.
+
+    Returns:
+        dict: Ein Dictionary mit dem Schlüssel `"containers"` und einer Liste der Container-Infos.
     """
     try:
         containers = list_docker_containers(settings.COMPOSE_NAME)
         return {"containers": containers}
     except Exception as e:
         raise HTTPException(
-            status_code=500, detail=f"Fehler beim Abrufen der Container: {str(e)}"
+            status_code=500,
+            detail=f"Fehler beim Abrufen der Container: {str(e)}"
         )
 
 
