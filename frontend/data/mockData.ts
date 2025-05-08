@@ -10,25 +10,40 @@ export const mockSystem = {
     disk: [
         {
             label: 'Intern',
-            used: '3.22 GB',
-            total: '4 GB',
-            percent: 80.5,
-        },
+            mount: '/',
+            byte_used: 3200000000,
+            byte_free: 800000000,
+            byte_total: 4000000000,
+            fmt_used: '3.20 GB',
+            fmt_free: '0.80 GB',
+            fmt_total: '4.00 GB',
+            percent: 80.0,
+            error: null
+          },
         {
             label: 'SD-Karte',
-            used: '3.7 GB',
-            total: '8 GB',
+            mount: '/media/sd',
+            byte_used: 3970000000,
+            byte_free: 4030000000,
+            byte_total: 8000000000,
+            fmt_used: '3.70 GB',
+            fmt_free: '4.30 GB',
+            fmt_total: '8.00 GB',
             percent: 46.25,
-            // used: '6.7 GB',
-            // total: '8 GB',
-            // percent: 83.75,
+            error: null,
+        },
+        {
+            label: 'Externe Festplatte',
+            mount: '/mnt/usb',
+            error: 'Gerät nicht verbunden',
         },
     ],
     memory: {
-        // total: 4294967296, // 4 GB
-        // available: 1073741824, // 1 GB
-        total: 536870912, // 512 MB
-        available: 12121113,
+        total_kb: 500828, // ~489 MB
+        used_kb: 290820, // berechnet aus total - (buffers + cached + free)
+        buffers_kb: 35096,
+        cached_kb: 152784,
+        free_kb: 22128,
     },
     cpu: {
         '1m': 2.97,

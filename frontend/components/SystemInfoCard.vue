@@ -3,7 +3,7 @@
         <CardSectionHeader icon="memory"> System </CardSectionHeader>
 
         <CardContent>
-            <div class="grid gap-6 grid-cols-1 sm:grid-cols-3">
+            <div class="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
 
 
                 <GeneralSystemInfo
@@ -19,21 +19,14 @@
 
                 <!-- Memory -->
                 <MemoryUsageBar :memory="system.memory" />
+                <!-- <MemoryUsageChart :memory="system.memory" /> -->
+                 
+                <!-- Datenträger -->
+                <DiskUsageCard :disks="system.disk" />
             </div>
 
-            <MemoryUsageChart :memory="system.memory" />
             <!-- <DiskUsageDonut :disk="d" v-for="d in system.disk" :key="d.label" /> -->
             <!-- <CpuLoad :cpu="system.cpu"/> -->
-
-            <!-- Datenträger -->
-            <DiskUsageBar
-                v-for="disk in system.disk"
-                :key="disk.label"
-                :label="disk.label"
-                :used="disk.used"
-                :total="disk.total"
-                :percent="disk.percent"
-            />
 
             <!-- Neustarten/Herunterfahren -->
             <div class="mt-6 flex flex-wrap gap-4">

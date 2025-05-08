@@ -98,19 +98,23 @@ def get_hostname() -> dict:
 
 def get_memory_info() -> dict:
     """
-    Liefert Informationen über den RAM-Verbrauch des Docker-Hosts.
-
-    Liest aus /proc/meminfo und berechnet Gesamt- und genutzten Speicher in MB.
+    Liefert RAM-Informationen über den Docker-Host in Kilobyte (kB).
 
     Returns:
         dict:
             {
-                "success": bool,
-                "total_mb": float,
-                "used_mb": float,
-                "free_mb": float,
-                "percent": float,
-                "error": str (optional)
+                "success": True,
+                "total_kb": int,
+                "used_kb": int,
+                "buffers_kb": int,
+                "cached_kb": int,
+                "free_kb": int,
+                "percent_used": float
+            }
+            oder bei Fehler:
+            {
+                "success": False,
+                "error": str
             }
     """
     try:
@@ -118,36 +122,29 @@ def get_memory_info() -> dict:
         with open(os.path.join(settings.HOST_PROC_PATH, "meminfo"), "r") as f:
             for line in f:
                 key, value = line.split(":")
-                meminfo[key.strip()] = int(value.strip().split()[0])  # kB
+                meminfo[key.strip()] = int(value.strip().split()[0])  # in kB
 
-        mem_total = meminfo.get("MemTotal", 0)
-        mem_free = (
-            meminfo.get("MemFree", 0)
-            + meminfo.get("Buffers", 0)
-            + meminfo.get("Cached", 0)
-        )
-        mem_used = mem_total - mem_free
+        total_kb = meminfo.get("MemTotal", 0)
+        free_kb = meminfo.get("MemFree", 0)
+        buffers_kb = meminfo.get("Buffers", 0)
+        cached_kb = meminfo.get("Cached", 0)
 
-        mem_total_mb = round(mem_total / 1024, 2)
-        mem_used_mb = round(mem_used / 1024, 2)
-        mem_free_mb = round(mem_free / 1024, 2)
-        percent = round((mem_used / mem_total) * 100, 2) if mem_total else 0.0
+        used_kb = total_kb - (buffers_kb + cached_kb + free_kb)
 
         return {
             "success": True,
-            "total_mb": mem_total_mb,
-            "used_mb": mem_used_mb,
-            "free_mb": mem_free_mb,
-            "percent": percent,
+            "total_kb": total_kb,
+            "used_kb": used_kb,
+            "buffers_kb": buffers_kb,
+            "cached_kb": cached_kb,
+            "free_kb": free_kb,
+            "percent_used": round((used_kb / total_kb) * 100, 2) if total_kb else 0.0
         }
+
     except Exception as e:
         return {
             "success": False,
-            "total_mb": 0.0,
-            "used_mb": 0.0,
-            "free_mb": 0.0,
-            "percent": 0.0,
-            "error": str(e),
+            "error": str(e)
         }
 
 
@@ -236,7 +233,7 @@ def get_network_status(interface: str = "eth0") -> dict:
 def get_disk_usage():
     """
     Gibt die Speicherplatznutzung aller konfigurierten Pfade als Liste zurück.
-    Werte werden als Bytes gesammelt und zusätzlich menschenlesbar formatiert.
+    Werte werden sowohl in Bytes als auch menschenlesbar (fmt_*) zurückgegeben.
     """
     results = []
 
@@ -254,11 +251,13 @@ def get_disk_usage():
                 {
                     "label": label,
                     "mount": path,
-                    "used_bytes": used,
-                    "total_bytes": total,
+                    "byte_used": used,
+                    "byte_free": free,
+                    "byte_total": total,
+                    "fmt_used": format_bytes(used),
+                    "fmt_free": format_bytes(free),
+                    "fmt_total": format_bytes(total),
                     "percent": percent,
-                    "used": format_bytes(used),
-                    "total": format_bytes(total),
                 }
             )
         except Exception as e:
