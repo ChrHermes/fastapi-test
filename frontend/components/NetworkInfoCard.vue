@@ -15,7 +15,6 @@
 
 <script setup>
 import { Card, CardContent } from '@/components/ui/card'
-import CardSectionHeader from '@/components/CardSectionHeader.vue'
 
 const props = defineProps({
   network: {

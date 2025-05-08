@@ -14,10 +14,10 @@
         <NetworkInfoCard :network="network" />
 
         <!-- Docker Container Übersicht als Tabelle -->
-        <DockerContainerTable :containers="containers" />
+        <DockerMainCard :containers="containers" />
         
         <!-- Protokollanzeige -->
-        <LogViewerCard :logs="logs" />
+        <LogMainCard :logs="logs" />
     </div>
 </template>
 

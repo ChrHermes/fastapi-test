@@ -2,13 +2,13 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-  // 💡 Kompatibilitätsmodus für zukünftige Nuxt-Versionen
+  // Kompatibilitätsmodus für zukünftige Nuxt-Versionen
   compatibilityDate: '2024-11-01',
 
-  // 🛠️ Aktiviert die Nuxt Devtools (Shift + Alt + D im Browser)
+  // Aktiviert die Nuxt Devtools (Shift + Alt + D im Browser)
   devtools: { enabled: true },
 
-  // ✅ Nuxt-Module (siehe https://modules.nuxt.com)
+  // Nuxt-Module (siehe https://modules.nuxt.com)
   modules: [
     '@nuxt/ui',              // UI-Komponenten und Themes
     '@nuxt/icon',            // Icon-Komponenten
@@ -17,22 +17,22 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',    // Dark/Light Mode Handling
   ],
 
-  // 🎨 Globale CSS-Dateien
+  // Globale CSS-Dateien
   css: [
     '@/assets/css/tailwind.css', // Tailwind Basis
     '@/assets/css/theme.css',    // Eigene Theme-Anpassungen
   ],
 
-  // 🧩 Vite-Konfiguration (z. B. zusätzliche Plugins)
+  // Vite-Konfiguration (z. B. zusätzliche Plugins)
   vite: {
     plugins: [tailwindcss()],
   },
 
-  // 🌐 App-spezifische Einstellungen
+  // App-spezifische Einstellungen
   app: {
     baseURL: '/', // Basis-URL der App
 
-    // 🧠 Globale <head>-Einträge (z. B. Fonts, Icons)
+    // Globale <head>-Einträge (z. B. Fonts, Icons)
     head: {
       link: [
         {
@@ -47,13 +47,21 @@ export default defineNuxtConfig({
     },
   },
 
-  // 🎛️ ShadCN UI Konfiguration
+  // Komponenten
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: true,
+    },
+  ],
+
+  // ShadCN UI Konfiguration
   shadcn: {
     prefix: '', // keine Namenspräfixe für Komponenten
     componentDir: './components/ui', // Zielverzeichnis für UI-Komponenten
   },
 
-  // 🔐 Konfigurierbare Umgebungsvariablen (z. B. für das Backend)
+  // Konfigurierbare Umgebungsvariablen (z. B. für das Backend)
   runtimeConfig: {
     public: {
       apiBase: 'http://localhost:8000/api', // API-Endpunkt für dein FastAPI-Backend
@@ -61,10 +69,10 @@ export default defineNuxtConfig({
     },
   },
 
-  // 🧱 Rendering-Einstellungen
+  // Rendering-Einstellungen
   ssr: false, // Client-Side Rendering aktivieren (SPA-Modus)
 
-  // 📦 Nitro Build-Konfiguration (hier: statisches Deployment)
+  // Nitro Build-Konfiguration (hier: statisches Deployment)
   nitro: {
     preset: 'static', // erstellt ein vollständig statisches Frontend
   },
