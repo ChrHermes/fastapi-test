@@ -32,11 +32,11 @@ export const mockSystem = {
             percent: 46.25,
             error: null,
         },
-        {
-            label: 'Externe Festplatte',
-            mount: '/mnt/usb',
-            error: 'Gerät nicht verbunden',
-        },
+        // {
+        //     label: 'Externe Festplatte',
+        //     mount: '/mnt/usb',
+        //     error: 'Gerät nicht verbunden',
+        // },
     ],
     memory: {
         total_kb: 500828, // ~489 MB

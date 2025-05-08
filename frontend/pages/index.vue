@@ -6,13 +6,13 @@
             @shutdown="shutdownSystem"
             @reboot="rebootSystem"
         />
+        
+        <!-- Datenbankverwaltung -->
+        <StorageCard :database="database" :disks="system.disk" @reset-db="resetDatabase" />
 
         <!-- Netzwerkübersicht -->
         <NetworkInfoCard :network="network" />
 
-        <!-- Datenbankverwaltung -->
-        <StorageCard :database="database" :disks="system.disk" @reset="resetDatabase" />
-        
         <!-- Docker Container Übersicht als Tabelle -->
         <DockerContainerTable :containers="containers" />
         

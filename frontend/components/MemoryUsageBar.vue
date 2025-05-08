@@ -1,5 +1,5 @@
 <template>
-    <InnerCard title="Arbeitsspeicher">
+    <InnerCard icon="memory" title="Arbeitsspeicher">
       <!-- Fortschrittsbalken mit 4 Farben -->
       <div class="w-full bg-muted h-3 rounded overflow-hidden flex">
         <div

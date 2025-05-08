@@ -1,5 +1,5 @@
 <template>
-    <InnerCard title="Allgemeines">
+    <InnerCard icon="info" title="Allgemeines">
         <ul class="text-sm text-foreground space-y-1">
             <li>Gerätename: <strong>{{ hostname }}</strong></li>
             <!-- <li><hr></li> -->

@@ -1,5 +1,5 @@
 <template>
-    <InnerCard title="Auslastung">
+    <InnerCard icon="bar_chart" title="Auslastung">
         <!-- Werte -->
         <div class="flex items-center gap-4">
             <span :class="loadBadgeClass(load['1m'])">

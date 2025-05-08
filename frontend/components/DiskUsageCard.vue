@@ -1,6 +1,6 @@
 <template>
-  <InnerCard title="Datenträger">
-    <div class="space-y-5 mt-2">
+  <InnerCard icon="save" title="Datenträger">
+    <div class="space-y-3 mt-2">
       <div
         v-for="disk in disks"
         :key="disk.label"

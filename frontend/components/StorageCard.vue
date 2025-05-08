@@ -4,7 +4,8 @@
         <CardContent>
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2">
                 <DiskUsageCard :disks="disks" />
-                <DatabaseInfo :database="database" />
+                <DatabaseInfo :database="database" @reset-db="$emit('reset-db')" />
+
             </div>
         </CardContent>
     </Card>
@@ -23,4 +24,7 @@ defineProps({
         required: true,
     },
 })
+
+defineEmits(["reset-db"]);
+
 </script>

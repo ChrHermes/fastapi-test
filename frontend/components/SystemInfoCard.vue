@@ -1,6 +1,6 @@
 <template>
     <Card>
-        <CardSectionHeader icon="memory"> System </CardSectionHeader>
+        <CardSectionHeader icon="device_hub"> System </CardSectionHeader>
 
         <CardContent>
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
@@ -20,7 +20,7 @@
                 <!-- <MemoryUsageChart :memory="system.memory" /> -->
 
                 <!-- Datenträger -->
-                <DiskUsageCard :disks="system.disk" />
+                <!-- <DiskUsageCard :disks="system.disk" /> -->
             </div>
 
             <!-- <DiskUsageDonut :disk="d" v-for="d in system.disk" :key="d.label" /> -->

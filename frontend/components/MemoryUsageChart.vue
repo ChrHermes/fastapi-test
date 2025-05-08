@@ -1,5 +1,5 @@
 <template>
-    <InnerCard title="Arbeitsspeicher">
+    <InnerCard icon="memory" title="Arbeitsspeicher">
         <div class="relative w-24 h-24 sm:w-28 sm:h-28">
             <Doughnut
                 :data="chartData"
