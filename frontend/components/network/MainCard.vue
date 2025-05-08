@@ -6,8 +6,8 @@
 
     <CardContent>
       <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">
-        <ModemInfo :modem="network.modem" />
-        <NetbirdInfo :vpn="network.netbird" />
+        <NetworkModemCard :modem="network.modem" />
+        <NetworkNetbirdCard :vpn="network.netbird" />
       </div>
     </CardContent>
   </Card>

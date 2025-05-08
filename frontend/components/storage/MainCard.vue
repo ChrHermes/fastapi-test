@@ -3,8 +3,8 @@
         <CardSectionHeader icon="storage">Speicherverwaltung</CardSectionHeader>
         <CardContent>
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2">
-                <DiskUsageCard :disks="disks" />
-                <DatabaseInfo :database="database" @reset-db="$emit('reset-db')" />
+                <StorageDiskCard :disks="disks" />
+                <StorageDatabaseCard :database="database" @reset-db="$emit('reset-db')" />
 
             </div>
         </CardContent>

@@ -1,21 +1,25 @@
 <template>
     <div class="p-6 space-y-6">
         <!-- System Info Section -->
-        <SystemInfoCard
+        <SystemMainCard
             :system="system"
             @shutdown="shutdownSystem"
             @reboot="rebootSystem"
         />
-        
+
         <!-- Datenbankverwaltung -->
-        <StorageCard :database="database" :disks="system.disk" @reset-db="resetDatabase" />
+        <StorageMainCard
+            :database="database"
+            :disks="system.disk"
+            @reset-db="resetDatabase"
+        />
 
         <!-- Netzwerkübersicht -->
-        <NetworkInfoCard :network="network" />
+        <NetworkMainCard :network="network" />
 
         <!-- Docker Container Übersicht als Tabelle -->
         <DockerMainCard :containers="containers" />
-        
+
         <!-- Protokollanzeige -->
         <LogMainCard :logs="logs" />
     </div>
@@ -46,35 +50,35 @@ const { system, network, database, containers, logs } = useMockData()
 // })
 
 definePageMeta({
-  middleware: 'auth'
+    middleware: 'auth',
 })
 
 watchEffect(() => {
-  if (autoRefreshEnabled?.value) {
-    refreshTrigger?.value
-    console.log('Mockdaten-Refresh ausgelöst')
-  }
+    if (autoRefreshEnabled?.value) {
+        refreshTrigger?.value
+        console.log('Mockdaten-Refresh ausgelöst')
+    }
 })
 
 function shutdownSystem() {
-  console.log('System wird heruntergefahren')
-  // TODO: API call to /api/system/shutdown
-  toast('Event has been created', {
+    console.log('System wird heruntergefahren')
+    // TODO: API call to /api/system/shutdown
+    toast('Event has been created', {
         description: 'System wird in 10 Sekunden heruntergefahren.',
         action: {
-          label: 'Undo',
-          onClick: () => console.log('Undo'),
+            label: 'Undo',
+            onClick: () => console.log('Undo'),
         },
-      })
+    })
 }
 
 function rebootSystem() {
-  console.log('System wird neugestartet')
-  // TODO: API call to /api/system/reboot
+    console.log('System wird neugestartet')
+    // TODO: API call to /api/system/reboot
 }
 
 function resetDatabase() {
-  console.log('Datenbank wird zurückgesetzt')
-  // TODO: API call to /api/database/reset
+    console.log('Datenbank wird zurückgesetzt')
+    // TODO: API call to /api/database/reset
 }
 </script>

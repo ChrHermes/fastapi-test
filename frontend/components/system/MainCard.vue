@@ -5,7 +5,7 @@
         <CardContent>
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                 <!-- Allgemeines -->
-                <GeneralSystemInfo
+                <SystemGeneralInfoCard
                     :hostname="system.hostname"
                     :time="system.time"
                     :uptime="system.uptime"
@@ -13,10 +13,10 @@
                 />
 
                 <!-- Systemauslastung -->
-                <LoadAverageBar :load="system.load" />
+                <SystemLoadAvgCard :load="system.load" />
 
                 <!-- Memory -->
-                <MemoryUsageBar :memory="system.memory" />
+                <SystemMemoryCard :memory="system.memory" />
                 <!-- <MemoryUsageChart :memory="system.memory" /> -->
 
                 <!-- Datenträger -->
