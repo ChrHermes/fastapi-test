@@ -4,8 +4,7 @@
 
         <CardContent>
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-
-
+                <!-- Allgemeines -->
                 <GeneralSystemInfo
                     :hostname="system.hostname"
                     :time="system.time"
@@ -13,14 +12,13 @@
                     :short="false"
                 />
 
-
                 <!-- Systemauslastung -->
                 <LoadAverageBar :load="system.load" />
 
                 <!-- Memory -->
                 <MemoryUsageBar :memory="system.memory" />
                 <!-- <MemoryUsageChart :memory="system.memory" /> -->
-                 
+
                 <!-- Datenträger -->
                 <DiskUsageCard :disks="system.disk" />
             </div>
@@ -34,13 +32,10 @@
                     title="System neustarten?"
                     description="Das System wird neu gestartet. Offene Verbindungen gehen verloren."
                     confirm-variant="destructive"
+                    icon="restart_alt"
+                    text="Neustarten"
                     @confirm="$emit('reboot')"
-                >
-                    <span class="material-icons text-base mr-1"
-                        >restart_alt</span
-                    >
-                    Neustarten
-                </ConfirmDialog>
+                />
 
                 <SecureConfirmDialog
                     title="System herunterfahren?"
@@ -48,13 +43,10 @@
                     confirmation-code="shutdown-now"
                     confirm-variant="destructive"
                     variant="destructive"
+                    icon="power_settings_new"
+                    text="Herunterfahren"
                     @confirm="$emit('shutdown')"
-                >
-                    <span class="material-icons text-base mr-1"
-                        >power_settings_new</span
-                    >
-                    Herunterfahren
-                </SecureConfirmDialog>
+                />
             </div>
         </CardContent>
     </Card>

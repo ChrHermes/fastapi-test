@@ -2,25 +2,31 @@
     <Dialog>
         <DialogTrigger as-child>
             <Button :variant="variant" :class="buttonClass">
-                <slot />
+                <template v-if="hasSlot">
+                    <slot />
+                </template>
+                <template v-else>
+                    <span v-if="icon" class="material-icons text-base mr-1">{{ icon }}</span>
+                    <span>{{ text }}</span>
+                </template>
             </Button>
         </DialogTrigger>
 
         <DialogContent class="max-w-sm">
             <DialogHeader>
                 <DialogTitle>{{ title }}</DialogTitle>
-                <DialogDescription>
-                    {{ description }}
-                </DialogDescription>
+                <DialogDescription>{{ description }}</DialogDescription>
             </DialogHeader>
+
+            <slot name="body" />
 
             <div class="flex justify-end gap-2 mt-4">
                 <DialogClose as-child>
-                    <Button variant="ghost"> Abbrechen </Button>
+                    <Button variant="ghost">Abbrechen</Button>
                 </DialogClose>
 
                 <DialogClose as-child>
-                    <Button :variant="confirmVariant" @click="confirm">
+                    <Button :variant="confirmVariant" :disabled="confirmDisabled" @click="confirm">
                         Bestätigen
                     </Button>
                 </DialogClose>
@@ -30,6 +36,7 @@
 </template>
 
 <script setup>
+import { useSlots, computed } from 'vue'
 import {
     Dialog,
     DialogTrigger,
@@ -41,7 +48,10 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 
-defineProps({
+const slots = useSlots()
+const emit = defineEmits(['confirm'])
+
+const props = defineProps({
     title: String,
     description: String,
     confirmVariant: {
@@ -56,11 +66,23 @@ defineProps({
         type: String,
         default: '',
     },
+    icon: {
+        type: String,
+        default: '',
+    },
+    text: {
+        type: String,
+        default: '',
+    },
+    confirmDisabled: {
+        type: Boolean,
+        default: false,
+    },
 })
-
-const emit = defineEmits(['confirm'])
 
 function confirm() {
     emit('confirm')
 }
+
+const hasSlot = computed(() => !!slots.default)
 </script>

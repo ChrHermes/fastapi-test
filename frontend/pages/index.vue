@@ -11,7 +11,7 @@
         <NetworkInfoCard :network="network" />
 
         <!-- Datenbankverwaltung -->
-        <DatabaseInfoCard :database="database" @reset="resetDatabase" />
+        <StorageCard :database="database" :disks="system.disk" @reset="resetDatabase" />
         
         <!-- Docker Container Übersicht als Tabelle -->
         <DockerContainerTable :containers="containers" />
