@@ -1,5 +1,5 @@
 <template>
-    <InnerCard icon="bar_chart" title="Auslastung">
+    <LayoutInnerCard icon="bar_chart" title="Auslastung">
         <!-- Werte -->
         <div class="flex items-center gap-4">
             <span :class="loadBadgeClass(load['1m'])">
@@ -11,12 +11,12 @@
             <span :class="loadBadgeClass(load['15m'])">
                 15m: <span class="font-semibold">{{ load['15m'] }}</span>
             </span>
-            <InfoPopover
+            <CommonInfoPopover
                 message="Zeigt die durchschnittliche Systemlast pro CPU-Kern über 1, 5 und 15 Minuten.<br>
           Werte über <strong>1.00</strong> bedeuten, dass Prozesse warten müssen."
             />
         </div>
-    </InnerCard>
+    </LayoutInnerCard>
 </template>
 
 <script setup>

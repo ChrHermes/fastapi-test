@@ -1,12 +1,12 @@
 <template>
-    <InnerCard icon="info" title="Allgemeines">
+    <LayoutInnerCard icon="info" title="Allgemeines">
         <ul class="text-sm text-foreground space-y-1">
             <li>Gerätename: <strong>{{ hostname }}</strong></li>
             <!-- <li><hr></li> -->
             <li>Laufzeit seit Start: <strong>{{ uptimeText }}</strong></li>
             <li>Aktuelle Systemzeit: <strong>{{ time }}</strong></li>
         </ul>
-    </InnerCard>
+    </LayoutInnerCard>
 </template>
 
 <script setup>

@@ -10,9 +10,9 @@
         <header class="fixed top-0 left-0 w-full z-50 px-6 py-4 border-b flex items-center justify-between bg-background">
             <h1 class="text-xl font-semibold">DemoBox Admin</h1>
             <div class="flex items-center gap-4">
-                <RefreshToggleButton :show-label="false" v-if="route.path === '/'" />
+                <BaseRefreshToggle :show-label="false" v-if="route.path === '/'" />
 
-                <ColorModeToggle />
+                <BaseThemeToggle />
 
                 <Button variant="outline" class="text-sm" v-if="user" @click="logout">
                     <span class="material-icons text-base mr-1">logout</span>
@@ -33,9 +33,6 @@ import { Button } from '@/components/ui/button'
 import { ref, provide, onMounted } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { Toaster } from '@/components/ui/sonner'
-
-import ColorModeToggle from '@/components/ColorModeToggle.vue'
-import RefreshToggleButton from '@/components/RefreshToggleButton.vue'
 
 definePageMeta({
   middleware: 'auth', // globaler Auth-Schutz

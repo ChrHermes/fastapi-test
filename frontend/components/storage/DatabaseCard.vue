@@ -1,5 +1,5 @@
 <template>
-    <InnerCard icon="dns" title="Datenbank">
+    <LayoutInnerCard icon="dns" title="Datenbank">
         <div
             class="grid xl:grid-cols-[1fr_auto] gap-y-2 xl:gap-x-4 items-start"
         >
@@ -16,7 +16,7 @@
             </div>
 
             <div class="justify-self-start self-end xl:self-center">
-                <SecureConfirmDialog
+                <SecureCommonConfirmDialog
                     title="Datenbank zurücksetzen?"
                     description="Diese Aktion löscht alle gespeicherten Daten dauerhaft."
                     confirmation-code="reset-db"
@@ -29,7 +29,7 @@
                 />
             </div>
         </div>
-    </InnerCard>
+    </LayoutInnerCard>
 </template>
 
 

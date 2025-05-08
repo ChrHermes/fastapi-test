@@ -1,5 +1,5 @@
 <template>
-    <ConfirmDialog
+    <CommonConfirmDialog
         :title="title"
         :description="description"
         :confirm-variant="confirmVariant"
@@ -20,12 +20,12 @@
                 <Input v-model="input" placeholder="Bestätigungscode eingeben" />
             </div>
         </template>
-    </ConfirmDialog>
+    </CommonConfirmDialog>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import ConfirmDialog from './ConfirmDialog.vue'
+import CommonConfirmDialog from './CommonConfirmDialog.vue'
 import { Input } from '@/components/ui/input'
 
 const props = defineProps({

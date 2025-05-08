@@ -1,5 +1,5 @@
 <template>
-  <InnerCard icon="save" title="Datenträger">
+  <LayoutInnerCard icon="save" title="Datenträger">
     <div class="space-y-3 mt-2">
       <div
         v-for="disk in disks"
@@ -46,7 +46,7 @@
         </template>
       </div>
     </div>
-  </InnerCard>
+  </LayoutInnerCard>
 </template>
 
 <script setup>

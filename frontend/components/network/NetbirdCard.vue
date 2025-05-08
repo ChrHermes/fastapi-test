@@ -1,5 +1,5 @@
 <template>
-    <InnerCard icon="vpn_lock" title="VPN-Verbindung">
+    <LayoutInnerCard icon="vpn_lock" title="VPN-Verbindung">
         <p>
             Status:
             <span
@@ -20,7 +20,7 @@
         <p class="text-muted-foreground">
             Latenz: {{ formatLatency(vpn.latency) }}
         </p>
-    </InnerCard>
+    </LayoutInnerCard>
 </template>
 
 <script setup>

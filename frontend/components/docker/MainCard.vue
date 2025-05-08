@@ -1,9 +1,9 @@
 <template>
   <Card>
-    <CardSectionHeader icon="apps"
+    <LayoutCardSectionHeader icon="apps"
       :subtitle="`${containers.length} Container ${containers.length === 1 ? 'läuft' : 'laufen'} aktuell`">
       Docker
-    </CardSectionHeader>
+    </LayoutCardSectionHeader>
 
     <CardContent>
       <div class="overflow-auto">

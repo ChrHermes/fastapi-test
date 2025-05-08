@@ -1,5 +1,5 @@
 <template>
-    <InnerCard title="Laufzeit seit Start">
+    <LayoutInnerCard title="Laufzeit seit Start">
         <span v-if="short">
             {{ uptime.days }}d {{ uptime.hours }}h {{ uptime.minutes }}m
         </span>
@@ -9,7 +9,7 @@
             }}
             Stunden
         </span>
-    </InnerCard>
+    </LayoutInnerCard>
 </template>
 
 <script setup>

@@ -1,4 +1,4 @@
-<!-- components/InnerCard.vue -->
+<!-- components/LayoutInnerCard.vue -->
 <template>
     <Card
         :class="cardClass"

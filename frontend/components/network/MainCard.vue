@@ -1,8 +1,8 @@
 <template>
   <Card>
-    <CardSectionHeader icon="wifi" subtitle="Modem & VPN-Verbindung">
+    <LayoutCardSectionHeader icon="wifi" subtitle="Modem & VPN-Verbindung">
       Netzwerk
-    </CardSectionHeader>
+    </LayoutCardSectionHeader>
 
     <CardContent>
       <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">

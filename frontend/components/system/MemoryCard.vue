@@ -1,5 +1,5 @@
 <template>
-    <InnerCard icon="memory" title="Arbeitsspeicher">
+    <LayoutInnerCard icon="memory" title="Arbeitsspeicher">
       <!-- Fortschrittsbalken mit 4 Farben -->
       <div class="w-full bg-muted h-3 rounded overflow-hidden flex">
         <div
@@ -52,7 +52,7 @@
       <p class="text-xs text-muted-foreground mt-2 text-center">
         <strong>Gesamt: {{ formatSmartBytes(totalBytes) }}</strong>
       </p>
-    </InnerCard>
+    </LayoutInnerCard>
   </template>
   
   <script setup>

@@ -1,5 +1,5 @@
 <template>
-    <InnerCard title="Arbeitsspeicher">
+    <LayoutInnerCard title="Arbeitsspeicher">
         <!-- Fortschrittsbalken -->
         <div class="w-full bg-muted h-3 rounded overflow-hidden">
             <div
@@ -13,7 +13,7 @@
                 usagePercent
             }}%)
         </p>
-    </InnerCard>
+    </LayoutInnerCard>
 </template>
 
 <script setup>

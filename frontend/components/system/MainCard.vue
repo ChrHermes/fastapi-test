@@ -1,6 +1,6 @@
 <template>
     <Card>
-        <CardSectionHeader icon="device_hub"> System </CardSectionHeader>
+        <LayoutCardSectionHeader icon="device_hub"> System </LayoutCardSectionHeader>
 
         <CardContent>
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
@@ -28,7 +28,7 @@
 
             <!-- Neustarten/Herunterfahren -->
             <div class="mt-6 flex flex-wrap gap-4">
-                <ConfirmDialog
+                <CommonConfirmDialog
                     title="System neustarten?"
                     description="Das System wird neu gestartet. Offene Verbindungen gehen verloren."
                     confirm-variant="destructive"
@@ -37,7 +37,7 @@
                     @confirm="$emit('reboot')"
                 />
 
-                <SecureConfirmDialog
+                <SecureCommonConfirmDialog
                     title="System herunterfahren?"
                     description="Du bist dabei, das gesamte System herunterzufahren."
                     confirmation-code="shutdown-now"

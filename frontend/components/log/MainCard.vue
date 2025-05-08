@@ -1,6 +1,6 @@
 <template>
     <Card>
-        <CardSectionHeader icon="receipt_long">Protokoll</CardSectionHeader>
+        <LayoutCardSectionHeader icon="receipt_long">Protokoll</LayoutCardSectionHeader>
 
         <CardContent class="space-y-4">
             <!-- Logs -->

@@ -1,6 +1,6 @@
 <!-- components/cards/ModemCard.vue -->
 <template>
-    <InnerCard icon="signal_cellular_alt" title="Mobilfunkmodem">
+    <LayoutInnerCard icon="signal_cellular_alt" title="Mobilfunkmodem">
         <p>
             Netz:
             <strong>{{ modem.carrier }}</strong>
@@ -29,16 +29,15 @@
 
         <p class="text-xs text-muted-foreground flex items-center gap-1">
             Signal: {{ modem.signal }} dBm
-            <InfoPopover
+            <CommonInfoPopover
                 class="ml-1"
                 message="Signalstärke in dBm. Werte über -60 dBm gelten als sehr gut, unter -90 dBm als schwach. Die Balken zeigen die Qualität an."
             />
         </p>
-    </InnerCard>
+    </LayoutInnerCard>
 </template>
 
 <script setup>
-import InfoPopover from '@/components/InfoPopover.vue'
 
 const props = defineProps({
     modem: Object,
