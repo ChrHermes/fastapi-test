@@ -5,7 +5,8 @@
     </LayoutCardSectionHeader>
 
     <CardContent>
-      <div class="grid gap-6 grid-cols-1 sm:grid-cols-2">
+      <div class="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+        <NetworkInterfaceCard :iface="network.interface" />
         <NetworkModemCard :modem="network.modem" />
         <NetworkNetbirdCard :vpn="network.netbird" />
       </div>

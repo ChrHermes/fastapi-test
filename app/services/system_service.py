@@ -2,6 +2,9 @@ import subprocess
 import docker
 import os
 import re
+import socket
+
+from typing import Dict
 
 from app.config import settings
 from app.services.log_service import write_log
@@ -138,45 +141,45 @@ def get_memory_info() -> dict:
             "buffers_kb": buffers_kb,
             "cached_kb": cached_kb,
             "free_kb": free_kb,
-            "percent_used": round((used_kb / total_kb) * 100, 2) if total_kb else 0.0
+            "percent_used": round((used_kb / total_kb) * 100, 2) if total_kb else 0.0,
         }
 
     except Exception as e:
-        return {
-            "success": False,
-            "error": str(e)
-        }
+        return {"success": False, "error": str(e)}
 
 
-def get_network_status(interface: str = "eth0") -> dict:
+def get_network_status(interface: str = "eth0") -> Dict:
     """
     Liefert den Netzwerkstatus des Hosts für ein bestimmtes Interface.
 
     Liest Informationen aus:
       - /host/sys/class/net/<interface>/
       - /host/proc/net/fib_trie
+      - /host/proc/net/route
 
     Args:
-        interface (str): Netzwerkinterface (z. B. "eth0")
+        interface (str): Netzwerkinterface (z. B. "eth0")
 
     Returns:
-        dict mit Interface-Daten wie MAC, Status, empfangene/gesendete Bytes und IP-Adresse.
+        dict mit Interface-Daten wie MAC, Status, empfangene/gesendete Bytes,
+        IP-Adresse, Gateway und Netzmaske.
     """
     try:
-        base_path = os.path.join(settings.HOST_SYS_CLASS_NET_PATH, interface)
+        base_net = os.path.join(settings.HOST_SYS_CLASS_NET_PATH, interface)
+        proc_net = settings.HOST_PROC_PATH
 
-        def read_file(filename: str) -> str:
-            with open(os.path.join(base_path, filename), "r") as f:
+        def read_file(path: str) -> str:
+            with open(path, "r") as f:
                 return f.read().strip()
 
-        operstate = read_file("operstate")
-        mac = read_file("address")
-        rx_bytes = int(read_file("statistics/rx_bytes"))
-        tx_bytes = int(read_file("statistics/tx_bytes"))
+        operstate = read_file(os.path.join(base_net, "operstate"))
+        mac = read_file(os.path.join(base_net, "address"))
+        rx_bytes = int(read_file(os.path.join(base_net, "statistics/rx_bytes")))
+        tx_bytes = int(read_file(os.path.join(base_net, "statistics/tx_bytes")))
 
         # IP-Adresse aus fib_trie ermitteln
         ip_address = ""
-        with open(os.path.join(settings.HOST_PROC_PATH, "net/fib_trie"), "r") as f:
+        with open(os.path.join(proc_net, "net/fib_trie"), "r") as f:
             block = ""
             for line in f:
                 if line.startswith(" " * 6):  # neue Zeile mit IP-Block
@@ -185,12 +188,40 @@ def get_network_status(interface: str = "eth0") -> dict:
                     ip_address = block
                     break
 
+        # Hilfsfunktion: Hex-String (LE) → IPv4
+        def hex_to_ipv4(hex_str: str) -> str:
+            b = bytes.fromhex(hex_str)
+            return socket.inet_ntoa(b[::-1])
+
+        # Gateway und Netzmaske aus /proc/net/route auslesen
+        gateway = ""
+        netmask = ""
+        route_file = os.path.join(proc_net, "net/route")
+        with open(route_file, "r") as f:
+            # erste Zeile ist Header
+            for line in f.readlines()[1:]:
+                fields = line.strip().split()
+                if fields[0] != interface:
+                    continue
+
+                dest, gw, mask = fields[1], fields[2], fields[7]
+                # Standardroute für Gateway
+                if dest == "00000000" and not gateway:
+                    gateway = hex_to_ipv4(gw)
+                # erste Netzroute für Netzmaske
+                if dest != "00000000" and not netmask:
+                    netmask = hex_to_ipv4(mask)
+                if gateway and netmask:
+                    break
+
         return {
             "success": True,
             "interface": interface,
             "operstate": operstate,
             "mac": mac,
             "ip": ip_address,
+            "gateway": gateway,
+            "netmask": netmask,
             "rx_bytes": rx_bytes,
             "tx_bytes": tx_bytes,
         }
@@ -202,6 +233,8 @@ def get_network_status(interface: str = "eth0") -> dict:
             "operstate": "unknown",
             "mac": "",
             "ip": "",
+            "gateway": "",
+            "netmask": "",
             "rx_bytes": 0,
             "tx_bytes": 0,
             "error": str(e),

@@ -18,8 +18,8 @@ export const mockSystem = {
             fmt_free: '0.80 GB',
             fmt_total: '4.00 GB',
             percent: 80.0,
-            error: null
-          },
+            error: null,
+        },
         {
             label: 'SD-Karte',
             mount: '/media/sd',
@@ -68,6 +68,16 @@ export const mockNetwork = {
         peer_ip: '100.72.42.12/21',
         latency: '48.9754ms',
         version: '0.35.2',
+    },
+    interface: {
+        interface: 'eth0',
+        operstate: 'up',
+        mac: '00:1A:2B:3C:4D:5E',
+        ip: '192.168.1.2',
+        gateway: '192.168.1.1',
+        netmask: '255.255.255.0',
+        rx_bytes: 1424000,
+        tx_bytes: 2048000,
     },
 }
 
